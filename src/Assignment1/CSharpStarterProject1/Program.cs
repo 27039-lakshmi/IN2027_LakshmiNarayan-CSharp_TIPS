@@ -1,20 +1,27 @@
-﻿using ContactManager.Models;
+﻿using System.Xml.Linq;
+using ContactManager.Models;
 using ContactManager.Services;
 using ContactManager.View;
-using System.Xml.Linq;
 
 namespace Assignments
-
 {
+    /// <summary>
+    /// Entry point for the Contact Manager application.
+    /// </summary>
     internal class Program
-    {  
-        static void Main(string[] args)
+    {
+        /// <summary>
+        /// Starts the Contact Manager application and launches the user interface.
+        /// </summary>
+        /// <param name="args">
+        /// Command-line arguments passed to the application.
+        /// </param>
+        public static void Main(string[] args)
         {
-            
-            ContactService contactservice = new ContactService();
-            View view= new View();
-            view.Start();
+            ContactService contactService = new ContactService();
+            View view = new View();
 
+            view.Start();
         }
     }
 }
