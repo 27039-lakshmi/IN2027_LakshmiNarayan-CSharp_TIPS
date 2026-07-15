@@ -14,17 +14,9 @@ namespace ContactManager.Models
         
         public Guid Id { get; set; }
         public string? Name { get; set; }
-        public List<string> PhoneNumber { get; set; } = new List<string>(); 
-        public List<string> Email { get; set; }= new List<string>();
+        public List<string> PhoneNumbers { get; set; } = new List<string>(); 
+        public List<string> Emails { get; set; }= new List<string>();
         public string? Notes { get; set; }
-
-        public  Contact ( string name,List<string> phoneNumber, List<string> email, string notes )
-        {
-            Id= Guid.NewGuid();
-            Name = name;
-            PhoneNumber = phoneNumber;
-            Email = email;
-            Notes = notes;
-        }
+               
     }
 }
