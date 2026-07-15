@@ -4,16 +4,15 @@ using ContactManager.Services;
 using System.Numerics;
 namespace ContactManager.View
 {
+    /// <summary>8    /// Provides the console-based user interface for managing contacts.9    /// </summary>
     internal class View
     {
-        ContactService service = new ContactService();
-        Validate helper= new Validate();
+        private ContactService _service = new ContactService();
+        private Validate _helper = new Validate();
+        /// <summary>16        /// Starts the contact management application and displays the main menu.17        /// </summary>
         public void Start()
-
         {
-
             while (true)
-
             {
                 Console.WriteLine("1. Add Contact");
                 Console.WriteLine("2. Edit Contact");
@@ -28,9 +27,7 @@ namespace ContactManager.View
                 int choice = int.Parse(Console.ReadLine());
 
                 switch (choice)
-
                 {
-
                     case 1:
 
                         AddContact();
@@ -64,17 +61,13 @@ namespace ContactManager.View
 
                         Console.WriteLine("Invalid Choice");
                         break;
-
                 }
-
             }
-
         }
 
         private void AddContact()
-
         {
-            string phone,email;
+            string phone, email;
             Contact contact = new Contact();
 
             contact.Id =Guid.NewGuid();
@@ -91,49 +84,47 @@ namespace ContactManager.View
                 {
                     Console.Write($"Phone {i + 1} : ");
                     phone = Console.ReadLine();
-                    string message = service.PhoneNumberValidity(contact, phone);
+                    string message = _service.PhoneNumberValidity(contact, phone);
                     if (message != "")
                     {
                         Console.WriteLine(message);
-                    }
-                    
+                    }                    
                 }
-                while (!helper.IsPhoneNumberValid(phone));
+                while (!_helper.IsPhoneNumberValid(phone));
             }
 
             Console.Write("How many Email IDs : ");
             int emailCount = int.Parse(Console.ReadLine());
 
             for (int i = 0; i < emailCount; i++)
-
             {
                 do
                 {
                     Console.Write($"Email {i + 1} : ");
                     email = Console.ReadLine();
-                    string message = service.EmailValidity(contact, email);
+                    string message = _service.EmailValidity(contact, email);
                     if (message != "")
                     {
                         Console.WriteLine(message);
                     }
                 }
-                while (!helper.IsEmailValid(email));
+                while (!_helper.IsEmailValid(email));
             }
 
-            service.AddContact(contact);
+            _service.AddContact(contact);
             Console.WriteLine("Contact Added Successfully.");
         }
 
         private void EditContact()
         {
             string phone, email; 
-            if (service.ContactCount() != 0)
+            if (_service.ContactCount() != 0)
             {
                 Contact contact = new Contact();
                 Console.Write("Enter Contact ID : ");
                 contact.Id = Guid.Parse(Console.ReadLine());
 
-                Contact findContact = service.SearchContact(contact.Id);
+                Contact findContact = _service.SearchContact(contact.Id);
 
                 if (findContact == null)
                 {
@@ -150,43 +141,38 @@ namespace ContactManager.View
 
                     for (int i = 0; i < phoneCount; i++)
                     {
-
-                        bool isValid;
-
                         do
                         {
                             Console.Write($"Phone {i + 1} : ");
                             phone = Console.ReadLine();
 
-                            string message = service.PhoneNumberValidity(contact, phone);
+                            string message = _service.PhoneNumberValidity(contact, phone);
                             if (message != "")
                             {
                                 Console.WriteLine(message);
                             }
-
-                        } while (!isValid);
+                        } 
+                        while (!_helper.IsPhoneNumberValid(phone));
                     }
 
                     Console.Write("How many Email IDs : ");
                     int emailCount = int.Parse(Console.ReadLine());
-
-
                     for (int i = 0; i < emailCount; i++)
                     {
                         do
                         {
                             Console.Write($"Email {i + 1} : ");
                             email = Console.ReadLine();
-                            string message = service.EmailValidity(contact, email);
+                            string message = _service.EmailValidity(contact, email);
                             if (message != "")
                             {
                                 Console.WriteLine(message);
                             }
                         }
-                        while (!helper.IsEmailValid(email));
+                        while (!_helper.IsEmailValid(email));
                     }
 
-                    service.EditContact(contact);
+                    _service.EditContact(contact);
                     Console.WriteLine("Contact Updated Successfully.");
                 }
             }
@@ -198,11 +184,11 @@ namespace ContactManager.View
 
         private void DeleteContact()
         {
-            if (service.ContactCount() != 0)
+            if (_service.ContactCount() != 0)
             {
                 Console.Write("Enter Contact ID : ");
                 Guid id = Guid.Parse(Console.ReadLine());
-                Contact findContact = service.SearchContact(id);
+                Contact findContact = _service.SearchContact(id);
 
                 if (findContact == null)
                 {
@@ -211,23 +197,21 @@ namespace ContactManager.View
                 }
                 else
                 {
-                    service.DeleteContact(id);
+                    _service.DeleteContact(id);
                 }
                 Console.WriteLine("Contact Deleted.");
             }
             else { Console.WriteLine("No contacts to delete\n"); }
-
         }
 
         private void SearchContact()
-
         {
-            if (service.ContactCount() != 0)
+            if (_service.ContactCount() != 0)
             {
                 Console.Write("Enter Contact ID : ");
                 Guid id = Guid.Parse(Console.ReadLine());
 
-                Contact contact = service.SearchContact(id);
+                Contact contact = _service.SearchContact(id);
 
                 if (contact == null)
                 {
@@ -257,7 +241,7 @@ namespace ContactManager.View
 
         private void DisplayAll()
         {
-            List<Contact> contacts = service.GetAllContacts();
+            List<Contact> contacts = _service.GetAllContacts();
             if (contacts.Count == 0)
             {
                 Console.WriteLine("No Contacts Available.");
