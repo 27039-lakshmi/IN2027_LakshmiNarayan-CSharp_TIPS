@@ -50,12 +50,7 @@ namespace ContactManager.Helper
         /// </returns>
         public bool IsEmailValid(string email)
         {
-            if (string.IsNullOrWhiteSpace(email) || !email.Contains('@') || !email.EndsWith(".com"))
-            {
-                return false;
-            }
-            
-            return true;
+            return !string.IsNullOrWhiteSpace(email) && email.Contains('@') && email.EndsWith(".com");
         }
     }
 }

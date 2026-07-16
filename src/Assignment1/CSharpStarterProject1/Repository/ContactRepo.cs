@@ -37,26 +37,26 @@ namespace ContactManager.Repository
         /// <summary>
         /// Searches for a contact by its unique identifier.
         /// </summary>
-        /// <param name="id">
+        /// <param name="phone">
         /// The unique identifier of the contact to find.
         /// </param>
         /// <returns>
         /// The matching contact if found; otherwise, <c>null</c>.
         /// </returns>
-        public Contact Search(Guid id)
+        public Contact Search(string phone)
         {
-            return _contacts.Find(c => c.Id == id);
+            return _contacts.Find(c => c.PhoneNumbers.Contains(phone));
         }
 
         /// <summary>
         /// Removes a contact from the repository.
         /// </summary>
-        /// <param name="id">
+        /// <param name="phone">
         /// The unique identifier of the contact to remove.
         /// </param>
-        public void Delete(Guid id)
+        public void Delete(string phone)
         {
-            Contact contact = Search(id);
+            Contact contact = Search(phone);
 
             if (contact != null)
             {
@@ -67,12 +67,15 @@ namespace ContactManager.Repository
         /// <summary>
         /// Updates an existing contact in the repository.
         /// </summary>
+        /// <param name="findContact">
+        /// The existing contact that needs to be updated.
+        /// </param>
         /// <param name="contact">
         /// The contact containing the updated information.
         /// </param>
-        public void Update(Contact contact)
+        public void Update(Contact findContact, Contact contact)
         {
-            Contact existing = Search(contact.Id);
+            Contact existing = Search(findContact.PhoneNumbers[0]);
 
             if (existing != null)
             {

@@ -6,12 +6,12 @@ using ContactManager.View;
 namespace Assignments
 {
     /// <summary>
-    /// Entry point for the Contact Manager application.
+    /// Represents the entry point of the Contact Manager application.
     /// </summary>
     internal class Program
     {
         /// <summary>
-        /// Starts the Contact Manager application and launches the user interface.
+        /// Displays the main menu and handles user interactions for managing contacts.
         /// </summary>
         /// <param name="args">
         /// Command-line arguments passed to the application.
@@ -21,7 +21,50 @@ namespace Assignments
             ContactService contactService = new ContactService();
             View view = new View();
 
-            view.Start();
+            while (true)
+            {
+                Console.WriteLine("1. Add Contact");
+                Console.WriteLine("2. Edit Contact");
+                Console.WriteLine("3. Delete Contact");
+                Console.WriteLine("4. Search Contact");
+                Console.WriteLine("5. Display All Contacts");
+                Console.WriteLine("6. Exit");
+
+                Console.Write("Enter Choice : ");
+                Console.WriteLine();
+
+                int choice = int.Parse(Console.ReadLine());
+
+                switch (choice)
+                {
+                    case 1:
+                        view.AddContact();
+                        break;
+
+                    case 2:
+                        view.EditContact();
+                        break;
+
+                    case 3:
+                        view.DeleteContact();
+                        break;
+
+                    case 4:
+                        view.SearchContact();
+                        break;
+
+                    case 5:
+                        view.DisplayAll();
+                        break;
+
+                    case 6:
+                        return;
+
+                    default:
+                        Console.WriteLine("Invalid Choice");
+                        break;
+                }
+            }
         }
     }
 }
