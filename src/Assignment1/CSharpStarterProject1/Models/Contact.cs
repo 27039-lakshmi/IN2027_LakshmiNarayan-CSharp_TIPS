@@ -27,7 +27,7 @@
         /// <value>
         /// A collection of phone numbers belonging to the contact.
         /// </value>
-        public List<string> PhoneNumbers { get; set; } = new();
+        public List<string> PhoneNumbers { get; set; } = new ();
 
         /// <summary>
         /// Gets or sets the email addresses associated with the contact.
@@ -35,7 +35,7 @@
         /// <value>
         /// A collection of email addresses belonging to the contact.
         /// </value>
-        public List<string> Emails { get; set; } = new();
+        public List<string> Emails { get; set; } = new ();
 
         /// <summary>
         /// Gets or sets additional notes about the contact.

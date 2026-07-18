@@ -7,7 +7,7 @@ namespace ContactManager.View
     /// <summary>
     /// Provides a console-based user interface for managing contacts.
     /// </summary>
-    internal class View
+    internal class UserViewer
     {
         /// <summary>
         /// Provides contact management operations.
@@ -17,7 +17,7 @@ namespace ContactManager.View
         /// <summary>
         /// Provides validation for contact information.
         /// </summary>
-        private readonly Validate _helper = new Validate();
+        private readonly Validator _helper = new Validator();
 
         /// <summary>
         /// Collects contact details from the user and adds a new contact.
@@ -174,9 +174,9 @@ namespace ContactManager.View
             if (this._service.ContactCount() != 0)
             {
                 Console.Write("Enter Contact Phone Number : ");
-                string phone = Console.ReadLine();
+                string phone = Console.ReadLine() ?? string.Empty;
 
-                Contact? findContact = this._service.SearchContact(phone);
+                Contact? findContact = this._service.SearchContact(phone!);
 
                 if (findContact == null)
                 {
@@ -201,7 +201,7 @@ namespace ContactManager.View
             if (this._service.ContactCount() != 0)
             {
                 Console.Write("Enter Contact Name : ");
-                string name = Console.ReadLine();
+                string name = Console.ReadLine() ?? string.Empty;
                 List<Contact> contacts = this._service.SearchContactByName(name!);
 
                 if (contacts == null)

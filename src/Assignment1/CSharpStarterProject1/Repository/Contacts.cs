@@ -5,7 +5,7 @@ namespace ContactManager.Repository
     /// <summary>
     /// Provides methods for storing and managing contacts in memory.
     /// </summary>
-    internal class ContactRepo
+    internal class Contacts
     {
         private List<Contact> _contacts = new List<Contact>();
 

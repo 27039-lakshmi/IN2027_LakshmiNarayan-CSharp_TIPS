@@ -12,8 +12,8 @@ namespace ContactManager.Services
         /// <summary>
         /// Repository used to store and retrieve contacts.
         /// </summary>
-        private readonly ContactRepo _repo = new ContactRepo();
-        private readonly Validate _helper = new Validate();
+        private readonly Contacts _repo = new Contacts();
+        private readonly Validator _helper = new Validator();
 
         /// <summary>
         /// Retrieves all contacts.
@@ -21,7 +21,7 @@ namespace ContactManager.Services
         /// <returns>A list containing all contacts.</returns>
         public List<Contact> GetAllContacts()
         {
-            return _repo.GetAll();
+            return this._repo.GetAll();
         }
 
         /// <summary>
@@ -119,9 +119,9 @@ namespace ContactManager.Services
         /// </returns>
         public string PhoneNumberValidity(Contact contact, string phone)
         {
-            if (_helper.IsPhoneNumberValid(phone))
+            if (this._helper.IsPhoneNumberValid(phone))
             {
-                if (!IsPhoneExist(phone))
+                if (!this.IsPhoneExist(phone))
                 {
                     contact.PhoneNumbers.Add(phone);
                     return string.Empty;
@@ -149,7 +149,7 @@ namespace ContactManager.Services
         {
             if (this._helper.IsEmailValid(email))
             {
-                if (!IsEmailExist(email))
+                if (!this.IsEmailExist(email))
                 {
                     contact.Emails.Add(email);
                     return string.Empty;

@@ -19,20 +19,13 @@ namespace Assignments
         public static void Main(string[] args)
         {
             ContactService contactService = new ContactService();
-            View view = new View();
+            UserViewer view = new UserViewer();
 
             while (true)
             {
-                Console.WriteLine("1. Add Contact");
-                Console.WriteLine("2. Edit Contact");
-                Console.WriteLine("3. Delete Contact");
-                Console.WriteLine("4. Search Contact");
-                Console.WriteLine("5. Display All Contacts");
-                Console.WriteLine("6. Exit");
-
-                Console.Write("Enter Choice : ");
-                Console.WriteLine();
-
+                Console.WriteLine(" 1. Add Contact\n 2. Edit Contact\n 3. Delete Contact\n 4. Search Contact\n " +
+                    "5. Display All Contacts\n 6. Exit  \n");
+                Console.Write(" Enter Choice : ");
                 int choice = int.Parse(Console.ReadLine() ?? "0");
 
                 switch (choice)

@@ -9,7 +9,7 @@ namespace ContactManager.Helper
     /// <summary>
  /// Provides methods for validating contact information such as phone numbers and email addresses.
  /// </summary>
-    internal class Validate
+    internal class Validator
     {
         /// <summary>
         /// Validates a phone number to ensure it contains exactly ten numeric digits.
@@ -36,6 +36,7 @@ namespace ContactManager.Helper
                     }
                 }
             }
+
             return true;
         }
 
