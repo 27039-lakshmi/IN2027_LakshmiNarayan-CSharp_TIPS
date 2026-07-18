@@ -15,7 +15,7 @@ namespace ContactManager.Repository
         /// <param name="contact">
         /// The contact to add.
         /// </param>
-        public void Add(Contact contact)
+        public void AddContact(Contact contact)
         {
             this._contacts.Add(contact);
         }
@@ -26,7 +26,7 @@ namespace ContactManager.Repository
         /// <returns>
         /// A collection of all contacts.
         /// </returns>
-        public List<Contact> GetAll()
+        public List<Contact> GetAllContacts()
         {
             return this._contacts;
         }
@@ -40,7 +40,7 @@ namespace ContactManager.Repository
         /// <returns>
         /// The matching contact if found; otherwise, <c>null</c>.
         /// </returns>
-        public Contact Search(string phone)
+        public Contact SearchContactByPhoneNumber(string phone)
         {
             return this._contacts.Find(c => c.PhoneNumbers.Contains(phone)) !;
         }
@@ -51,9 +51,9 @@ namespace ContactManager.Repository
         /// <param name="phone">
         /// The unique identifier of the contact to remove.
         /// </param>
-        public void Delete(string phone)
+        public void DeleteContact(string phone)
         {
-            Contact contact = this.Search(phone);
+            Contact contact = this.SearchContactByPhoneNumber(phone);
 
             if (contact != null)
             {
@@ -70,9 +70,9 @@ namespace ContactManager.Repository
         /// <param name="contact">
         /// The contact containing the updated information.
         /// </param>
-        public void Update(Contact findContact, Contact contact)
+        public void UpdateContact(Contact findContact, Contact contact)
         {
-            Contact existing = this.Search(findContact.PhoneNumbers[0]);
+            var existing = this.SearchContactByPhoneNumber(findContact.PhoneNumbers[0]);
 
             if (existing != null)
             {
@@ -88,7 +88,7 @@ namespace ContactManager.Repository
         /// <returns>
         /// The number of contacts stored in the repository.
         /// </returns>
-        public int ContactCount()
+        public int CountContact()
         {
             return this._contacts.Count();
         }

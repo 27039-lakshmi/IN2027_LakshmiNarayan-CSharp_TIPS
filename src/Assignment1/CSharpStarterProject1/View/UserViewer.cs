@@ -24,62 +24,7 @@ namespace ContactManager.View
         /// </summary>
         internal void AddContact()
         {
-            string phone;
-            string email;
-            Contact contact = new Contact();
-
-            contact.Id = Guid.NewGuid();
-
-            Console.Write("Enter Name : ");
-            contact.Name = Console.ReadLine();
-
-            Console.Write("How many Phone Numbers : ");
-            string phoneCountInput = Console.ReadLine() ?? "0";
-            if (!int.TryParse(phoneCountInput, out int phoneCount))
-            {
-                Console.WriteLine("Enter a valid number");
-            }
-
-            string message;
-            for (int i = 0; i < phoneCount; i++)
-            {
-                do
-                {
-                    Console.Write($"Phone {i + 1} : ");
-                    phone = Console.ReadLine() ?? string.Empty;
-                    message = this._service.PhoneNumberValidity(contact, phone);
-                    if (!string.IsNullOrEmpty(message))
-                    {
-                        Console.WriteLine(message);
-                    }
-                }
-                while (!string.IsNullOrEmpty(message));
-            }
-
-            Console.Write("How many Email IDs : ");
-            string emailCountInput = Console.ReadLine() ?? "0";
-            if (!int.TryParse(emailCountInput, out int emailCount))
-            {
-                Console.WriteLine("Enter a valid number");
-            }
-
-            for (int i = 0; i < emailCount; i++)
-            {
-                do
-                {
-                    Console.Write($"Email {i + 1} : ");
-                    email = Console.ReadLine() ?? string.Empty;
-
-                    message = this._service.EmailValidity(contact, email);
-
-                    if (!string.IsNullOrEmpty(message))
-                    {
-                        Console.WriteLine(message);
-                    }
-                }
-                while (!string.IsNullOrEmpty(message));
-            }
-
+            Contact contact = this.GetInfo();
             this._service.AddContact(contact);
             Console.WriteLine("Contact Added Successfully.");
         }
@@ -89,12 +34,9 @@ namespace ContactManager.View
         /// </summary>
         internal void EditContact()
         {
-            string phone;
-            string email;
-
-            if (this._service.ContactCount() != 0)
+            if (this._service.CountContact() != 0)
             {
-                Contact contact = new Contact();
+                var contact = new Contact();
 
                 Console.Write("Enter Contact Phone : ");
                 contact.PhoneNumbers.Add(Console.ReadLine() ?? "0");
@@ -106,57 +48,7 @@ namespace ContactManager.View
                     Console.WriteLine("Contact Not Found.");
                     return;
                 }
-
-                Console.Write("Enter New Name : ");
-                contact.Name = Console.ReadLine();
-
-                Console.Write("How many Phone Numbers : ");
-                string phoneCountInput = Console.ReadLine() ?? "0";
-                if (!int.TryParse(phoneCountInput, out int phoneCount))
-                {
-                    Console.WriteLine("Enter a valid number");
-                }
-
-                for (int i = 0; i < phoneCount; i++)
-                {
-                    do
-                    {
-                        Console.Write($"Phone {i + 1} : ");
-                        phone = Console.ReadLine() ?? string.Empty;
-
-                        string message = this._service.PhoneNumberValidity(contact, phone);
-
-                        if (!string.IsNullOrEmpty(message))
-                        {
-                            Console.WriteLine(message);
-                        }
-                    }
-                    while (!this._helper.IsPhoneNumberValid(phone));
-                }
-
-                string emailCountInput = Console.ReadLine() ?? "0";
-                if (!int.TryParse(emailCountInput, out int emailCount))
-                {
-                    Console.WriteLine("Enter a valid number");
-                }
-
-                for (int i = 0; i < emailCount; i++)
-                {
-                    do
-                    {
-                        Console.Write($"Email {i + 1} : ");
-                        email = Console.ReadLine() ?? string.Empty;
-
-                        string message = this._service.EmailValidity(contact, email);
-
-                        if (!string.IsNullOrEmpty(message))
-                        {
-                            Console.WriteLine(message);
-                        }
-                    }
-                    while (!this._helper.IsEmailValid(email));
-                }
-
+                GetInfo(findContact);
                 this._service.EditContact(findContact, contact);
                 Console.WriteLine("Contact Updated Successfully.");
             }
@@ -171,7 +63,7 @@ namespace ContactManager.View
         /// </summary>
         internal void DeleteContact()
         {
-            if (this._service.ContactCount() != 0)
+            if (this._service.CountContact() != 0)
             {
                 Console.Write("Enter Contact Phone Number : ");
                 string phone = Console.ReadLine() ?? string.Empty;
@@ -198,7 +90,7 @@ namespace ContactManager.View
         /// </summary>
         internal void SearchContact()
         {
-            if (this._service.ContactCount() != 0)
+            if (this._service.CountContact() != 0)
             {
                 Console.Write("Enter Contact Name : ");
                 string name = Console.ReadLine() ?? string.Empty;
@@ -234,7 +126,7 @@ namespace ContactManager.View
         /// </summary>
         internal void DisplayAll()
         {
-            List<Contact> contacts = this._service.GetAllContacts();
+            var contacts = this._service.GetAllContacts();
 
             if (contacts.Count == 0)
             {
@@ -262,6 +154,70 @@ namespace ContactManager.View
 
                 Console.WriteLine();
             }
+        }
+
+        private Contact GetInfo(Contact? contact = null)
+        {
+            if (contact == null)
+            {
+                contact = new Contact();
+            }
+
+            if (contact.Id == Guid.Empty)
+            {
+                contact.Id = Guid.NewGuid();
+            }
+
+            Console.Write("Enter Name : ");
+            contact.Name = Console.ReadLine();
+
+            Console.Write("How many Phone Numbers : ");
+            string phoneNumberCountInput = Console.ReadLine() ?? "0";
+            if (!int.TryParse(phoneNumberCountInput, out int phoneNumberCount))
+            {
+                Console.WriteLine("Enter a valid number");
+            }
+
+            string message;
+            for (int i = 0; i < phoneNumberCount; i++)
+            {
+                do
+                {
+                    Console.Write($"Phone {i + 1} : ");
+                    string phoneNumber = Console.ReadLine() ?? string.Empty;
+                    message = this._service.ValidatePhoneNumber(contact, phoneNumber);
+                    if (!string.IsNullOrEmpty(message))
+                    {
+                        Console.WriteLine(message);
+                    }
+                }
+                while (!string.IsNullOrEmpty(message));
+            }
+
+            Console.Write("How many Email IDs : ");
+            string emailCountInput = Console.ReadLine() ?? "0";
+            if (!int.TryParse(emailCountInput, out int emailCount))
+            {
+                Console.WriteLine("Enter a valid number");
+            }
+
+            for (int i = 0; i < emailCount; i++)
+            {
+                do
+                {
+                    Console.Write($"Email {i + 1} : ");
+                    string email = Console.ReadLine() ?? string.Empty;
+
+                    message = this._service.EmailValidity(contact, email);
+
+                    if (!string.IsNullOrEmpty(message))
+                    {
+                        Console.WriteLine(message);
+                    }
+                }
+                while (!string.IsNullOrEmpty(message));
+            }
+            return contact;
         }
     }
 }

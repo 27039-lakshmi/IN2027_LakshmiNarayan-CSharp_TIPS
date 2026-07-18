@@ -21,7 +21,7 @@ namespace ContactManager.Services
         /// <returns>A list containing all contacts.</returns>
         public List<Contact> GetAllContacts()
         {
-            return this._repo.GetAll();
+            return this._repo.GetAllContacts();
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace ContactManager.Services
         /// <param name="contact">The contact to be added.</param>
         public void AddContact(Contact contact)
         {
-            this._repo.Add(contact);
+            this._repo.AddContact(contact);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace ContactManager.Services
         /// </param>
         public void EditContact(Contact findContact, Contact contact)
         {
-            this._repo.Update(findContact, contact);
+            this._repo.UpdateContact(findContact, contact);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace ContactManager.Services
         /// </param>
         public void DeleteContact(string phone)
         {
-            this._repo.Delete(phone);
+            this._repo.DeleteContact(phone);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace ContactManager.Services
         /// </returns>
         public Contact? SearchContact(string phone)
         {
-            return this._repo.Search(phone);
+            return this._repo.SearchContactByPhoneNumber(phone);
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace ContactManager.Services
         {
             List<Contact> contacts = new ();
 
-            foreach (Contact contact in this._repo.GetAll())
+            foreach (Contact contact in this._repo.GetAllContacts())
             {
                 if (contact.Name!.ToLower().StartsWith(name.ToLower()))
                 {
@@ -100,9 +100,9 @@ namespace ContactManager.Services
         /// Gets the total number of contacts stored in the repository.
         /// </summary>
         /// <returns>The number of contacts.</returns>
-        public int ContactCount()
+        public int CountContact()
         {
-            return this._repo.ContactCount();
+            return this._repo.CountContact();
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace ContactManager.Services
         /// <returns>
         /// An empty string if validation succeeds; otherwise an error message.
         /// </returns>
-        public string PhoneNumberValidity(Contact contact, string phone)
+        public string ValidatePhoneNumber(Contact contact, string phone)
         {
             if (this._helper.IsPhoneNumberValid(phone))
             {
@@ -172,7 +172,7 @@ namespace ContactManager.Services
         /// </returns>
         public bool IsPhoneExist(string phone)
         {
-            foreach (Contact contact in this._repo.GetAll())
+            foreach (Contact contact in this._repo.GetAllContacts())
             {
                 if (contact.PhoneNumbers.Contains(phone))
                 {
@@ -194,7 +194,7 @@ namespace ContactManager.Services
         /// </returns>
         public bool IsEmailExist(string email)
         {
-            foreach (Contact contact in this._repo.GetAll())
+            foreach (Contact contact in this._repo.GetAllContacts())
             {
                 if (contact.Emails.Contains(email))
                 {
