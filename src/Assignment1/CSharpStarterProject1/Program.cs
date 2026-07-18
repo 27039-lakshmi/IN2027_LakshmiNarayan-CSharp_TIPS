@@ -33,7 +33,7 @@ namespace Assignments
                 Console.Write("Enter Choice : ");
                 Console.WriteLine();
 
-                int choice = int.Parse(Console.ReadLine());
+                int choice = int.Parse(Console.ReadLine() ?? "0");
 
                 switch (choice)
                 {

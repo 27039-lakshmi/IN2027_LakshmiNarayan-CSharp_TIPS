@@ -1,7 +1,6 @@
 ﻿using ContactManager.Helper;
 using ContactManager.Models;
 using ContactManager.Services;
-using System.ComponentModel.DataAnnotations;
 
 namespace ContactManager.View
 {
@@ -23,7 +22,7 @@ namespace ContactManager.View
         /// <summary>
         /// Collects contact details from the user and adds a new contact.
         /// </summary>
-        public void AddContact()
+        internal void AddContact()
         {
             string phone;
             string email;
@@ -35,7 +34,12 @@ namespace ContactManager.View
             contact.Name = Console.ReadLine();
 
             Console.Write("How many Phone Numbers : ");
-            int phoneCount = int.Parse(Console.ReadLine() ?? "0");
+            string phoneCountInput = Console.ReadLine() ?? "0";
+            if (!int.TryParse(phoneCountInput, out int phoneCount))
+            {
+                Console.WriteLine("Enter a valid number");
+            }
+
             string message;
             for (int i = 0; i < phoneCount; i++)
             {
@@ -48,13 +52,16 @@ namespace ContactManager.View
                     {
                         Console.WriteLine(message);
                     }
-                    //message=this._service.IsPhoneExist()
                 }
                 while (!string.IsNullOrEmpty(message));
             }
 
             Console.Write("How many Email IDs : ");
-            int emailCount = int.Parse(Console.ReadLine() ?? "0");
+            string emailCountInput = Console.ReadLine() ?? "0";
+            if (!int.TryParse(emailCountInput, out int emailCount))
+            {
+                Console.WriteLine("Enter a valid number");
+            }
 
             for (int i = 0; i < emailCount; i++)
             {
@@ -80,7 +87,7 @@ namespace ContactManager.View
         /// <summary>
         /// Updates the details of an existing contact.
         /// </summary>
-        public void EditContact()
+        internal void EditContact()
         {
             string phone;
             string email;
@@ -90,7 +97,7 @@ namespace ContactManager.View
                 Contact contact = new Contact();
 
                 Console.Write("Enter Contact Phone : ");
-                contact.PhoneNumbers.Add(Console.ReadLine());
+                contact.PhoneNumbers.Add(Console.ReadLine() ?? "0");
 
                 Contact? findContact = this._service.SearchContact(contact.PhoneNumbers[0]);
 
@@ -104,7 +111,11 @@ namespace ContactManager.View
                 contact.Name = Console.ReadLine();
 
                 Console.Write("How many Phone Numbers : ");
-                int phoneCount = int.Parse(Console.ReadLine() ?? "0");
+                string phoneCountInput = Console.ReadLine() ?? "0";
+                if (!int.TryParse(phoneCountInput, out int phoneCount))
+                {
+                    Console.WriteLine("Enter a valid number");
+                }
 
                 for (int i = 0; i < phoneCount; i++)
                 {
@@ -123,8 +134,11 @@ namespace ContactManager.View
                     while (!this._helper.IsPhoneNumberValid(phone));
                 }
 
-                Console.Write("How many Email IDs : ");
-                int emailCount = int.Parse(Console.ReadLine() ?? "0");
+                string emailCountInput = Console.ReadLine() ?? "0";
+                if (!int.TryParse(emailCountInput, out int emailCount))
+                {
+                    Console.WriteLine("Enter a valid number");
+                }
 
                 for (int i = 0; i < emailCount; i++)
                 {
@@ -155,8 +169,8 @@ namespace ContactManager.View
         /// <summary>
         /// Deletes a contact identified by its unique identifier.
         /// </summary>
-        public void DeleteContact()
-        {           
+        internal void DeleteContact()
+        {
             if (this._service.ContactCount() != 0)
             {
                 Console.Write("Enter Contact Phone Number : ");
@@ -182,27 +196,24 @@ namespace ContactManager.View
         /// <summary>
         /// Searches for a contact by its unique identifier and displays the details.
         /// </summary>
-        public void SearchContact()
+        internal void SearchContact()
         {
             if (this._service.ContactCount() != 0)
             {
-                //Console.Write("Enter Contact ID : ");
-                // Guid id = Guid.Parse(Console.ReadLine());
                 Console.Write("Enter Contact Name : ");
                 string name = Console.ReadLine();
-                //Contact? contact = this._service.SearchContact(id);
-                List<Contact> contacts = this._service.SearchContactByName(name);
+                List<Contact> contacts = this._service.SearchContactByName(name!);
 
                 if (contacts == null)
                 {
                     Console.WriteLine("Contact Not Found.");
                     return;
                 }
+
                 Console.WriteLine("Contacts starting with " + name);
-                
-                foreach(Contact contact in contacts)
+
+                foreach (Contact contact in contacts)
                 {
-                    //Console.WriteLine($"\nID : {contact.Id}");
                     Console.WriteLine($"\nName : {contact.Name}");
                     Console.WriteLine("Phone Numbers");
 
@@ -210,14 +221,7 @@ namespace ContactManager.View
                     {
                         Console.WriteLine(phone);
                     }
-                    
-                    //Console.WriteLine("\nEmail IDs");
-
-                    //foreach (string email in contact.Emails)
-                    //{
-                    //    Console.WriteLine(email);
-                    //}
-                }                
+                }
             }
             else
             {
@@ -228,7 +232,7 @@ namespace ContactManager.View
         /// <summary>
         /// Displays all contacts stored in the application.
         /// </summary>
-        public void DisplayAll()
+        internal void DisplayAll()
         {
             List<Contact> contacts = this._service.GetAllContacts();
 
@@ -240,7 +244,6 @@ namespace ContactManager.View
 
             foreach (Contact contact in contacts)
             {
-                //Console.WriteLine($"ID : {contact.Id}");
                 Console.WriteLine($"Name : {contact.Name}");
 
                 Console.WriteLine("Phone Numbers");

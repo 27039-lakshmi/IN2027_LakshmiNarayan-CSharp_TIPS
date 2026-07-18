@@ -1,7 +1,4 @@
 ﻿using ContactManager.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ContactManager.Repository
 {
@@ -20,7 +17,7 @@ namespace ContactManager.Repository
         /// </param>
         public void Add(Contact contact)
         {
-            _contacts.Add(contact);
+            this._contacts.Add(contact);
         }
 
         /// <summary>
@@ -31,7 +28,7 @@ namespace ContactManager.Repository
         /// </returns>
         public List<Contact> GetAll()
         {
-            return _contacts;
+            return this._contacts;
         }
 
         /// <summary>
@@ -45,7 +42,7 @@ namespace ContactManager.Repository
         /// </returns>
         public Contact Search(string phone)
         {
-            return _contacts.Find(c => c.PhoneNumbers.Contains(phone));
+            return this._contacts.Find(c => c.PhoneNumbers.Contains(phone)) !;
         }
 
         /// <summary>
@@ -56,11 +53,11 @@ namespace ContactManager.Repository
         /// </param>
         public void Delete(string phone)
         {
-            Contact contact = Search(phone);
+            Contact contact = this.Search(phone);
 
             if (contact != null)
             {
-                _contacts.Remove(contact);
+                this._contacts.Remove(contact);
             }
         }
 
@@ -75,7 +72,7 @@ namespace ContactManager.Repository
         /// </param>
         public void Update(Contact findContact, Contact contact)
         {
-            Contact existing = Search(findContact.PhoneNumbers[0]);
+            Contact existing = this.Search(findContact.PhoneNumbers[0]);
 
             if (existing != null)
             {
@@ -93,7 +90,7 @@ namespace ContactManager.Repository
         /// </returns>
         public int ContactCount()
         {
-            return _contacts.Count();
+            return this._contacts.Count();
         }
     }
 }
