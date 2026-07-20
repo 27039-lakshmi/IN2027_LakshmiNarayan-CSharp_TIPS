@@ -48,7 +48,8 @@ namespace ContactManager.View
                     Console.WriteLine("Contact Not Found.");
                     return;
                 }
-                GetInfo(findContact);
+
+                this.GetInfo(findContact);
                 this._service.EditContact(findContact, contact);
                 Console.WriteLine("Contact Updated Successfully.");
             }
@@ -217,6 +218,7 @@ namespace ContactManager.View
                 }
                 while (!string.IsNullOrEmpty(message));
             }
+
             return contact;
         }
     }
