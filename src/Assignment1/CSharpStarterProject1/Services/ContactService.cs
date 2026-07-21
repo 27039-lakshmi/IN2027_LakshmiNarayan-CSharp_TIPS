@@ -12,8 +12,8 @@ namespace ContactManager.Services
         /// <summary>
         /// Repository used to store and retrieve contacts.
         /// </summary>
-        private readonly Contacts _repo = new Contacts();
-        private readonly Validator _helper = new Validator();
+        private readonly Contacts _repo = new ();
+        private readonly Validator _validator = new ();
 
         /// <summary>
         /// Retrieves all contacts.
@@ -55,7 +55,7 @@ namespace ContactManager.Services
         /// </param>
         public void DeleteContact(string phone)
         {
-            Contact contact = this._repo.SearchContactByPhoneNumber(phone);
+            var contact = this._repo.SearchContactByPhoneNumber(phone);
             this._repo.DeleteContact(contact);
         }
 
@@ -86,7 +86,7 @@ namespace ContactManager.Services
         {
             List<Contact> contacts = new ();
 
-            foreach (Contact contact in this._repo.GetAllContacts())
+            foreach (var contact in this._repo.GetAllContacts())
             {
                 if (contact.Name!.ToLower().StartsWith(name.ToLower()))
                 {
@@ -120,9 +120,9 @@ namespace ContactManager.Services
         /// </returns>
         public string ValidatePhoneNumber(Contact contact, string phone)
         {
-            if (this._helper.IsPhoneNumberValid(phone))
+            if (this._validator.IsPhoneNumberValid(phone))
             {
-                if (!this.IsPhoneExist(phone))
+                if (!this.DoesPhoneNumberExist(phone))
                 {
                     contact.PhoneNumbers.Add(phone);
                     return string.Empty;
@@ -148,9 +148,9 @@ namespace ContactManager.Services
         /// </returns>
         public string EmailValidity(Contact contact, string email)
         {
-            if (this._helper.IsEmailValid(email))
+            if (this._validator.IsEmailValid(email))
             {
-                if (!this.IsEmailExist(email))
+                if (!this.DoesEmailExist(email))
                 {
                     contact.Emails.Add(email);
                     return string.Empty;
@@ -171,9 +171,9 @@ namespace ContactManager.Services
         /// <returns>
         /// <c>true</c> if the phone number exists; otherwise <c>false</c>.
         /// </returns>
-        public bool IsPhoneExist(string phone)
+        public bool DoesPhoneNumberExist(string phone)
         {
-            foreach (Contact contact in this._repo.GetAllContacts())
+            foreach (var contact in this._repo.GetAllContacts())
             {
                 if (contact.PhoneNumbers.Contains(phone))
                 {
@@ -193,7 +193,7 @@ namespace ContactManager.Services
         /// <returns>
         /// <c>true</c> if the email address exists; otherwise <c>false</c>.
         /// </returns>
-        public bool IsEmailExist(string email)
+        public bool DoesEmailExist(string email)
         {
             foreach (Contact contact in this._repo.GetAllContacts())
             {
@@ -205,7 +205,5 @@ namespace ContactManager.Services
 
             return false;
         }
-
-
     }
 }
