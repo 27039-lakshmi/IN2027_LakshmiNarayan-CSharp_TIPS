@@ -101,9 +101,9 @@ namespace ContactManager.Services
         /// Gets the total number of contacts stored in the repository.
         /// </summary>
         /// <returns>The number of contacts.</returns>
-        public int CountContact()
+        public int GetTotalContactCount()
         {
-            return this._repo.CountContact();
+            return this._repo.GetTotalContactCount();
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace ContactManager.Services
         /// <returns>
         /// An empty string if validation succeeds; otherwise an error message.
         /// </returns>
-        public string EmailValidity(Contact contact, string email)
+        public string ValidateEmail(Contact contact, string email)
         {
             if (this._validator.IsEmailValid(email))
             {

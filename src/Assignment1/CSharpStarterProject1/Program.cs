@@ -47,7 +47,7 @@ namespace Assignments
                         break;
 
                     case 5:
-                        view.DisplayAll();
+                        view.DisplayAllContacts();
                         break;
 
                     case 6:

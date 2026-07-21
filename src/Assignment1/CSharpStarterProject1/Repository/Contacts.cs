@@ -81,7 +81,7 @@ namespace ContactManager.Repository
         /// <returns>
         /// The number of contacts stored in the repository.
         /// </returns>
-        public int CountContact()
+        public int GetTotalContactCount()
         {
             return this._contacts.Count();
         }

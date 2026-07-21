@@ -34,23 +34,23 @@ namespace ContactManager.View
         /// </summary>
         internal void EditContact()
         {
-            if (this._service.CountContact() != 0)
+            if (this._service.GetTotalContactCount() != 0)
             {
-                var contact = new Contact();
+                var editedContact = new Contact();
 
                 Console.Write("Enter Contact Phone : ");
-                contact.PhoneNumbers.Add(Console.ReadLine() ?? "0");
+                editedContact.PhoneNumbers.Add(Console.ReadLine() ?? "0");
 
-                var findContact = this._service.SearchContact(contact.PhoneNumbers[0]);
+                var contactFound = this._service.SearchContact(editedContact.PhoneNumbers[0]);
 
-                if (findContact == null)
+                if (contactFound == null)
                 {
                     Console.WriteLine("Contact Not Found.");
                     return;
                 }
 
-                this.GetContactInfo(findContact);
-                this._service.EditContact(findContact, contact);
+                this.GetContactInfo(contactFound);
+                this._service.EditContact(contactFound, editedContact);
                 Console.WriteLine("Contact Updated Successfully.");
             }
             else
@@ -64,7 +64,7 @@ namespace ContactManager.View
         /// </summary>
         internal void DeleteContact()
         {
-            if (this._service.CountContact() != 0)
+            if (this._service.GetTotalContactCount() != 0)
             {
                 Console.Write("Enter Contact Phone Number : ");
                 string phone = Console.ReadLine() ?? string.Empty;
@@ -87,11 +87,11 @@ namespace ContactManager.View
         }
 
         /// <summary>
-        /// Searches for a contact by its unique identifier and displays the details.
+        /// Searches for a contact by name and displays the details.
         /// </summary>
         internal void SearchContact()
         {
-            if (this._service.CountContact() != 0)
+            if (this._service.GetTotalContactCount() != 0)
             {
                 Console.Write("Enter Contact Name : ");
                 string name = Console.ReadLine() ?? string.Empty;
@@ -125,7 +125,7 @@ namespace ContactManager.View
         /// <summary>
         /// Displays all contacts stored in the application.
         /// </summary>
-        internal void DisplayAll()
+        internal void DisplayAllContacts()
         {
             var contacts = this._service.GetAllContacts();
 
@@ -209,7 +209,7 @@ namespace ContactManager.View
                     Console.Write($"Email {i + 1} : ");
                     string email = Console.ReadLine() ?? string.Empty;
 
-                    message = this._service.EmailValidity(contact, email);
+                    message = this._service.ValidateEmail(contact, email);
 
                     if (!string.IsNullOrEmpty(message))
                     {
