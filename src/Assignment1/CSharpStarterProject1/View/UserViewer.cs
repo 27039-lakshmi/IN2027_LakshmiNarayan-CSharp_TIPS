@@ -24,7 +24,7 @@ namespace ContactManager.View
         /// </summary>
         internal void AddContact()
         {
-            Contact contact = this.GetInfo();
+            var contact = this.GetContactInfo();
             this._service.AddContact(contact);
             Console.WriteLine("Contact Added Successfully.");
         }
@@ -41,7 +41,7 @@ namespace ContactManager.View
                 Console.Write("Enter Contact Phone : ");
                 contact.PhoneNumbers.Add(Console.ReadLine() ?? "0");
 
-                Contact? findContact = this._service.SearchContact(contact.PhoneNumbers[0]);
+                var findContact = this._service.SearchContact(contact.PhoneNumbers[0]);
 
                 if (findContact == null)
                 {
@@ -49,7 +49,7 @@ namespace ContactManager.View
                     return;
                 }
 
-                this.GetInfo(findContact);
+                this.GetContactInfo(findContact);
                 this._service.EditContact(findContact, contact);
                 Console.WriteLine("Contact Updated Successfully.");
             }
@@ -69,7 +69,7 @@ namespace ContactManager.View
                 Console.Write("Enter Contact Phone Number : ");
                 string phone = Console.ReadLine() ?? string.Empty;
 
-                Contact? findContact = this._service.SearchContact(phone!);
+                var findContact = this._service.SearchContact(phone!);
 
                 if (findContact == null)
                 {
@@ -95,7 +95,7 @@ namespace ContactManager.View
             {
                 Console.Write("Enter Contact Name : ");
                 string name = Console.ReadLine() ?? string.Empty;
-                List<Contact> contacts = this._service.SearchContactByName(name!);
+                var contacts = this._service.SearchContactByName(name!);
 
                 if (contacts == null)
                 {
@@ -105,12 +105,12 @@ namespace ContactManager.View
 
                 Console.WriteLine("Contacts starting with " + name);
 
-                foreach (Contact contact in contacts)
+                foreach (var contact in contacts)
                 {
                     Console.WriteLine($"\nName : {contact.Name}");
                     Console.WriteLine("Phone Numbers");
 
-                    foreach (string phone in contact.PhoneNumbers)
+                    foreach (var phone in contact.PhoneNumbers)
                     {
                         Console.WriteLine(phone);
                     }
@@ -135,20 +135,20 @@ namespace ContactManager.View
                 return;
             }
 
-            foreach (Contact contact in contacts)
+            foreach (var contact in contacts)
             {
                 Console.WriteLine($"Name : {contact.Name}");
 
                 Console.WriteLine("Phone Numbers");
 
-                foreach (string phone in contact.PhoneNumbers)
+                foreach (var phone in contact.PhoneNumbers)
                 {
                     Console.WriteLine(phone);
                 }
 
                 Console.WriteLine("Email IDs");
 
-                foreach (string email in contact.Emails)
+                foreach (var email in contact.Emails)
                 {
                     Console.WriteLine(email);
                 }
@@ -157,7 +157,7 @@ namespace ContactManager.View
             }
         }
 
-        private Contact GetInfo(Contact? contact = null)
+        private Contact GetContactInfo(Contact? contact = null)
         {
             if (contact == null)
             {
@@ -170,7 +170,7 @@ namespace ContactManager.View
             }
 
             Console.Write("Enter Name : ");
-            contact.Name = Console.ReadLine();
+            contact.Name = Console.ReadLine() ?? string.Empty;
 
             Console.Write("How many Phone Numbers : ");
             string phoneNumberCountInput = Console.ReadLine() ?? "0";

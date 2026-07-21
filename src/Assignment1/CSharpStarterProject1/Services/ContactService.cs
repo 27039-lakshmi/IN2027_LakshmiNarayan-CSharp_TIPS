@@ -55,7 +55,8 @@ namespace ContactManager.Services
         /// </param>
         public void DeleteContact(string phone)
         {
-            this._repo.DeleteContact(phone);
+            Contact contact = this._repo.SearchContactByPhoneNumber(phone);
+            this._repo.DeleteContact(contact);
         }
 
         /// <summary>
@@ -204,5 +205,7 @@ namespace ContactManager.Services
 
             return false;
         }
+
+
     }
 }

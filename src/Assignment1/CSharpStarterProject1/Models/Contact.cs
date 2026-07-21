@@ -19,7 +19,7 @@
         /// <value>
         /// The name of the contact.
         /// </value>
-        public string? Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the phone numbers associated with the contact.

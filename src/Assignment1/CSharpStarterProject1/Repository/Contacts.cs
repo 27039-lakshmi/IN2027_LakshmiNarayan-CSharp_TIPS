@@ -48,37 +48,30 @@ namespace ContactManager.Repository
         /// <summary>
         /// Removes a contact from the repository.
         /// </summary>
-        /// <param name="phone">
+        /// <param name="contact">
         /// The unique identifier of the contact to remove.
         /// </param>
-        public void DeleteContact(string phone)
+        public void DeleteContact(Contact contact)
         {
-            Contact contact = this.SearchContactByPhoneNumber(phone);
-
-            if (contact != null)
-            {
                 this._contacts.Remove(contact);
-            }
         }
 
         /// <summary>
         /// Updates an existing contact in the repository.
         /// </summary>
-        /// <param name="findContact">
+        /// <param name="existingContact">
         /// The existing contact that needs to be updated.
         /// </param>
         /// <param name="contact">
         /// The contact containing the updated information.
         /// </param>
-        public void UpdateContact(Contact findContact, Contact contact)
+        public void UpdateContact(Contact existingContact, Contact contact)
         {
-            var existing = this.SearchContactByPhoneNumber(findContact.PhoneNumbers[0]);
-
-            if (existing != null)
+            if (existingContact != null)
             {
-                existing.Name = contact.Name;
-                existing.PhoneNumbers = contact.PhoneNumbers;
-                existing.Emails = contact.Emails;
+                existingContact.Name = contact.Name;
+                existingContact.PhoneNumbers = contact.PhoneNumbers;
+                existingContact.Emails = contact.Emails;
             }
         }
 
