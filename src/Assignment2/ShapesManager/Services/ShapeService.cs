@@ -6,7 +6,7 @@ namespace ShapesManager.Services
     /// Provides services for creating shapes, validating user input,
     /// and displaying shape details.
     /// </summary>
-    internal class ShapeService
+    internal static class ShapeService
     {
         /// <summary>
         /// Displays the details of the specified shape.
@@ -14,7 +14,7 @@ namespace ShapesManager.Services
         /// <param name="shape">
         /// The shape whose details are to be displayed.
         /// </param>
-        public void PrintDetails(Shape shape)
+        public static void PrintDetails(Shape shape)
         {
             shape.PrintDetails();
         }
@@ -28,9 +28,19 @@ namespace ShapesManager.Services
         /// <returns>
         /// <c>true</c> if the input is a valid integer; otherwise, <c>false</c>.
         /// </returns>
-        public bool ValidateInput(string circleRadius)
+        public static bool ValidateInput(string circleRadius)
         {
-            return int.TryParse(circleRadius, out int _);
+            if (int.TryParse(circleRadius, out int _))
+            {
+                if (int.Parse(circleRadius) < 0)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -46,7 +56,7 @@ namespace ShapesManager.Services
         /// <param name="breadthOfRectangle">
         /// The breadth of the rectangle as a string.
         /// </param>
-        public void CreateRectangle(
+        public static void CreateRectangle(
             string rectangleColor,
             string lengthOfRectangle,
             string breadthOfRectangle)
@@ -56,7 +66,7 @@ namespace ShapesManager.Services
                 int.Parse(lengthOfRectangle),
                 int.Parse(breadthOfRectangle));
 
-            this.PrintDetails(rectangle);
+            PrintDetails(rectangle);
         }
 
         /// <summary>
@@ -69,10 +79,10 @@ namespace ShapesManager.Services
         /// <param name="radiusOfCircle">
         /// The radius of the circle as a string.
         /// </param>
-        public void CreateCircle(string circleColor, string radiusOfCircle)
+        public static void CreateCircle(string circleColor, string radiusOfCircle)
         {
             var circle = new Circle(circleColor, int.Parse(radiusOfCircle));
-            this.PrintDetails(circle);
+            PrintDetails(circle);
         }
 
         /// <summary>
@@ -84,7 +94,7 @@ namespace ShapesManager.Services
         /// <returns>
         /// <c>true</c> if the color is valid; otherwise, <c>false</c>.
         /// </returns>
-        public bool IsColorValid(string color)
+        public static bool IsColorValid(string color)
         {
             foreach (var c in color)
             {

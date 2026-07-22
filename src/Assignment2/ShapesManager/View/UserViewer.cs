@@ -16,7 +16,6 @@ namespace ShapesManager.View
         /// </summary>
         public static void Start()
         {
-            var service = new ShapeService();
             string? userChoice;
 
             do
@@ -55,17 +54,17 @@ namespace ShapesManager.View
                                 Console.WriteLine("Enter width of the Rectangle");
                                 string? breadthOfRectangle = Console.ReadLine() ?? string.Empty;
 
-                                if (service.ValidateInput(lengthOfRectangle) &&
-                                    service.ValidateInput(breadthOfRectangle))
+                                if (ShapeService.ValidateInput(lengthOfRectangle) &&
+                                    ShapeService.ValidateInput(breadthOfRectangle))
                                 {
-                                    service.CreateRectangle(
+                                    ShapeService.CreateRectangle(
                                         rectangleColor,
                                         lengthOfRectangle,
                                         breadthOfRectangle);
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Length and Breadth should be an integer");
+                                    Console.WriteLine("Length and Breadth should be an positive integer");
                                 }
                             }
 
@@ -83,9 +82,9 @@ namespace ShapesManager.View
                                 Console.WriteLine("Enter radius of the Circle");
                                 string radiusOfCircle = Console.ReadLine() ?? "0";
 
-                                if (service.ValidateInput(radiusOfCircle))
+                                if (ShapeService.ValidateInput(radiusOfCircle))
                                 {
-                                    service.CreateCircle(circleColor, radiusOfCircle);
+                                    ShapeService.CreateCircle(circleColor, radiusOfCircle);
                                 }
                                 else
                                 {
@@ -124,12 +123,10 @@ namespace ShapesManager.View
         /// </returns>
         public static string GetColorInput(string shape)
         {
-            var service = new ShapeService();
-
             Console.WriteLine($"Enter color of {shape}");
             string shapeColor = Console.ReadLine() ?? string.Empty;
 
-            if (service.IsColorValid(shapeColor))
+            if (ShapeService.IsColorValid(shapeColor))
             {
                 return shapeColor;
             }

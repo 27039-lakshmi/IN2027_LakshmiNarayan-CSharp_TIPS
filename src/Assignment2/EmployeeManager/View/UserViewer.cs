@@ -29,7 +29,7 @@ namespace EmployeeManager.View
 
                 userChoice = Console.ReadLine() ?? string.Empty;
 
-                if(string.Equals(userChoice, "3"))
+                if (string.Equals(userChoice, "3"))
                 {
                     Console.WriteLine("Exitting");
                     break;
@@ -50,6 +50,11 @@ namespace EmployeeManager.View
                 if (!int.TryParse(salary, out int _))
                 {
                     Console.WriteLine("Salary should be a number");
+                    continue;
+                }
+                else if (int.Parse(salary) < 0)
+                {
+                    Console.WriteLine("Salary cannot be negative");
                     continue;
                 }
 

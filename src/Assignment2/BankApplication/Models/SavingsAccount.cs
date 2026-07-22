@@ -7,6 +7,8 @@
     /// </summary>
     internal class SavingsAccount : BankAccount
     {
+        private readonly decimal _minimumBankBalance = 1000;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SavingsAccount"/> class.
         /// </summary>
@@ -31,11 +33,15 @@
         /// </returns>
         public override string Withdraw(decimal amount)
         {
-            if(this.Balance - amount < 0)
+            if (this.Balance - amount < 0)
             {
                 return "Balance is not enough for this withdrawal\n";
             }
-            else if (this.Balance - amount >= 1000)
+            else if (this.Balance < this._minimumBankBalance)
+            {
+                return "Already balance is less than minimum balance";
+            }
+            else if (this.Balance - amount >= this._minimumBankBalance)
             {
                 this.Balance -= amount;
                 return string.Empty;

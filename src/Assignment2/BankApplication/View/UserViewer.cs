@@ -36,7 +36,7 @@ namespace BankApplication.View
                 if (int.TryParse(userChoice, out int _))
                 {
                     Console.WriteLine("Enter your Account Number");
-                    var accountNumber = Console.ReadLine() ?? string.Empty;
+                    string accountNumber = Console.ReadLine() ?? string.Empty;
 
                     switch (userChoice)
                     {
@@ -114,32 +114,52 @@ namespace BankApplication.View
                     {
                         case "1":
                             Console.WriteLine("Enter your Deposit Amount\n");
-                            var depositAmount = Console.ReadLine() ?? string.Empty;
-
-                            if (int.TryParse(depositAmount, out int _))
+                            string depositAmount = Console.ReadLine() ?? string.Empty;
+                            if (!int.TryParse(depositAmount, out int _))
+                            {
+                                Console.WriteLine("Deposit amount should be a number");
+                            }
+                            else if (int.Parse(depositAmount) < 0)
+                            {
+                                Console.WriteLine("Deposit amount cannot be negative");
+                                continue;
+                            }
+                            else
                             {
                                 bankAccount.Deposit(int.Parse(depositAmount));
-                                Console.WriteLine("Amount Deposited\n");
+                                Console.WriteLine("Amount Deposited\nCurrent Balance:");
+                                Console.WriteLine(BankServices.CheckBalance(bankAccount));
                             }
 
                             break;
 
                         case "2":
-                            if(BankServices.CheckBalance(bankAccount) == 0)
+                            if (BankServices.CheckBalance(bankAccount) == 0)
                             {
                                 Console.WriteLine("Balance is 0. Deposit an amount first\n");
                                 continue;
                             }
+
                             Console.WriteLine("Enter your Withdraw Amount\n");
                             string withdrawAmount = Console.ReadLine() ?? string.Empty;
 
-                            if (int.TryParse(withdrawAmount, out int _))
+                            if (!int.TryParse(withdrawAmount, out int _))
                             {
-                                var withdrawSuccessfulMessage = bankAccount.Withdraw(int.Parse(withdrawAmount));
+                                Console.WriteLine("Withdraw amount should be a number");
+                            }
+                            else if (int.Parse(withdrawAmount) < 0)
+                            {
+                                Console.WriteLine("Withdraw amount cannot be negative");
+                                continue;
+                            }
+                            else
+                            {
+                                string withdrawSuccessfulMessage = bankAccount.Withdraw(int.Parse(withdrawAmount));
 
                                 if (withdrawSuccessfulMessage == string.Empty)
                                 {
-                                    Console.WriteLine("Withdrawal Successful\n");
+                                    Console.WriteLine("Withdrawal Successful\nCurrent Balance");
+                                    Console.WriteLine(BankServices.CheckBalance(bankAccount));
                                 }
                                 else
                                 {
