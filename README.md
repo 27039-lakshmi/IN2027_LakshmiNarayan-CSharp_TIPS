@@ -1,16 +1,221 @@
-# 🎯 How to use C# Starter Repo for C# assignments 
- 1. While creating new repo add the “CSharp_Starter_Repo” template repository
-![Using Template repo](https://github.com/solitontech/CSharp_Starter_Repo/blob/main/docs/assets/Images/HowToUseStarterRepo_Images/HowToUseStarterRepo.jpg) 
- 2. Make your account as the owner of the repository and include all the branches.
- 3. Add description to your repository if needed.
- 4. Select private/public repository based on the needs.
- 5. Now click create repository and your repository will be created.
- 6. Add git hooks scripts - [How to add git hooks](https://github.com/solitontech/CSharp_Starter_Repo/blob/main/docs/GitHooks.md)
- 7. Ensure that your branch names and commit messages follow this syntax: [GuideLines](https://github.com/solitontech/CSharp_Starter_Repo/blob/313030ea36043f4d2a6eb4258c68b31737cacc26/docs/Guidelines%20for%20GIT.md)
- 8. Add VSIX template -  [How to add VSIX template](https://github.com/solitontech/CSharp_Starter_Repo/blob/main/docs/VSIX%20template%20Manual.md)
- 9. Open the solution file in the root directory.
- 10. While adding new project select the CSharpStarterTemplate and select the appropriate folder location.
-     (src - for assignments and tests/unit - for unit tests)
- 11. For every assignments create a new branch from main and add your project to the solution.
- 12. When build is susccessful and the project runs perfectly give PR to main branch.
- 13. After merging to main, create new branch and add new project for next assignment.
+**Contact Manager (Console Application)**
+
+
+
+**Overview**
+
+
+
+Contact Manager is a console-based application developed using C# that allows users to manage their contacts efficiently. The application follows a 3-Layer Architecture consisting of View, Service, and Repository layers to ensure separation of concerns and maintainable code.
+
+
+
+---
+
+
+
+**Features**
+
+
+
+- Add a new contact
+
+- Edit an existing contact
+
+- Delete a contact
+
+- Search a contact using its unique ID
+
+- Display all contacts
+
+- Support multiple phone numbers for a contact
+
+- Support multiple email IDs for a contact
+
+- Automatically generate a unique GUID for every contact
+
+
+
+---
+
+
+
+
+
+
+**Project Structure**
+
+
+
+ContactsManager
+
+│
+
+├── Models
+
+│   └── Contact.cs
+
+│
+
+├── Repository
+
+│   └── ContactRepository.cs
+
+│
+
+├── Service
+
+│   └── ContactService.cs
+
+│
+
+├── View
+
+│   └── ContactView.cs
+
+│
+
+├── Program.cs
+
+│
+
+└── README.md
+
+
+
+---
+
+
+
+
+
+
+
+
+
+**Contact Model**
+
+
+
+**Each contact contains:**
+
+
+
+- GUID (Unique Identifier)
+
+- Name
+
+- Multiple Phone Numbers
+
+- Multiple Email IDs
+
+
+
+---
+
+
+
+**Functionalities**
+
+
+
+**Add Contact**
+
+
+
+Creates a new contact with:
+
+
+
+- Auto-generated GUID
+
+- Name
+
+- One or more phone numbers
+
+- One or more email IDs
+
+
+
+
+
+
+
+**Edit Contact**
+
+
+
+Updates an existing contact using its GUID.
+
+
+
+
+
+
+
+**Delete Contact**
+
+
+
+Removes a contact using its GUID.
+
+
+
+
+
+
+
+**Search Contact**
+
+
+
+Searches for a contact using its GUID and displays all details.
+
+
+
+
+
+
+
+**Display All Contacts**
+
+
+
+Displays every contact stored in the application.
+
+
+
+---
+
+
+
+
+
+
+
+**Design Principles**
+
+
+
+- Three-layer architecture
+
+- Separation of concerns
+
+- Modular and maintainable code
+
+- Simple and user-friendly console interface
+
+- Automatic GUID generation for unique contact identification
+
+
+
+---
+
+
+
+
+
+
+---
+
+
