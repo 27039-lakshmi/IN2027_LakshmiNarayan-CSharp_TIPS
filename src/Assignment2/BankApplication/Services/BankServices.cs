@@ -6,7 +6,7 @@ namespace BankApplication.Services
     /// Provides services for creating bank accounts
     /// and validating account-related input.
     /// </summary>
-    internal static class BankServices
+    public static class BankServices
     {
         /// <summary>
         /// Creates a savings account using the specified account number.

@@ -8,7 +8,7 @@ namespace ShapesManager.View
     /// Presents menu options, receives user input, validates input,
     /// and invokes the appropriate shape creation methods.
     /// </summary>
-    internal class UserViewer
+    public class UserViewer
     {
         /// <summary>
         /// Starts the application and displays the shape selection menu.

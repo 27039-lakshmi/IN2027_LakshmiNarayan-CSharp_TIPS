@@ -5,7 +5,7 @@
     /// Defines common properties and methods that must be
     /// implemented by all derived shape classes.
     /// </summary>
-    internal abstract class Shape
+    public abstract class Shape
     {
         /// <summary>
         /// Gets or sets the color of the shape.

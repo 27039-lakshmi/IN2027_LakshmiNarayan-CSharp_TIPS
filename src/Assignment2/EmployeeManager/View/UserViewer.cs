@@ -7,7 +7,7 @@ namespace EmployeeManager.View
     /// Collects employee information, validates input,
     /// and delegates employee creation to the service layer.
     /// </summary>
-    internal class UserViewer
+    public class UserViewer
     {
         /// <summary>
         /// Starts the employee management workflow.

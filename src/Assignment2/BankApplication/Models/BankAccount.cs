@@ -5,7 +5,7 @@
     /// Provides common functionality such as account creation,
     /// balance management, and deposits.
     /// </summary>
-    internal abstract class BankAccount
+    public abstract class BankAccount
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BankAccount"/> class.

@@ -6,7 +6,7 @@ namespace Assignments
     /// Entry point of the Bank Application.
     /// Initializes the application and starts the user interaction workflow.
     /// </summary>
-    internal class Program
+    public class Program
     {
         /// <summary>
         /// Main method that serves as the starting point of the application.

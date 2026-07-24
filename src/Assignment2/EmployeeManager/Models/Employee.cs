@@ -5,7 +5,7 @@
     /// Contains common employee properties and defines
     /// methods that must be implemented by derived classes.
     /// </summary>
-    internal abstract class Employee
+    public abstract class Employee
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Employee"/> class.

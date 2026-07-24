@@ -5,7 +5,7 @@
     /// Contains properties and methods specific to a rectangle,
     /// including area calculation and detail display.
     /// </summary>
-    internal class Rectangle : Shape
+    public class Rectangle : Shape
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle"/> class.

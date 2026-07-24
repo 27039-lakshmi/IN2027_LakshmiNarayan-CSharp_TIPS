@@ -6,7 +6,7 @@ namespace EmployeeManager.Services
     /// Provides functionality for creating employees,
     /// validating input, and displaying employee details.
     /// </summary>
-    internal static class EmployeeService
+    public static class EmployeeService
     {
         /// <summary>
         /// Creates a Developer employee if the provided salary is valid.

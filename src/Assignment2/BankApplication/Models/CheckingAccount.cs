@@ -6,7 +6,7 @@ namespace BankApplication.Models
     /// Represents a checking account.
     /// Provides withdrawal functionality specific to checking accounts.
     /// </summary>
-    internal class CheckingAccount : BankAccount
+    public class CheckingAccount : BankAccount
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CheckingAccount"/> class.

@@ -7,7 +7,7 @@ namespace BankApplication.View
     /// Handles user interaction for bank account creation
     /// and banking operations.
     /// </summary>
-    internal static class UserViewer
+    public static class UserViewer
     {
         /// <summary>
         /// Starts the banking application workflow.

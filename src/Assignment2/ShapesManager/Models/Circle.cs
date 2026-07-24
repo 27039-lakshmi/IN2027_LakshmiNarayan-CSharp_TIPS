@@ -5,7 +5,7 @@
     /// Contains properties and methods specific to a circle,
     /// including area calculation and detail display.
     /// </summary>
-    internal class Circle : Shape
+    public class Circle : Shape
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Circle"/> class.

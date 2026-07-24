@@ -5,7 +5,7 @@
     /// Provides withdrawal functionality while enforcing
     /// a minimum balance requirement.
     /// </summary>
-    internal class SavingsAccount : BankAccount
+    public class SavingsAccount : BankAccount
     {
         private readonly decimal _minimumBankBalance = 1000;
 

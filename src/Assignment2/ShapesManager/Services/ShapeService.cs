@@ -6,7 +6,7 @@ namespace ShapesManager.Services
     /// Provides services for creating shapes, validating user input,
     /// and displaying shape details.
     /// </summary>
-    internal static class ShapeService
+    public static class ShapeService
     {
         /// <summary>
         /// Displays the details of the specified shape.

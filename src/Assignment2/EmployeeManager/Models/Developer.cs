@@ -5,7 +5,7 @@
     /// Inherits common employee properties and behavior from the Employee class.
     /// Provides developer-specific bonus calculation and detail printing.
     /// </summary>
-    internal class Developer : Employee
+    public class Developer : Employee
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Developer"/> class.

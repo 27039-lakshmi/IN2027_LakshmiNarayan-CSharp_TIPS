@@ -5,7 +5,7 @@
     /// Inherits common employee properties and behavior from the Employee class.
     /// Provides manager-specific bonus calculation and detail printing.
     /// </summary>
-    internal class Manager : Employee
+    public class Manager : Employee
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Manager"/> class.
