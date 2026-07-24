@@ -28,18 +28,12 @@ namespace ShapesManager.Services
         /// <returns>
         /// <c>true</c> if the input is a valid integer; otherwise, <c>false</c>.
         /// </returns>
-        public static bool ValidateInput(string circleRadius)
+        public static bool ValidateInputDimension(string circleRadius)
         {
-            if (int.TryParse(circleRadius, out int _))
+            if (int.TryParse(circleRadius, out int _) && int.Parse(circleRadius) > 0)
             {
-                if (int.Parse(circleRadius) < 0)
-                {
-                    return false;
-                }
-
                 return true;
             }
-
             return false;
         }
 
@@ -96,15 +90,7 @@ namespace ShapesManager.Services
         /// </returns>
         public static bool IsColorValid(string color)
         {
-            foreach (char c in color)
-            {
-                if (char.IsDigit(c))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return !color.Any(char.IsDigit);
         }
     }
 }

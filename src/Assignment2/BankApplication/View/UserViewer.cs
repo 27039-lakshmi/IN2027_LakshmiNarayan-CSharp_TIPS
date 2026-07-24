@@ -128,13 +128,13 @@ namespace BankApplication.View
                             {
                                 bankAccount.Deposit(int.Parse(depositAmount));
                                 Console.WriteLine("Amount Deposited\nCurrent Balance:");
-                                Console.WriteLine(BankServices.CheckBalance(bankAccount));
+                                Console.WriteLine(BankServices.FindAccountBalance(bankAccount));
                             }
 
                             break;
 
                         case "2":
-                            if (BankServices.CheckBalance(bankAccount) == 0)
+                            if (BankServices.FindAccountBalance(bankAccount) == 0)
                             {
                                 Console.WriteLine("Balance is 0. Deposit an amount first\n");
                                 continue;
@@ -159,7 +159,7 @@ namespace BankApplication.View
                                 if (withdrawSuccessfulMessage == string.Empty)
                                 {
                                     Console.WriteLine("Withdrawal Successful\nCurrent Balance");
-                                    Console.WriteLine(BankServices.CheckBalance(bankAccount));
+                                    Console.WriteLine(BankServices.FindAccountBalance(bankAccount));
                                 }
                                 else
                                 {

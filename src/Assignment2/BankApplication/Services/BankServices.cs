@@ -20,7 +20,7 @@ namespace BankApplication.Services
         /// </returns>
         public static SavingsAccount? CreateSavingsAccount(string accountNumber)
         {
-            if (ValidateInput(accountNumber))
+            if (ValidateAccountNumber(accountNumber))
             {
                 var savingsAccount = new SavingsAccount(accountNumber);
                 return savingsAccount;
@@ -43,7 +43,7 @@ namespace BankApplication.Services
         /// </returns>
         public static CheckingAccount? CreateCheckingAccount(string accountNumber)
         {
-            if (ValidateInput(accountNumber))
+            if (ValidateAccountNumber(accountNumber))
             {
                 var checkingAccount = new CheckingAccount(accountNumber);
                 return checkingAccount;
@@ -65,7 +65,7 @@ namespace BankApplication.Services
         /// <returns>
         /// <c>true</c> if the account number is valid; otherwise, <c>false</c>.
         /// </returns>
-        public static bool ValidateInput(string accountNumber)
+        public static bool ValidateAccountNumber(string accountNumber)
         {
             if (accountNumber.Length < 10)
             {
@@ -92,7 +92,7 @@ namespace BankApplication.Services
         /// <returns>
         /// balance of the bank account
         /// </returns>
-        public static decimal CheckBalance(BankAccount bankAccount)
+        public static decimal FindAccountBalance(BankAccount bankAccount)
         {
             return bankAccount.CheckBalance();
         }

@@ -28,6 +28,12 @@ namespace EmployeeManager.View
                     "[3] Exit");
 
                 userChoice = Console.ReadLine() ?? string.Empty;
+                bool isUserChoiceValid = int.TryParse(userChoice, out int _);
+                if(!isUserChoiceValid)
+                {
+                    Console.WriteLine("Enter proper choice");
+                    continue;
+                }
 
                 if (string.Equals(userChoice, "3"))
                 {
@@ -64,67 +70,22 @@ namespace EmployeeManager.View
                     userChoice = "0";
                 }
 
-                // Validate that the user's choice is numeric.
-                if (int.TryParse(userChoice, out int _))
-                {
-                    switch (userChoice)
+                switch (userChoice)
                     {
                         case "1":
-                            bool isDeveloperCreated =
-                                EmployeeService.CreateDeveloper(name, salary);
-
-                            if (isDeveloperCreated)
-                            {
-                                Console.WriteLine("Developer Created");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Salary should be a decimal");
-                            }
-
+                            EmployeeService.CreateDeveloper(name, salary);
                             break;
 
                         case "2":
-                            bool isManagerCreated =
-                                EmployeeService.CreateManager(name, salary);
-
-                            if (isManagerCreated)
-                            {
-                                Console.WriteLine("Manager Created");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Salary should be a decimal");
-                            }
-
+                            EmployeeService.CreateManager(name, salary);
                             break;
 
                         default:
                             Console.WriteLine("Enter 1 or 2 or 3");
                             break;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("User choice should be an integer");
-                }
+                    }                
             }
             while (userChoice != "3");
-        }
-
-        /// <summary>
-        /// Prompts the user to enter a color for the specified shape.
-        /// </summary>
-        /// <param name="shape">
-        /// The name of the shape for which the color is requested.
-        /// </param>
-        /// <returns>
-        /// The color entered by the user.
-        /// </returns>
-        public static string GetColorInput(string shape)
-        {
-            Console.WriteLine($"Enter color of {shape}");
-            return Console.ReadLine() !;
         }
     }
 }

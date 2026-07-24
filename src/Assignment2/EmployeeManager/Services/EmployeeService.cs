@@ -13,21 +13,10 @@ namespace EmployeeManager.Services
         /// </summary>
         /// <param name="name">The name of the developer.</param>
         /// <param name="salary">The salary of the developer.</param>
-        /// <returns>
-        /// True if the developer was created successfully; otherwise, false.
-        /// </returns>
-        public static bool CreateDeveloper(string name, string salary)
+        public static void CreateDeveloper(string name, string salary)
         {
-            if (ValidateInput(salary))
-            {
-                var developer = new Developer(name, salary);
-                PrintDetails(developer);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+         var developer = new Developer(name, salary);
+         PrintDetails(developer);
         }
 
         /// <summary>
@@ -35,21 +24,10 @@ namespace EmployeeManager.Services
         /// </summary>
         /// <param name="name">The name of the manager.</param>
         /// <param name="salary">The salary of the manager.</param>
-        /// <returns>
-        /// True if the manager was created successfully; otherwise, false.
-        /// </returns>
-        public static bool CreateManager(string name, string salary)
+        public static void CreateManager(string name, string salary)
         {
-            if (ValidateInput(salary))
-            {
-                var manager = new Manager(name, salary);
-                PrintDetails(manager);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            var manager = new Manager(name, salary);
+            PrintDetails(manager);
         }
 
         /// <summary>
@@ -59,7 +37,7 @@ namespace EmployeeManager.Services
         /// <returns>
         /// True if the salary is a valid decimal number; otherwise, false.
         /// </returns>
-        public static bool ValidateInput(string salary)
+        public static bool ValidateInputSalary(string salary)
         {
             return decimal.TryParse(salary, out decimal _);
         }

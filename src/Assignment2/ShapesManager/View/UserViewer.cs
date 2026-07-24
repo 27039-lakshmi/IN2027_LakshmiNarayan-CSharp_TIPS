@@ -54,8 +54,8 @@ namespace ShapesManager.View
                                 Console.WriteLine("Enter width of the Rectangle");
                                 string? breadthOfRectangle = Console.ReadLine() ?? string.Empty;
 
-                                if (ShapeService.ValidateInput(lengthOfRectangle) &&
-                                    ShapeService.ValidateInput(breadthOfRectangle))
+                                if (ShapeService.ValidateInputDimension(lengthOfRectangle) &&
+                                    ShapeService.ValidateInputDimension(breadthOfRectangle))
                                 {
                                     ShapeService.CreateRectangle(
                                         rectangleColor,
@@ -82,7 +82,7 @@ namespace ShapesManager.View
                                 Console.WriteLine("Enter radius of the Circle");
                                 string radiusOfCircle = Console.ReadLine() ?? "0";
 
-                                if (ShapeService.ValidateInput(radiusOfCircle))
+                                if (ShapeService.ValidateInputDimension(radiusOfCircle))
                                 {
                                     ShapeService.CreateCircle(circleColor, radiusOfCircle);
                                 }
