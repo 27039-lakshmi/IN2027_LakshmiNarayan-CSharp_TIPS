@@ -72,7 +72,7 @@ namespace BankApplication.Services
                 return false;
             }
 
-            foreach (var c in accountNumber)
+            foreach (char c in accountNumber)
             {
                 if (!char.IsDigit(c))
                 {

@@ -36,7 +36,7 @@ namespace EmployeeManager.View
                 }
 
                 Console.WriteLine("Enter your name");
-                var name = Console.ReadLine() ?? string.Empty;
+                string name = Console.ReadLine() ?? string.Empty;
 
                 if (!EmployeeService.IsNameValid(name))
                 {
@@ -70,7 +70,7 @@ namespace EmployeeManager.View
                     switch (userChoice)
                     {
                         case "1":
-                            var isDeveloperCreated =
+                            bool isDeveloperCreated =
                                 EmployeeService.CreateDeveloper(name, salary);
 
                             if (isDeveloperCreated)
@@ -85,7 +85,7 @@ namespace EmployeeManager.View
                             break;
 
                         case "2":
-                            var isManagerCreated =
+                            bool isManagerCreated =
                                 EmployeeService.CreateManager(name, salary);
 
                             if (isManagerCreated)

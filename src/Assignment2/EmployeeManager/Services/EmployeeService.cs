@@ -89,7 +89,7 @@ namespace EmployeeManager.Services
             }
 
             // Ensure the name does not contain digits.
-            foreach (var c in name)
+            foreach (char c in name)
             {
                 if (char.IsDigit(c))
                 {

@@ -96,7 +96,7 @@ namespace ShapesManager.Services
         /// </returns>
         public static bool IsColorValid(string color)
         {
-            foreach (var c in color)
+            foreach (char c in color)
             {
                 if (char.IsDigit(c))
                 {
