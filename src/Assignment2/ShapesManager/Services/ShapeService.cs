@@ -34,6 +34,7 @@ namespace ShapesManager.Services
             {
                 return true;
             }
+
             return false;
         }
 

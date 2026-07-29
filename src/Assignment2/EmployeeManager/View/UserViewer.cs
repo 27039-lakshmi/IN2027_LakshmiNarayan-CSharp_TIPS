@@ -29,7 +29,7 @@ namespace EmployeeManager.View
 
                 userChoice = Console.ReadLine() ?? string.Empty;
                 bool isUserChoiceValid = int.TryParse(userChoice, out int _);
-                if(!isUserChoiceValid)
+                if (!isUserChoiceValid)
                 {
                     Console.WriteLine("Enter proper choice");
                     continue;
@@ -83,7 +83,7 @@ namespace EmployeeManager.View
                         default:
                             Console.WriteLine("Enter 1 or 2 or 3");
                             break;
-                    }                
+                    }
             }
             while (userChoice != "3");
         }
