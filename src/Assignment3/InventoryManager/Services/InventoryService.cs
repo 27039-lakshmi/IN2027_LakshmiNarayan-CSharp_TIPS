@@ -7,7 +7,7 @@ namespace InventoryManager.Services
     /// Provides business logic and operations for managing products
     /// within the inventory system.
     /// </summary>
-    internal class InventoryService
+    public class InventoryService
     {
         /// <summary>
         /// Repository used to store and manage inventory products.

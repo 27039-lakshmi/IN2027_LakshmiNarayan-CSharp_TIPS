@@ -6,7 +6,7 @@ namespace InventoryManager.Repository
     /// Represents an in-memory inventory repository that stores and manages products.
     /// Provides methods to add, retrieve, update, remove, and count products.
     /// </summary>
-    internal class Inventory
+    public class Inventory
     {
         /// <summary>
         /// Stores the collection of products in the inventory.

@@ -2,6 +2,7 @@
 using InventoryManager.Helper;
 using InventoryManager.Models;
 using InventoryManager.Services;
+using System.Runtime.CompilerServices;
 
 namespace InventoryManager.View
 {
@@ -9,7 +10,7 @@ namespace InventoryManager.View
     /// Handles all user interactions related to inventory management,
     /// including displaying menus, reading user input, and showing product information.
     /// </summary>
-    internal static class UserViewer
+    public static class UserViewer
     {
         /// <summary>
         /// Provides inventory operations such as add, update, search, and delete.
@@ -33,45 +34,19 @@ namespace InventoryManager.View
                     switch (userChoice)
                     {
                         case 1:
-                            string productId = GetProductId();
+                            (string productId, string productName, int productPrice, int productQuantity, bool isDetailsValid) = GetProductDetails();
 
-                            if (Validators.IsNullOrWhiteSpace(productId))
+                            if (isDetailsValid)
                             {
-                                Console.WriteLine(Messages.NullErrorMessage);
-                                continue;
+                                InventoryService.AddProduct(
+                                    productId,
+                                    productName,
+                                    productPrice,
+                                    productQuantity);
+
+                                Console.WriteLine(Messages.AddSuccessMessage);
                             }
 
-                            if (InventoryService.DoesProductIdExist(productId))
-                            {
-                                Console.WriteLine(Messages.DuplicateIdMessage);
-                                continue;
-                            }
-
-                            string productName = GetProductName();
-
-                            if (Validators.IsNullOrWhiteSpace(productName))
-                            {
-                                Console.WriteLine(Messages.NullErrorMessage);
-                                continue;
-                            }
-
-                            if (!GetPositiveInteger(Messages.ProductPriceMessage, out int productPrice))
-                            {
-                                continue;
-                            }
-
-                            if (!GetPositiveInteger(Messages.ProductQuantityMessage, out int productQuantity))
-                            {
-                                continue;
-                            }
-
-                            InventoryService.AddProduct(
-                                productId,
-                                productName,
-                                productPrice,
-                                productQuantity);
-
-                            Console.WriteLine(Messages.AddSuccessMessage);
                             break;
 
                         case 2:
@@ -83,43 +58,15 @@ namespace InventoryManager.View
 
                             Console.WriteLine(Messages.ProductEditDetailsMessage);
 
-                            string newProductId = GetProductId();
-                            if (Validators.IsNullOrWhiteSpace(newProductId))
+                            (string newProductId, string newProductName, int newProductPrice, int newProductQuantity, isDetailsValid) = GetProductDetails();
+                            if (isDetailsValid)
                             {
-                                Console.WriteLine(Messages.NullErrorMessage);
-                                continue;
+                                InventoryService.UpdateProduct(
+                                    newProductId,
+                                    newProductName,
+                                    newProductPrice,
+                                    newProductQuantity);
                             }
-
-                            if (!InventoryService.DoesProductIdExist(newProductId))
-                            {
-                                Console.WriteLine(Messages.IdNotExistMessage);
-                                continue;
-                            }
-
-                            string newProductName = GetProductName();
-
-                            if (Validators.IsNullOrWhiteSpace(newProductName))
-                            {
-                                Console.WriteLine(Messages.NullErrorMessage);
-                                continue;
-                            }
-
-                            if (!GetPositiveInteger(Messages.ProductPriceMessage, out int newProductPrice))
-                            {
-                                continue;
-                            }
-
-                            if (!GetPositiveInteger(Messages.ProductQuantityMessage, out int newProductQuantity))
-                            {
-                                continue;
-                            }
-
-                            InventoryService.UpdateProduct(
-                                newProductId,
-                                newProductName,
-                                newProductPrice,
-                                newProductQuantity);
-
                             break;
 
                         case 3:
@@ -198,6 +145,41 @@ namespace InventoryManager.View
             while (userChoice != 6);
         }
 
+        public static (string , string , int , int , bool) GetProductDetails ()
+        {
+            string productId = GetProductId();
+
+            if (Validators.IsNullOrWhiteSpace(productId))
+            {
+                Console.WriteLine(Messages.NullErrorMessage);
+                return (string.Empty, string.Empty,0,0,false);
+            }
+
+            if (InventoryService.DoesProductIdExist(productId))
+            {
+                Console.WriteLine(Messages.DuplicateIdMessage);
+                return (string.Empty, string.Empty, 0, 0, false);
+            }
+
+            string productName = GetProductName();
+
+            if (Validators.IsNullOrWhiteSpace(productName))
+            {
+                Console.WriteLine(Messages.NullErrorMessage);
+                return (string.Empty, string.Empty, 0, 0, false);
+            }
+
+            if (!GetPositiveInteger(Messages.ProductPriceMessage, out int productPrice))
+            {
+                return (string.Empty, string.Empty, 0, 0, false);
+            }
+
+            if (!GetPositiveInteger(Messages.ProductQuantityMessage, out int productQuantity))
+            {
+                return (string.Empty, string.Empty, 0, 0, false);
+            }
+            return (productId, productName, productPrice, productQuantity, true);
+        }
         /// <summary>
         /// Prompts the user to enter a product ID.
         /// </summary>

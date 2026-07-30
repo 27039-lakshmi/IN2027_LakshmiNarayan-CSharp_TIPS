@@ -4,7 +4,7 @@
     /// Represents a product in the inventory system.
     /// Contains product identification, name, price, and quantity information.
     /// </summary>
-    internal class Product
+    public class Product
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Product"/> class

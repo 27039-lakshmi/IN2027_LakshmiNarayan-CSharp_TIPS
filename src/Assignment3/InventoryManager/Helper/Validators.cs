@@ -3,7 +3,7 @@
     /// <summary>
     /// Provides validation helper methods used throughout the inventory system.
     /// </summary>
-    internal static class Validators
+    public static class Validators
     {
         /// <summary>
         /// Determines whether the specified string is null or whitespace
