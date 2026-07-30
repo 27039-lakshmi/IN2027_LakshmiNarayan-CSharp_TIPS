@@ -1,8 +1,6 @@
-﻿using InventoryManager;
-using InventoryManager.Helper;
+﻿using InventoryManager.Helper;
 using InventoryManager.Models;
 using InventoryManager.Services;
-using System.Runtime.CompilerServices;
 
 namespace InventoryManager.View
 {
@@ -67,6 +65,7 @@ namespace InventoryManager.View
                                     newProductPrice,
                                     newProductQuantity);
                             }
+
                             break;
 
                         case 3:
@@ -145,20 +144,52 @@ namespace InventoryManager.View
             while (userChoice != 6);
         }
 
-        public static (string , string , int , int , bool) GetProductDetails ()
+        /// <summary>
+        /// Collects and validates product details entered by the user.
+        /// </summary>
+        /// <returns>
+        /// A tuple containing:
+        /// <list type="bullet">
+        /// <item>
+        /// <description><c>ProductId</c> - The unique identifier of the product.</description>
+        /// </item>
+        /// <item>
+        /// <description><c>ProductName</c> - The name of the product.</description>
+        /// </item>
+        /// <item>
+        /// <description><c>ProductPrice</c> - The price of the product.</description>
+        /// </item>
+        /// <item>
+        /// <description><c>ProductQuantity</c> - The available quantity of the product.</description>
+        /// </item>
+        /// <item>
+        /// <description><c>IsSuccess</c> - Indicates whether all validations were successful.</description>
+        /// </item>
+        /// </list>
+        /// Returns empty strings and zero values when validation fails.
+        /// </returns>
+        public static (
+            string ProductId,
+            string ProductName,
+            int ProductPrice,
+            int ProductQuantity,
+            bool IsSuccess) GetProductDetails()
         {
+            const string EmptyString = "";
+            var failureResult = (EmptyString, EmptyString, 0, 0, false);
+
             string productId = GetProductId();
 
             if (Validators.IsNullOrWhiteSpace(productId))
             {
                 Console.WriteLine(Messages.NullErrorMessage);
-                return (string.Empty, string.Empty,0,0,false);
+                return failureResult;
             }
 
             if (InventoryService.DoesProductIdExist(productId))
             {
                 Console.WriteLine(Messages.DuplicateIdMessage);
-                return (string.Empty, string.Empty, 0, 0, false);
+                return failureResult;
             }
 
             string productName = GetProductName();
@@ -166,20 +197,22 @@ namespace InventoryManager.View
             if (Validators.IsNullOrWhiteSpace(productName))
             {
                 Console.WriteLine(Messages.NullErrorMessage);
-                return (string.Empty, string.Empty, 0, 0, false);
+                return failureResult;
             }
 
             if (!GetPositiveInteger(Messages.ProductPriceMessage, out int productPrice))
             {
-                return (string.Empty, string.Empty, 0, 0, false);
+                return failureResult;
             }
 
             if (!GetPositiveInteger(Messages.ProductQuantityMessage, out int productQuantity))
             {
-                return (string.Empty, string.Empty, 0, 0, false);
+                return failureResult;
             }
+
             return (productId, productName, productPrice, productQuantity, true);
         }
+
         /// <summary>
         /// Prompts the user to enter a product ID.
         /// </summary>
