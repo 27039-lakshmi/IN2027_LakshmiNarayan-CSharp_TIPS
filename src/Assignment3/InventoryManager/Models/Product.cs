@@ -14,7 +14,7 @@
         /// <param name="name">The name of the product.</param>
         /// <param name="price">The price of the product.</param>
         /// <param name="quantity">The available quantity of the product.</param>
-        public Product(string id, string name, int price, int quantity)
+        public Product(string id, string name, decimal price, int quantity)
         {
             this.Id = id;
             this.Name = name;
@@ -44,7 +44,7 @@
         /// <value>
         /// The monetary value assigned to the product.
         /// </value>
-        public int Price { get; set; }
+        public decimal Price { get; set; }
 
         /// <summary>
         /// Gets or sets the available quantity of the product.

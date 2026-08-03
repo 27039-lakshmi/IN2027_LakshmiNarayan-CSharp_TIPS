@@ -24,7 +24,7 @@ namespace InventoryManager.Services
         public void AddProduct(
             string productId,
             string productName,
-            int productPrice,
+            decimal productPrice,
             int productQuantity)
         {
             Product newProduct = this.CreateProduct(
@@ -46,7 +46,7 @@ namespace InventoryManager.Services
         public void UpdateProduct(
             string productId,
             string productName,
-            int productPrice,
+            decimal productPrice,
             int productQuantity)
         {
             Product oldProduct = this._inventory.GetById(productId) !;
@@ -73,7 +73,7 @@ namespace InventoryManager.Services
         public Product CreateProduct(
             string productId,
             string productName,
-            int productPrice,
+            decimal productPrice,
             int productQuantity)
         {
             return new Product(

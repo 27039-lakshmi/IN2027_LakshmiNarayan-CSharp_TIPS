@@ -32,7 +32,7 @@ namespace InventoryManager.View
                     switch (userChoice)
                     {
                         case 1:
-                            (string productId, string productName, int productPrice, int productQuantity, bool isDetailsValid) = GetProductDetails();
+                            (string productId, string productName, decimal productPrice, int productQuantity, bool isDetailsValid) = GetProductDetails();
 
                             if (isDetailsValid)
                             {
@@ -56,7 +56,7 @@ namespace InventoryManager.View
 
                             Console.WriteLine(Messages.ProductEditDetailsMessage);
 
-                            (string newProductId, string newProductName, int newProductPrice, int newProductQuantity, isDetailsValid) = GetProductDetails();
+                            (string newProductId, string newProductName, decimal newProductPrice, int newProductQuantity, isDetailsValid) = GetProductDetails();
                             if (isDetailsValid)
                             {
                                 InventoryService.UpdateProduct(
@@ -168,12 +168,7 @@ namespace InventoryManager.View
         /// </list>
         /// Returns empty strings and zero values when validation fails.
         /// </returns>
-        public static (
-            string ProductId,
-            string ProductName,
-            int ProductPrice,
-            int ProductQuantity,
-            bool IsSuccess) GetProductDetails()
+        public static (string productId, string productName, decimal productPrice, int productQuantity, bool isSuccess) GetProductDetails()
         {
             const string EmptyString = "";
             var failureResult = (EmptyString, EmptyString, 0, 0, false);
@@ -200,12 +195,12 @@ namespace InventoryManager.View
                 return failureResult;
             }
 
-            if (!GetPositiveInteger(Messages.ProductPriceMessage, out int productPrice))
+            if (!GetProductPriceInput(Messages.ProductPriceMessage, out decimal productPrice))
             {
                 return failureResult;
             }
 
-            if (!GetPositiveInteger(Messages.ProductQuantityMessage, out int productQuantity))
+            if (!GetProductQuantityInput(Messages.ProductQuantityMessage, out int productQuantity))
             {
                 return failureResult;
             }
@@ -251,7 +246,20 @@ namespace InventoryManager.View
         /// <c>true</c> if a valid non-negative integer was entered;
         /// otherwise, <c>false</c>.
         /// </returns>
-        public static bool GetPositiveInteger(string message, out int value)
+        public static bool GetProductPriceInput(string message, out decimal value)
+        {
+            Console.WriteLine(message);
+
+            if (!decimal.TryParse(Console.ReadLine(), out value) || value < 0)
+            {
+                Console.WriteLine(Messages.PositiveInputErrorMessage);
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool GetProductQuantityInput(string message, out int value)
         {
             Console.WriteLine(message);
 
