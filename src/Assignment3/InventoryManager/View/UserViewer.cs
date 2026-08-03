@@ -233,17 +233,17 @@ namespace InventoryManager.View
         }
 
         /// <summary>
-        /// Prompts the user for a positive integer value and validates the input.
+        /// Prompts the user for a product price input
         /// </summary>
         /// <param name="message">
         /// The message displayed to request the input.
         /// </param>
         /// <param name="value">
-        /// When this method returns, contains the parsed integer value if valid;
+        /// When this method returns, contains the parsed decimal value if valid;
         /// otherwise contains zero.
         /// </param>
         /// <returns>
-        /// <c>true</c> if a valid non-negative integer was entered;
+        /// <c>true</c> if a valid non-negative decimal was entered;
         /// otherwise, <c>false</c>.
         /// </returns>
         public static bool GetProductPriceInput(string message, out decimal value)
@@ -259,6 +259,20 @@ namespace InventoryManager.View
             return true;
         }
 
+        /// <summary>
+        /// Prompts the user for a positive integer value and validates the input.
+        /// </summary>
+        /// <param name="message">
+        /// The message displayed to request the input.
+        /// </param>
+        /// <param name="value">
+        /// When this method returns, contains the parsed integer value if valid;
+        /// otherwise contains zero.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if a valid non-negative integer was entered;
+        /// otherwise, <c>false</c>.
+        /// </returns>
         public static bool GetProductQuantityInput(string message, out int value)
         {
             Console.WriteLine(message);
