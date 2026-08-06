@@ -124,6 +124,15 @@ namespace InventoryManager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inventory is Empty . Please add products first.
+        /// </summary>
+        internal static string InventoryEmptyMessage {
+            get {
+                return ResourceManager.GetString("InventoryEmptyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 1 Add Product
         ///2 Edit Product 
         ///3 Search Product 
@@ -175,6 +184,15 @@ namespace InventoryManager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product ID does not exist.
+        /// </summary>
+        internal static string ProductIdNotExist {
+            get {
+                return ResourceManager.GetString("ProductIdNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product Name.
         /// </summary>
         internal static string ProductNameMessage {
@@ -207,6 +225,15 @@ namespace InventoryManager {
         internal static string ProductQuantityMessage {
             get {
                 return ResourceManager.GetString("ProductQuantityMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product updated successfully.
+        /// </summary>
+        internal static string UpdateSuccessMessage {
+            get {
+                return ResourceManager.GetString("UpdateSuccessMessage", resourceCulture);
             }
         }
     }

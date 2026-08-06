@@ -7,7 +7,7 @@ namespace Assignments
     /// Responsible for starting the user interface and handling
     /// any unhandled exceptions that occur during execution.
     /// </summary>
-    internal class Program
+    public class Program
     {
         /// <summary>
         /// Main method that serves as the application's entry point.
@@ -16,11 +16,11 @@ namespace Assignments
         /// <param name="args">
         /// Command-line arguments passed to the application.
         /// </param>
-        public static void Main(string[] args)
+        private static void Main(string[] args)
         {
             try
             {
-                UserViewer.Start();
+                InventoryView.Start();
             }
             catch (Exception ex)
             {

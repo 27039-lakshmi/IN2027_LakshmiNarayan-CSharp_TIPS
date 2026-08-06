@@ -138,6 +138,9 @@
   <data name="InvalidChoiceMessage" xml:space="preserve">
     <value>User choice be from 1 to 6</value>
   </data>
+  <data name="InventoryEmptyMessage" xml:space="preserve">
+    <value>Inventory is Empty . Please add products first</value>
+  </data>
   <data name="MenuText" xml:space="preserve">
     <value>1 Add Product
 2 Edit Product 
@@ -159,6 +162,9 @@ Enter your choice</value>
   <data name="ProductIdMessage" xml:space="preserve">
     <value>Product ID</value>
   </data>
+  <data name="ProductIdNotExist" xml:space="preserve">
+    <value>Product ID does not exist</value>
+  </data>
   <data name="ProductNameMessage" xml:space="preserve">
     <value>Product Name</value>
   </data>
@@ -170,5 +176,8 @@ Enter your choice</value>
   </data>
   <data name="ProductQuantityMessage" xml:space="preserve">
     <value>Product Quantity</value>
+  </data>
+  <data name="UpdateSuccessMessage" xml:space="preserve">
+    <value>Product updated successfully</value>
   </data>
 </root>

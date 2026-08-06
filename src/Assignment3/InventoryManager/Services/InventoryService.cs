@@ -10,77 +10,27 @@ namespace InventoryManager.Services
     public class InventoryService
     {
         /// <summary>
-        /// Repository used to store and manage inventory products.
-        /// </summary>
-        private Inventory _inventory = new ();
-
-        /// <summary>
         /// Creates and adds a new product to the inventory.
         /// </summary>
-        /// <param name="productId">The unique identifier of the product.</param>
-        /// <param name="productName">The name of the product.</param>
-        /// <param name="productPrice">The price of the product.</param>
-        /// <param name="productQuantity">The available quantity of the product.</param>
-        public void AddProduct(
-            string productId,
-            string productName,
-            decimal productPrice,
-            int productQuantity)
+        /// <param name="newProduct">
+        /// The product to be added to the inventory.
+        /// </param>
+        public void AddProduct(Product newProduct)
         {
-            Product newProduct = this.CreateProduct(
-                productId,
-                productName,
-                productPrice,
-                productQuantity);
-
-            this._inventory.Add(newProduct);
+            Inventory.Add(newProduct);
         }
 
         /// <summary>
         /// Updates an existing product with new details.
         /// </summary>
-        /// <param name="productId">The identifier of the product to update.</param>
-        /// <param name="productName">The updated product name.</param>
-        /// <param name="productPrice">The updated product price.</param>
-        /// <param name="productQuantity">The updated product quantity.</param>
-        public void UpdateProduct(
-            string productId,
-            string productName,
-            decimal productPrice,
-            int productQuantity)
+        /// <param name="newProduct">
+        /// Contains the updated product information,
+        /// including the product identifier.
+        /// </param>
+        public void UpdateProduct(Product newProduct)
         {
-            Product oldProduct = this._inventory.GetById(productId) !;
-
-            Product newProduct = this.CreateProduct(
-                productId,
-                productName,
-                productPrice,
-                productQuantity);
-
-            this._inventory.Update(oldProduct, newProduct);
-        }
-
-        /// <summary>
-        /// Creates a new product instance.
-        /// </summary>
-        /// <param name="productId">The product identifier.</param>
-        /// <param name="productName">The product name.</param>
-        /// <param name="productPrice">The product price.</param>
-        /// <param name="productQuantity">The product quantity.</param>
-        /// <returns>
-        /// A newly created <see cref="Product"/> object.
-        /// </returns>
-        public Product CreateProduct(
-            string productId,
-            string productName,
-            decimal productPrice,
-            int productQuantity)
-        {
-            return new Product(
-                productId,
-                productName,
-                productPrice,
-                productQuantity);
+            Product oldProduct = Inventory.GetById(newProduct.Id) !;
+            Inventory.Update(oldProduct, newProduct);
         }
 
         /// <summary>
@@ -89,22 +39,21 @@ namespace InventoryManager.Services
         /// <param name="productId">
         /// The identifier of the product to delete.
         /// </param>
-        /// <param name="deleteStatus">
-        /// Returns <c>true</c> if the product was successfully deleted;
+        /// <returns>
+        /// <c>true</c> if the product was successfully deleted;
         /// otherwise, <c>false</c>.
-        /// </param>
-        public void DeleteProduct(string productId, out bool deleteStatus)
+        /// </returns>
+        public bool DeleteProduct(string productId)
         {
-            var product = this._inventory.GetById(productId);
+            var product = Inventory.GetById(productId);
 
             if (product != null)
             {
-                this._inventory.Remove(product);
-                deleteStatus = true;
-                return;
+                Inventory.Remove(product);
+                return true;
             }
 
-            deleteStatus = false;
+            return false;
         }
 
         /// <summary>
@@ -117,10 +66,7 @@ namespace InventoryManager.Services
         /// <returns>
         /// <c>true</c> if the product exists; otherwise, <c>false</c>.
         /// </returns>
-        public bool DoesProductIdExist(string productId)
-        {
-            return this._inventory.GetById(productId) != null;
-        }
+        public bool DoesProductIdExist(string productId) => Inventory.GetById(productId) != null;
 
         /// <summary>
         /// Retrieves all products whose names match the specified value.
@@ -133,7 +79,7 @@ namespace InventoryManager.Services
         /// </returns>
         public List<Product> ListProductsByName(string productName)
         {
-            return this._inventory.GetProductsByName(productName);
+            return Inventory.GetAllProducts().Where(product => product.Name.StartsWith(productName, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
         /// <summary>
@@ -144,7 +90,7 @@ namespace InventoryManager.Services
         /// </returns>
         public List<Product> ListAllProducts()
         {
-            return this._inventory.GetAllProducts();
+            return Inventory.GetAllProducts();
         }
 
         /// <summary>
@@ -153,10 +99,7 @@ namespace InventoryManager.Services
         /// <returns>
         /// The product count.
         /// </returns>
-        public int GetProductsCount()
-        {
-            return this._inventory.GetTotalProductsCount();
-        }
+        public int GetProductsCount() => Inventory.GetTotalProductsCount();
 
         /// <summary>
         /// Determines whether the inventory contains any products.
@@ -168,17 +111,6 @@ namespace InventoryManager.Services
         /// <c>true</c> if the inventory contains no products;
         /// otherwise, <c>false</c>.
         /// </returns>
-        public bool IsInventoryEmpty(out string message)
-        {
-            message = "Inventory is Empty . Please add products first\n";
-
-            if (this.GetProductsCount() == 0)
-            {
-                Console.WriteLine();
-                return true;
-            }
-
-            return false;
-        }
+        public bool IsInventoryEmpty() => this.GetProductsCount() == 0;
     }
 }
