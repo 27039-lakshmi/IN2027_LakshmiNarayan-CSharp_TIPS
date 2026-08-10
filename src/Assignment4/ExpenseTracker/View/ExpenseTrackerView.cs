@@ -293,9 +293,9 @@ namespace ExpenseTracker.View
             string id = Console.ReadLine() ?? string.Empty;
             if (!Validator.IsValidId(id))
             {
-                WriteColored("ID should be in the format I1 for income and E1 for the expense",ConsoleColor.Red);
+                WriteColored("ID should be in the format I1 for income and E1 for the expense", ConsoleColor.Red);
+                return;
             }
-
 
             bool success = this._transactionService.DeleteTransaction(id, type);
 
