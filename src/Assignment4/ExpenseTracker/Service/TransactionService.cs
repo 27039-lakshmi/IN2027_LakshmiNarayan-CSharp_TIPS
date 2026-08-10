@@ -1,166 +1,270 @@
-﻿using ExpenseTracker.Models;
+﻿using ExpenseTracker.Enums;
+using ExpenseTracker.Models;
 using ExpenseTracker.Repository;
+
 namespace ExpenseTracker.Service
 {
-    internal class TransactionService
+    /// <summary>
+    /// Provides business logic for managing income and expense transactions.
+    /// Handles adding, updating, deleting, retrieving transactions,
+    /// and maintaining the current balance.
+    /// </summary>
+    public class TransactionService
     {
         private readonly Transactions _transactions;
+        private readonly TransactionEventManager _eventManager;
 
-        public TransactionService(Transactions transactions)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TransactionService"/> class
+        /// and subscribes to transaction change events.
+        /// </summary>
+        /// <param name="transactions">
+        /// Repository used to store and retrieve transactions.
+        /// </param>
+        /// <param name="eventManager">
+        /// Manages transaction-related events.
+        /// </param>
+        public TransactionService(Transactions transactions, TransactionEventManager eventManager)
         {
             this._transactions = transactions;
+            this._eventManager = eventManager;
+            this._eventManager.TransactionChanged += this.RecalculateBalance;
         }
 
+        /// <summary>
+        /// Adds an income or expense transaction to the repository.
+        /// </summary>
+        /// <param name="transaction">
+        /// The transaction to be added.
+        /// </param>
         public void AddTransaction(Transaction transaction)
         {
-            if (transaction is Income income)
+            if (this.TryCast<Income>(transaction, out var income) && income != null)
             {
-                _transactions.AddIncome(income);
+                this._transactions.AddIncome(income);
             }
-            else if (transaction is Expense expense)
+            else if (this.TryCast<Expense>(transaction, out var expense) && expense != null)
             {
-                _transactions.AddExpense(expense);
+                this._transactions.AddExpense(expense);
             }
-            this.UpdateBalance(null, transaction);
+
+            this._eventManager.RaiseTransactionChanged();
         }
 
-        public void UpdateBalance(Transaction? oldTransaction, Transaction? newTransaction)
+        /// <summary>
+        /// Attempts to cast a transaction to the specified transaction type.
+        /// </summary>
+        /// <typeparam name="T">
+        /// The target transaction type.
+        /// </typeparam>
+        /// <param name="transaction">
+        /// The transaction to cast.
+        /// </param>
+        /// <param name="result">
+        /// When this method returns, contains the converted transaction if the cast
+        /// succeeded; otherwise, null.
+        /// </param>
+        /// <returns>
+        /// True if the cast succeeds; otherwise, false.
+        /// </returns>
+        public bool TryCast<T>(Transaction transaction, out T? result)
+            where T : Transaction
         {
-            int balance = _transactions.GetBalance();
-
-            // Remove old transaction effect
-            if (oldTransaction != null)
-            {
-                if (oldTransaction is Income oldIncome)
-                    balance -= oldIncome.Amount;
-                else if (oldTransaction is Expense oldExpense)
-                    balance += oldExpense.Amount;
-            }
-
-            // Apply new transaction effect
-            if (newTransaction != null)
-            {
-                if (newTransaction is Income newIncome)
-                    balance += newIncome.Amount;
-                else if (newTransaction is Expense newExpense)
-                    balance -= newExpense.Amount;
-            }
-
-            _transactions.UpdateBalance(balance);
+            result = transaction as T;
+            return result != null;
         }
 
-        public List<Transaction> GetRecords(string recordType)
+        /// <summary>
+        /// Recalculates the current balance based on total income
+        /// and total expenses.
+        /// </summary>
+        public void RecalculateBalance()
         {
-            if(recordType == "Income")
+            int incomeTotal = this._transactions.GetIncomeRecords().Sum(income => income.Amount);
+            int expenseTotal = this._transactions.GetExpenseRecords().Sum(expense => expense.Amount);
+            int newBalance = incomeTotal - expenseTotal;
+            this._transactions.UpdateBalance(newBalance);
+        }
+
+        /// <summary>
+        /// Retrieves all transactions of the specified type.
+        /// </summary>
+        /// <param name="recordType">
+        /// The type of transactions to retrieve.
+        /// </param>
+        /// <returns>
+        /// A list of transactions matching the specified type.
+        /// </returns>
+        public List<Transaction> GetRecords(TransactionType recordType)
+        {
+            if (recordType == TransactionType.Income)
             {
-                var incomeRecords = _transactions.GetIncomeRecords();
+                var incomeRecords = this._transactions.GetIncomeRecords();
                 return incomeRecords;
             }
             else
             {
-                var expenseRecords = _transactions.GetExpenseRecords();
+                var expenseRecords = this._transactions.GetExpenseRecords();
                 return expenseRecords;
             }
         }
 
-        public bool UpdateTransaction(string id, Transaction transaction)
+        /// <summary>
+        /// Updates an existing transaction with new values.
+        /// </summary>
+        /// <param name="existingTransaction">
+        /// The transaction to be updated.
+        /// </param>
+        /// <param name="transaction">
+        /// The transaction containing updated values.
+        /// </param>
+        public void UpdateTransaction(Transaction existingTransaction, Transaction transaction)
         {
-            if (transaction is Income income)
+            if (this.TryCast<Income>(transaction, out var income) && income != null)
             {
-                var incomeList = _transactions.GetIncomeRecords();
-                var matchedIncome = SearchTransaction(incomeList, id);
+                    this._transactions.UpdateIncome((Income)existingTransaction, income);
+            }
+            else if (this.TryCast<Expense>(transaction, out var expense) && expense != null)
+            {
+                    this._transactions.UpdateExpense((Expense)existingTransaction, expense);
+            }
 
-                if (matchedIncome != null)
-                {
-                    this.UpdateBalance(matchedIncome, income);
-                    _transactions.UpdateIncome((Income)matchedIncome, income);
-                    return true;
-                }
-            }
-            else if (transaction is Expense expense)
-            {
-                var expenseList = _transactions.GetExpenseRecords();
-                var matchedExpense = SearchTransaction(expenseList, id);
-                if (matchedExpense != null)
-                {
-                    this.UpdateBalance(matchedExpense, expense);
-                    _transactions.UpdateExpense((Expense)matchedExpense, expense);
-                    return true;
-                }
-            }
-            return false;
+            this._eventManager.RaiseTransactionChanged();
         }
 
-        public bool DeleteTransaction(string id,string recordType)
+        /// <summary>
+        /// Deletes a transaction by its identifier.
+        /// </summary>
+        /// <param name="id">
+        /// The identifier of the transaction to delete.
+        /// </param>
+        /// <param name="recordType">
+        /// The type of transaction to delete.
+        /// </param>
+        /// <returns>
+        /// True if the transaction was found and deleted;
+        /// otherwise, false.
+        /// </returns>
+        public bool DeleteTransaction(string id, TransactionType recordType)
         {
-            if(recordType == "Income")
+            if (recordType == TransactionType.Income)
             {
-                var incomeList = _transactions.GetIncomeRecords();
-                var matchedIncome = SearchTransaction(incomeList, id);
+                var incomeList = this._transactions.GetIncomeRecords();
+                var matchedIncome = this.SearchTransaction(incomeList, id);
                 if (matchedIncome == null)
                 {
                     return false;
                 }
-                _transactions.DeleteIncome((Income)matchedIncome);
-                this.UpdateBalance(matchedIncome, null);
 
+                this._transactions.DeleteIncome((Income)matchedIncome);
             }
-            else 
+            else
             {
-                var expenseList = _transactions.GetExpenseRecords();
-                var matchedExpense = SearchTransaction(expenseList, id);
+                var expenseList = this._transactions.GetExpenseRecords();
+                var matchedExpense = this.SearchTransaction(expenseList, id);
                 if (matchedExpense == null)
                 {
                     return false;
                 }
-                _transactions.DeleteExpense((Expense)matchedExpense);
-                this.UpdateBalance(matchedExpense, null);
+
+                this._transactions.DeleteExpense((Expense)matchedExpense);
             }
+
+            this._eventManager.RaiseTransactionChanged();
+
             return true;
         }
 
-        public Transaction? SearchTransaction(List<Transaction> transactions,string id)
+        /// <summary>
+        /// Searches for a transaction by its identifier.
+        /// </summary>
+        /// <param name="transactions">
+        /// The collection of transactions to search.
+        /// </param>
+        /// <param name="id">
+        /// The identifier of the transaction.
+        /// </param>
+        /// <returns>
+        /// The matching transaction if found; otherwise, null.
+        /// </returns>
+        public Transaction? SearchTransaction(List<Transaction> transactions, string id)
         {
             return transactions.Find(transaction => transaction.Id == id);
         }
 
-        public int GetTotal(string recordType)
+        /// <summary>
+        /// Calculates the total amount for the specified transaction type.
+        /// </summary>
+        /// <param name="type">
+        /// The transaction type.
+        /// </param>
+        /// <returns>
+        /// The sum of all transaction amounts for the specified type.
+        /// </returns>
+        public int GetTotal(TransactionType type)
         {
-            if(recordType == "Income")
-            {
-                var incomeList = _transactions.GetIncomeRecords();
-                int incomeSum = 0;
-                foreach(Transaction transaction in incomeList)
-                {
-                    incomeSum += transaction.Amount;
-                }
-                return incomeSum;
-            }
-            else
-            {
-                var expenseList = _transactions.GetExpenseRecords();
-                int expenseSum = 0;
-                foreach (Transaction transaction in expenseList)
-                {
-                    expenseSum += transaction.Amount;
-                }
-                return expenseSum;
-            }
+            return this.GetRecords(type).Sum(t => t.Amount);
         }
 
-        public bool isIncomeEmpty()
+        /// <summary>
+        /// Retrieves an existing income transaction by its identifier.
+        /// </summary>
+        /// <param name="id">
+        /// The income transaction identifier.
+        /// </param>
+        /// <returns>
+        /// The matching income transaction if found; otherwise, null.
+        /// </returns>
+        public Income? GetExistingIncome(string id)
         {
-            return _transactions.GetIncomeRecords().Count == 0;
+            return this.SearchTransaction(this.GetRecords(TransactionType.Income), id) as Income;
         }
 
-        public bool isExpenseEmpty()
+        /// <summary>
+        /// Retrieves an existing expense transaction by its identifier.
+        /// </summary>
+        /// <param name="id">
+        /// The expense transaction identifier.
+        /// </param>
+        /// <returns>
+        /// The matching expense transaction if found; otherwise, null.
+        /// </returns>
+        public Expense? GetExistingExpense(string id)
         {
-            return _transactions.GetExpenseRecords().Count == 0;
+            return this.SearchTransaction(this.GetRecords(TransactionType.Expense), id) as Expense;
         }
 
+        /// <summary>
+        /// Determines whether any income records exist.
+        /// </summary>
+        /// <returns>
+        /// True if no income records exist; otherwise, false.
+        /// </returns>
+        public bool IsIncomeEmpty()
+        {
+            return this._transactions.GetIncomeRecords().Count == 0;
+        }
+
+        /// <summary>
+        /// Determines whether any expense records exist.
+        /// </summary>
+        /// <returns>
+        /// True if no expense records exist; otherwise, false.
+        /// </returns>
+        public bool IsExpenseEmpty()
+        {
+            return this._transactions.GetExpenseRecords().Count == 0;
+        }
+
+        /// <summary>
+        /// Gets the current balance.
+        /// </summary>
+        /// <returns>
+        /// The current balance amount.
+        /// </returns>
         public int GetBalance()
         {
-            return _transactions.GetBalance();
+            return this._transactions.GetBalance();
         }
     }
 }

@@ -1,24 +1,33 @@
 ﻿using ExpenseTracker.Repository;
 using ExpenseTracker.Service;
 using ExpenseTracker.View;
+
 namespace Assignments
 {
-    internal class Program
+    /// <summary>
+    /// Application entry point.
+    /// Creates the repository, event manager, service layer,
+    /// and view components before launching the Expense Tracker.
+    /// </summary>
+    /// <param name="args">
+    /// An array of command-line arguments.
+    /// </param>
+    public class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             try
             {
                 var transactions = new Transactions();
-                var transactionService = new TransactionService(transactions);
-                var userViewer = new UserViewer(transactionService);
+                var eventManager = new TransactionEventManager();
+                var transactionService = new TransactionService(transactions, eventManager);
+                var userViewer = new ExpenseTrackerView(transactionService);
                 userViewer.Start();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-
         }
     }
 }
