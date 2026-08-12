@@ -122,11 +122,11 @@ namespace ExpenseTracker.Service
         {
             if (this.TryCast<Income>(transaction, out var income) && income != null)
             {
-                    this._transactions.UpdateIncome((Income)existingTransaction, income);
+                this._transactions.UpdateIncome((Income)existingTransaction, income);
             }
             else if (this.TryCast<Expense>(transaction, out var expense) && expense != null)
             {
-                    this._transactions.UpdateExpense((Expense)existingTransaction, expense);
+                this._transactions.UpdateExpense((Expense)existingTransaction, expense);
             }
 
             this._eventManager.RaiseTransactionChanged();
@@ -265,6 +265,17 @@ namespace ExpenseTracker.Service
         public int GetBalance()
         {
             return this._transactions.GetBalance();
+        }
+
+        /// <summary>
+        /// Sends file
+        /// </summary>
+        /// <param name="path">
+        /// File path given by user
+        /// </param>
+        public void SendFilePathToRepository(string path)
+        {
+            this._transactions.SetFilePath(path);
         }
     }
 }

@@ -26,7 +26,7 @@
         /// <param name="category">
         /// The category associated with the expense.
         /// </param>
-        public Expense(DateOnly transactionDate, int amount, string category)
+        public Expense(DateTime transactionDate, int amount, string category)
             : base($"E{_expenseCounter++}", transactionDate, amount)
         {
             this.Category = category;

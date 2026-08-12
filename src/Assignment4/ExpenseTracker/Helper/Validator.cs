@@ -32,10 +32,10 @@ namespace ExpenseTracker.Helper
         /// True if the date is valid and not greater than today's date;
         /// otherwise, false.
         /// </returns>
-        public static bool IsValidDate(string dateInput, out DateOnly date)
+        public static bool IsValidDate(string dateInput, out DateTime date)
         {
-            return DateOnly.TryParse(dateInput, out date) &&
-                   date <= DateOnly.FromDateTime(DateTime.Today);
+            return DateTime.TryParse(dateInput, out date) &&
+                   date <= DateTime.Today;
         }
 
         /// <summary>
@@ -79,6 +79,16 @@ namespace ExpenseTracker.Helper
         public static bool IsValidId(string id)
         {
             return Regex.IsMatch(id, @"^[IE]\d+$");
+        }
+
+        /// <summary>
+        /// Validates that file path is valid or not.
+        /// </summary>
+        /// <param name="fileNameInput">User's input for filepath.</param>
+        /// <returns>True if the input is valid filepath and extension is json; otherwise, false.</returns>
+        public static bool IsFilePathValid(string fileNameInput)
+        {
+            return Path.IsPathFullyQualified(fileNameInput) && fileNameInput.EndsWith(".json");
         }
     }
 }

@@ -29,6 +29,15 @@ namespace ExpenseTracker.View
         /// </summary>
         public void Start()
         {
+            Console.WriteLine("Enter file path (.json)");
+            string filepath = Console.ReadLine() ?? string.Empty;
+            if (!Validator.IsFilePathValid(filepath))
+            {
+                WriteColored("File path must exist and file should be a json type", ConsoleColor.Red);
+                return;
+            }
+
+            this._transactionService.SendFilePathToRepository(filepath);
             int userChoice;
             do
             {
@@ -436,9 +445,9 @@ namespace ExpenseTracker.View
         /// <returns>
         /// A tuple containing the date, amount, and validation result.
         /// </returns>
-        public (DateOnly, int, bool) GetDateAndAmount(string message)
+        public (DateTime, int, bool) GetDateAndAmount(string message)
         {
-            var failureResult = (DateOnly.MinValue, 0, false);
+            var failureResult = (DateTime.MinValue, 0, false);
             Console.WriteLine($"Choose your option");
             var (date, isDateValid) = this.GetDateInput();
             if (isDateValid)
@@ -460,9 +469,9 @@ namespace ExpenseTracker.View
         /// <returns>
         /// A tuple containing the selected date and validation result.
         /// </returns>
-        public (DateOnly, bool) GetDateInput()
+        public (DateTime, bool) GetDateInput()
         {
-            var failureResult = (DateOnly.MinValue, false);
+            var failureResult = (DateTime.MinValue, false);
             Console.WriteLine("1. Enter your own date in (YYYY/MM/DD) format\n" +
                               "2. Todays date");
             string userDateChoice = Console.ReadLine() ?? string.Empty;
@@ -481,7 +490,7 @@ namespace ExpenseTracker.View
 
                     break;
                 case "2":
-                    date = DateOnly.FromDateTime(DateTime.Today);
+                    date = DateTime.Today;
                     return (date, true);
                 default:
                     WriteColored("Invalid Choice\n", ConsoleColor.Red);
@@ -498,7 +507,7 @@ namespace ExpenseTracker.View
         /// <returns>
         /// The updated date if valid; otherwise the original date.
         /// </returns>
-        public DateOnly GetUpdatedDate(DateOnly oldDate)
+        public DateTime GetUpdatedDate(DateTime oldDate)
         {
             Console.WriteLine($"Current Date: {oldDate}");
             Console.Write("Do you want to edit the date (Enter y): ");
@@ -642,7 +651,7 @@ namespace ExpenseTracker.View
             foreach (var transaction in transactions)
             {
                 Console.WriteLine($"ID: {transaction.Id}");
-                Console.WriteLine($"Transaction Date: {transaction.TransactionDate}");
+                Console.WriteLine($"Transaction Date: {transaction.TransactionDate:d}");
                 Console.WriteLine($"Amount: {transaction.Amount}");
 
                 if (transaction is Income income)

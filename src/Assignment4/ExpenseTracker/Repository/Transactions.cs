@@ -1,4 +1,5 @@
-﻿using ExpenseTracker.Models;
+﻿using System.Text.Json;
+using ExpenseTracker.Models;
 
 namespace ExpenseTracker.Repository
 {
@@ -9,10 +10,47 @@ namespace ExpenseTracker.Repository
     /// </summary>
     public class Transactions
     {
-        private List<Income> _incomes = new List<Income>();
-        private List<Expense> _expenses = new List<Expense>();
+        private string _filepath = string.Empty;
+        private TransactionData _data = new ();
 
-        private int Balance { get; set; }
+        /// <summary>
+        /// Sets the filepath
+        /// </summary>
+        /// <param name="filepath">The filepath received from service layer</param>
+        public void SetFilePath(string filepath)
+        {
+            this._filepath = filepath;
+            this._data = this.LoadDataFromFile();
+        }
+
+        /// <summary>
+        /// Loads data from File
+        /// </summary>
+        /// <returns>
+        /// an object of type <see cref="TransactionData"/> with data from file
+        /// </returns>
+        public TransactionData LoadDataFromFile()
+        {
+            if (!File.Exists(this._filepath))
+            {
+                return new TransactionData();
+            }
+
+            string json = File.ReadAllText(this._filepath);
+            return JsonSerializer.Deserialize<TransactionData>(json) ?? new TransactionData();
+        }
+
+        /// <summary>
+        /// Writes data into the file
+        /// </summary>
+        public void WriteDataIntoFile()
+        {
+           string json = JsonSerializer.Serialize(this._data, new JsonSerializerOptions
+           {
+               WriteIndented = true,
+           });
+           File.WriteAllText(this._filepath, json);
+        }
 
         /// <summary>
         /// Adds an income record.
@@ -20,7 +58,8 @@ namespace ExpenseTracker.Repository
         /// <param name="income">The income to add.</param>
         public void AddIncome(Income income)
         {
-            this._incomes.Add(income);
+            this._data.Incomes.Add(income);
+            this.WriteDataIntoFile();
         }
 
         /// <summary>
@@ -29,7 +68,8 @@ namespace ExpenseTracker.Repository
         /// <param name="expense">The expense to add.</param>
         public void AddExpense(Expense expense)
         {
-            this._expenses.Add(expense);
+            this._data.Expenses.Add(expense);
+            this.WriteDataIntoFile();
         }
 
         /// <summary>
@@ -38,7 +78,7 @@ namespace ExpenseTracker.Repository
         /// <returns>The current balance.</returns>
         public int GetBalance()
         {
-            return this.Balance;
+            return this._data.Balance;
         }
 
         /// <summary>
@@ -47,7 +87,8 @@ namespace ExpenseTracker.Repository
         /// <param name="newBalance">The recalculated balance.</param>
         public void UpdateBalance(int newBalance)
         {
-            this.Balance = newBalance;
+            this._data.Balance = newBalance;
+            this.WriteDataIntoFile();
         }
 
         /// <summary>
@@ -60,6 +101,7 @@ namespace ExpenseTracker.Repository
             oldIncome.Amount = newIncome.Amount;
             oldIncome.TransactionDate = newIncome.TransactionDate;
             oldIncome.Source = newIncome.Source;
+            this.WriteDataIntoFile();
         }
 
         /// <summary>
@@ -72,6 +114,7 @@ namespace ExpenseTracker.Repository
             oldExpense.Amount = newExpense.Amount;
             oldExpense.TransactionDate = newExpense.TransactionDate;
             oldExpense.Category = newExpense.Category;
+            this.WriteDataIntoFile();
         }
 
         /// <summary>
@@ -80,7 +123,7 @@ namespace ExpenseTracker.Repository
         /// <returns>A list of income transactions.</returns>
         public List<Transaction> GetIncomeRecords()
         {
-            return this._incomes.ToList<Transaction>();
+            return this._data.Incomes.ToList<Transaction>();
         }
 
         /// <summary>
@@ -89,7 +132,7 @@ namespace ExpenseTracker.Repository
         /// <returns>A list of expense transactions.</returns>
         public List<Transaction> GetExpenseRecords()
         {
-            return this._expenses.ToList<Transaction>();
+            return this._data.Expenses.ToList<Transaction>();
         }
 
         /// <summary>
@@ -98,7 +141,8 @@ namespace ExpenseTracker.Repository
         /// <param name="income">The income to remove.</param>
         public void DeleteIncome(Income income)
         {
-            this._incomes.Remove(income);
+            this._data.Incomes.Remove(income);
+            this.WriteDataIntoFile();
         }
 
         /// <summary>
@@ -107,7 +151,8 @@ namespace ExpenseTracker.Repository
         /// <param name="expense">The expense to remove.</param>
         public void DeleteExpense(Expense expense)
         {
-            this._expenses.Remove(expense);
+            this._data.Expenses.Remove(expense);
+            this.WriteDataIntoFile();
         }
     }
 }

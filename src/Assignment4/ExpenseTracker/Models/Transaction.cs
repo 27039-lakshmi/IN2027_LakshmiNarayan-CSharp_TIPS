@@ -4,12 +4,12 @@
     /// Represents a financial transaction in the expense tracker.
     /// Serves as the base class for income and expense transactions.
     /// </summary>
-    public class Transaction
+    public abstract class Transaction
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Transaction"/> class.
         /// </summary>
-        /// /// <param name="id">
+        /// <param name="id">
         /// The Id of the transaction
         /// </param>
         /// <param name="transactionDate">
@@ -18,7 +18,7 @@
         /// <param name="amount">
         /// The monetary value of the transaction.
         /// </param>
-        public Transaction(string id, DateOnly transactionDate, int amount)
+        public Transaction(string id, DateTime transactionDate, int amount)
         {
             this.Id = id;
             this.TransactionDate = transactionDate;
@@ -40,7 +40,7 @@
         /// <value>
         /// The date on which the transaction occurred.
         /// </value>
-        public DateOnly TransactionDate { get; set; }
+        public DateTime TransactionDate { get; set; }
 
         /// <summary>
         /// Gets or sets the transaction amount.
