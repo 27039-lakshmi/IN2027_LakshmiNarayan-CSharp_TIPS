@@ -39,7 +39,7 @@ namespace ExpenseTracker.View
                                   "5.Get Summary\n" +
                                   "6.Exit\n" +
                                   "Enter your Choice");
-                if (!int.TryParse(Console.ReadLine() ?? string.Empty, out userChoice))
+                if (!int.TryParse(Console.ReadLine(), out userChoice))
                 {
                     WriteColored("Please enter a valid number.\n", ConsoleColor.Red);
                     continue;
@@ -47,7 +47,7 @@ namespace ExpenseTracker.View
 
                 this.HandleMenuOption((MenuOption)userChoice);
             }
-            while (userChoice != (int)MenuOption.Exit);
+            while ((MenuOption)userChoice != MenuOption.Exit);
         }
 
         /// <summary>
@@ -59,104 +59,16 @@ namespace ExpenseTracker.View
             switch (userChoice)
             {
                 case MenuOption.Add:
-                    Console.WriteLine("1.Add income\n" +
-                                      "2.Add expense\n" +
-                                      "Enter your choice");
-                    string choiceInput = Console.ReadLine() ?? string.Empty;
-                    if (!Validator.IsChoiceValid(choiceInput, out var userAddChoice))
-                    {
-                        WriteColored("Please enter a valid number.\n", ConsoleColor.Red);
-                        return;
-                    }
-
-                    switch ((AddOption)userAddChoice)
-                    {
-                        case AddOption.AddIncome:
-                            this.AddIncome();
-                            break;
-                        case AddOption.AddExpense:
-                            this.AddExpense();
-                            break;
-                        default:
-                            WriteColored("Invalid Choice\n", ConsoleColor.Red);
-                            break;
-                    }
-
+                    this.DisplayAddMenu();
                     break;
                 case MenuOption.Edit:
-                    Console.WriteLine("1.Edit income\n" +
-                                      "2.Edit expense\n" +
-                                      "Enter your choice");
-                    choiceInput = Console.ReadLine() ?? string.Empty;
-                    if (!Validator.IsChoiceValid(choiceInput, out var userEditChoice))
-                    {
-                        WriteColored("Please enter a valid number.\n", ConsoleColor.Red);
-                        return;
-                    }
-
-                    switch ((EditOption)userEditChoice)
-                    {
-                        case EditOption.EditIncome:
-                            this.EditIncome();
-                            break;
-                        case EditOption.EditExpense:
-                            this.EditExpense();
-                            break;
-                        default:
-                            WriteColored("Invalid Choice\n", ConsoleColor.Red);
-                            break;
-                    }
-
+                    this.DisplayEditMenu();
                     break;
                 case MenuOption.Delete:
-                    Console.WriteLine("1.Delete income\n" +
-                                      "2.Delete expense\n" +
-                                      "Enter your choice");
-                    choiceInput = Console.ReadLine() ?? string.Empty;
-                    if (!Validator.IsChoiceValid(choiceInput, out var userDeleteChoice))
-                    {
-                        WriteColored("Please enter a valid number.\n", ConsoleColor.Red);
-                        return;
-                    }
-
-                    switch ((DeleteOption)userDeleteChoice)
-                    {
-                        case DeleteOption.DeleteIncome:
-                            this.DeleteTransaction(TransactionType.Income);
-                            break;
-                        case DeleteOption.DeleteExpense:
-                            this.DeleteTransaction(TransactionType.Expense);
-                            break;
-                        default:
-                            WriteColored("Invalid Choice\n", ConsoleColor.Red);
-                            break;
-                    }
-
+                    this.DisplayDeleteMenu();
                     break;
                 case MenuOption.View:
-                    Console.WriteLine("1.View income\n" +
-                                      "2.View expense\n" +
-                                      "Enter your choice");
-                    choiceInput = Console.ReadLine() ?? string.Empty;
-                    if (!Validator.IsChoiceValid(choiceInput, out var userViewChoice))
-                    {
-                        WriteColored("Please enter a valid number.\n", ConsoleColor.Red);
-                        return;
-                    }
-
-                    switch ((ViewOption)userViewChoice)
-                    {
-                        case ViewOption.ViewIncome:
-                            this.ViewIncome();
-                            break;
-                        case ViewOption.ViewExpense:
-                            this.ViewExpense();
-                            break;
-                        default:
-                            WriteColored("Invalid Choice\n", ConsoleColor.Red);
-                            break;
-                    }
-
+                    this.DisplayViewMenu();
                     break;
 
                 case MenuOption.Summary:
@@ -177,7 +89,7 @@ namespace ExpenseTracker.View
         /// </summary>
         public void AddIncome()
         {
-            Income? newIncome = this.GetIncomeDetails();
+            var newIncome = this.GetIncomeDetails();
             if (newIncome != null)
             {
                 this._transactionService.AddTransaction(newIncome);
@@ -245,6 +157,122 @@ namespace ExpenseTracker.View
         }
 
         /// <summary>
+        /// Display add menu
+        /// </summary>
+        public void DisplayAddMenu()
+        {
+            Console.WriteLine("1.Add income\n" +
+                              "2.Add expense\n" +
+                              "Enter your choice");
+            string choiceInput = Console.ReadLine() ?? string.Empty;
+            if (!Validator.IsChoiceValid(choiceInput, out var userAddChoice))
+            {
+                WriteColored("Please enter a valid number.\n", ConsoleColor.Red);
+                return;
+            }
+
+            switch ((AddOption)userAddChoice)
+            {
+                case AddOption.AddIncome:
+                    this.AddIncome();
+                    break;
+                case AddOption.AddExpense:
+                    this.AddExpense();
+                    break;
+                default:
+                    WriteColored("Invalid Choice\n", ConsoleColor.Red);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Display edit menu options to user
+        /// </summary>
+        public void DisplayEditMenu()
+        {
+            Console.WriteLine("1.Edit income\n" +
+                                      "2.Edit expense\n" +
+                                      "Enter your choice");
+            string choiceInput = Console.ReadLine() ?? string.Empty;
+            if (!Validator.IsChoiceValid(choiceInput, out var userEditChoice))
+            {
+                WriteColored("Please enter a valid number.\n", ConsoleColor.Red);
+                return;
+            }
+
+            switch ((EditOption)userEditChoice)
+            {
+                case EditOption.EditIncome:
+                    this.EditIncome();
+                    break;
+                case EditOption.EditExpense:
+                    this.EditExpense();
+                    break;
+                default:
+                    WriteColored("Invalid Choice\n", ConsoleColor.Red);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Display delete menu options to user
+        /// </summary>
+        public void DisplayDeleteMenu()
+        {
+            Console.WriteLine("1.Delete income\n" +
+                                      "2.Delete expense\n" +
+                                      "Enter your choice");
+            string choiceInput = Console.ReadLine() ?? string.Empty;
+            if (!Validator.IsChoiceValid(choiceInput, out var userDeleteChoice))
+            {
+                WriteColored("Please enter a valid number.\n", ConsoleColor.Red);
+                return;
+            }
+
+            switch ((DeleteOption)userDeleteChoice)
+            {
+                case DeleteOption.DeleteIncome:
+                    this.DeleteTransaction(TransactionType.Income);
+                    break;
+                case DeleteOption.DeleteExpense:
+                    this.DeleteTransaction(TransactionType.Expense);
+                    break;
+                default:
+                    WriteColored("Invalid Choice\n", ConsoleColor.Red);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Display view menu options
+        /// </summary>
+        public void DisplayViewMenu()
+        {
+            Console.WriteLine("1.View income\n" +
+                                      "2.View expense\n" +
+                                      "Enter your choice");
+            string choiceInput = Console.ReadLine() ?? string.Empty;
+            if (!Validator.IsChoiceValid(choiceInput, out var userViewChoice))
+            {
+                WriteColored("Please enter a valid number.\n", ConsoleColor.Red);
+                return;
+            }
+
+            switch ((ViewOption)userViewChoice)
+            {
+                case ViewOption.ViewIncome:
+                    this.ViewIncome();
+                    break;
+                case ViewOption.ViewExpense:
+                    this.ViewExpense();
+                    break;
+                default:
+                    WriteColored("Invalid Choice\n", ConsoleColor.Red);
+                    break;
+            }
+        }
+
+        /// <summary>
         /// Updates an existing expense transaction.
         /// </summary>
         public void EditExpense()
@@ -298,7 +326,6 @@ namespace ExpenseTracker.View
             }
 
             bool success = this._transactionService.DeleteTransaction(id, type);
-
             WriteColored(
                 success ? $"{type} deleted successfully" : $"{type} does not exist.\nDeletion failed",
                 success ? ConsoleColor.Green : ConsoleColor.Red);
@@ -347,13 +374,11 @@ namespace ExpenseTracker.View
                 return;
             }
 
-            int totalIncome = this._transactionService.GetTotal(TransactionType.Income);
-            int totalExpense = this._transactionService.GetTotal(TransactionType.Expense);
-            int balance = this._transactionService.GetBalance();
+            var transactionSummary = this._transactionService.GetSummary();
             Console.WriteLine("\nYour summary\n" +
-                             $"Total Income : {totalIncome}\n" +
-                             $"Total Expense : {totalExpense}\n" +
-                             $"Current Balance : {balance}");
+                             $"Total Income : {transactionSummary.TotalIncome}\n" +
+                             $"Total Expense : {transactionSummary.TotalExpense}\n" +
+                             $"Current Balance : {transactionSummary.Balance}");
         }
 
         /// <summary>
@@ -465,27 +490,34 @@ namespace ExpenseTracker.View
             var failureResult = (DateOnly.MinValue, false);
             Console.WriteLine("1. Enter your own date in (YYYY/MM/DD) format\n" +
                               "2. Todays date");
-            string userDateChoice = Console.ReadLine() ?? string.Empty;
-            switch (userDateChoice)
+            string choiceInput = Console.ReadLine() ?? string.Empty;
+            if (!Validator.IsChoiceValid(choiceInput, out var userDateChoice))
             {
-                case "1":
-                    string dateInput = Console.ReadLine() ?? string.Empty;
-                    if (Validator.IsValidDate(dateInput, out var date))
-                    {
-                        return (date, true);
-                    }
-                    else
-                    {
-                        WriteColored("Enter a valid date", ConsoleColor.Red);
-                    }
+                WriteColored("Please enter a valid number.\n", ConsoleColor.Red);
+            }
+            else
+            {
+                switch ((DateOptions)userDateChoice)
+                {
+                    case DateOptions.ManualDate:
+                        string dateInput = Console.ReadLine() ?? string.Empty;
+                        if (Validator.IsValidDate(dateInput, out var date))
+                        {
+                            return (date, true);
+                        }
+                        else
+                        {
+                            WriteColored("Enter a valid date", ConsoleColor.Red);
+                        }
 
-                    break;
-                case "2":
-                    date = DateOnly.FromDateTime(DateTime.Today);
-                    return (date, true);
-                default:
-                    WriteColored("Invalid Choice\n", ConsoleColor.Red);
-                    break;
+                        break;
+                    case DateOptions.TodayDate:
+                        date = DateOnly.FromDateTime(DateTime.Today);
+                        return (date, true);
+                    default:
+                        WriteColored("Invalid Choice\n", ConsoleColor.Red);
+                        break;
+                }
             }
 
             return failureResult;
@@ -505,7 +537,7 @@ namespace ExpenseTracker.View
 
             string input = (Console.ReadLine() ?? "n").ToLower();
 
-            if (input == "y")
+            if (string.Equals(input, "y"))
             {
                 var (newDate, isValid) = this.GetDateInput();
 

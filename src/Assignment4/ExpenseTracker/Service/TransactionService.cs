@@ -13,6 +13,7 @@ namespace ExpenseTracker.Service
     {
         private readonly Transactions _transactions;
         private readonly TransactionEventManager _eventManager;
+        private readonly TransactionSummary _transactionSummary = new ();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TransactionService"/> class
@@ -28,7 +29,7 @@ namespace ExpenseTracker.Service
         {
             this._transactions = transactions;
             this._eventManager = eventManager;
-            this._eventManager.TransactionChanged += this.RecalculateBalance;
+            this._eventManager.TransactionChanged += this.RecalculateSummary;
         }
 
         /// <summary>
@@ -78,12 +79,11 @@ namespace ExpenseTracker.Service
         /// Recalculates the current balance based on total income
         /// and total expenses.
         /// </summary>
-        public void RecalculateBalance()
+        public void RecalculateSummary()
         {
-            int incomeTotal = this._transactions.GetIncomeRecords().Sum(income => income.Amount);
-            int expenseTotal = this._transactions.GetExpenseRecords().Sum(expense => expense.Amount);
-            int newBalance = incomeTotal - expenseTotal;
-            this._transactions.UpdateBalance(newBalance);
+            this._transactionSummary.TotalIncome = this.GetTotal(TransactionType.Income);
+            this._transactionSummary.TotalExpense = this.GetTotal(TransactionType.Expense);
+            this._transactionSummary.Balance = this._transactionSummary.TotalIncome - this._transactionSummary.TotalExpense;
         }
 
         /// <summary>
@@ -189,7 +189,7 @@ namespace ExpenseTracker.Service
         /// </returns>
         public Transaction? SearchTransaction(List<Transaction> transactions, string id)
         {
-            return transactions.Find(transaction => transaction.Id == id);
+            return transactions.Find(transaction => string.Equals(transaction.Id, id));
         }
 
         /// <summary>
@@ -264,7 +264,16 @@ namespace ExpenseTracker.Service
         /// </returns>
         public int GetBalance()
         {
-            return this._transactions.GetBalance();
+            return this._transactionSummary.Balance;
+        }
+
+        /// <summary>
+        /// Gets the transaction summary
+        /// </summary>
+        /// <returns> The transaction summary </returns>
+        public TransactionSummary GetSummary()
+        {
+            return this._transactionSummary;
         }
     }
 }
