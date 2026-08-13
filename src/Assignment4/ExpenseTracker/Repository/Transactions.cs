@@ -1,6 +1,7 @@
-﻿using System.Text.Json;
+﻿using ExpenseTracker.Enums;
 using ExpenseTracker.Models;
-
+using ExpenseTracker.Service;
+using System.Text.Json;
 namespace ExpenseTracker.Repository
 {
     /// <summary>
@@ -12,6 +13,7 @@ namespace ExpenseTracker.Repository
     {
         private string _filepath = string.Empty;
         private TransactionData _data = new ();
+        private TransactionEventManager _eventManager = new ();
 
         /// <summary>
         /// Sets the filepath
@@ -82,21 +84,25 @@ namespace ExpenseTracker.Repository
         }
 
         /// <summary>
+        /// Recalculates the current balance based on total income
+        /// and total expenses.
+        /// </summary>
+        //public void UpdateSummary(int totalIncome, int totalExpense, int balance)
+        //{
+        //    TransactionSummary.TotalIncome = totalIncome;
+        //    TransactionSummary.TotalExpense = totalExpense;
+        //    TransactionSummary.Balance = balance;
+        //}
+
+        /// <summary>
         /// Updates the current balance.
         /// </summary>
         /// <param name="newBalance">The recalculated balance.</param>
-<<<<<<< HEAD
         public void UpdateBalance(int newBalance)
         {
             this._data.Balance = newBalance;
             this.WriteDataIntoFile();
         }
-=======
-        //public void UpdateBalance(int newBalance)
-        //{
-        //    this.Balance = newBalance;
-        //}
->>>>>>> feature-user-27039-Lakshmi-Assignments-Assignment4-ExpenseTracker
 
         /// <summary>
         /// Updates an existing income record with new values.
