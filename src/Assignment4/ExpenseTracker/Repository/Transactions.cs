@@ -85,11 +85,18 @@ namespace ExpenseTracker.Repository
         /// Updates the current balance.
         /// </summary>
         /// <param name="newBalance">The recalculated balance.</param>
+<<<<<<< HEAD
         public void UpdateBalance(int newBalance)
         {
             this._data.Balance = newBalance;
             this.WriteDataIntoFile();
         }
+=======
+        //public void UpdateBalance(int newBalance)
+        //{
+        //    this.Balance = newBalance;
+        //}
+>>>>>>> feature-user-27039-Lakshmi-Assignments-Assignment4-ExpenseTracker
 
         /// <summary>
         /// Updates an existing income record with new values.
