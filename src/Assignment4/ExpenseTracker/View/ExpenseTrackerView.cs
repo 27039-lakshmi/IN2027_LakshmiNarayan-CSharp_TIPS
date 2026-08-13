@@ -374,11 +374,11 @@ namespace ExpenseTracker.View
                 return;
             }
 
-            var transactionSummary = this._transactionService.GetSummary();
+            var (totalIncome, totalExpense, balance) = this._transactionService.GetSummary();
             Console.WriteLine("\nYour summary\n" +
-                             $"Total Income : {transactionSummary.TotalIncome}\n" +
-                             $"Total Expense : {transactionSummary.TotalExpense}\n" +
-                             $"Current Balance : {transactionSummary.Balance}");
+                             $"Total Income : {totalIncome}\n" +
+                             $"Total Expense : {totalExpense}\n" +
+                             $"Current Balance : {balance}");
         }
 
         /// <summary>

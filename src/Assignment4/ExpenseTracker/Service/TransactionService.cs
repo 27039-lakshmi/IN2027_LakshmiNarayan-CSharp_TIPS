@@ -13,7 +13,6 @@ namespace ExpenseTracker.Service
     {
         private readonly Transactions _transactions;
         private readonly TransactionEventManager _eventManager;
-        private readonly TransactionSummary _transactionSummary = new ();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TransactionService"/> class
@@ -81,9 +80,9 @@ namespace ExpenseTracker.Service
         /// </summary>
         public void RecalculateSummary()
         {
-            this._transactionSummary.TotalIncome = this.GetTotal(TransactionType.Income);
-            this._transactionSummary.TotalExpense = this.GetTotal(TransactionType.Expense);
-            this._transactionSummary.Balance = this._transactionSummary.TotalIncome - this._transactionSummary.TotalExpense;
+            TransactionSummary.TotalIncome = this.GetTotal(TransactionType.Income);
+            TransactionSummary.TotalExpense = this.GetTotal(TransactionType.Expense);
+            TransactionSummary.Balance = TransactionSummary.TotalIncome - TransactionSummary.TotalExpense;
         }
 
         /// <summary>
@@ -264,16 +263,16 @@ namespace ExpenseTracker.Service
         /// </returns>
         public int GetBalance()
         {
-            return this._transactionSummary.Balance;
+            return TransactionSummary.Balance;
         }
 
         /// <summary>
         /// Gets the transaction summary
         /// </summary>
         /// <returns> The transaction summary </returns>
-        public TransactionSummary GetSummary()
+        public (int, int, int) GetSummary()
         {
-            return this._transactionSummary;
+            return (TransactionSummary.TotalIncome, TransactionSummary.TotalExpense, TransactionSummary.Balance);
         }
     }
 }
