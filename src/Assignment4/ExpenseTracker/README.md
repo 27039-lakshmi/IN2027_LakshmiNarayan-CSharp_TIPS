@@ -1,6 +1,8 @@
 # Expense Tracker
 
-A simple C# console-based Expense Tracker application that allows users to manage income and expense transactions, view transaction history, and monitor their financial summary.
+A simple C# console-based Expense Tracker application that allows users to manage income and expense transactions, view transaction history, monitor their financial summary, and persist data using file storage.
+
+---
 
 ## Features
 
@@ -16,6 +18,9 @@ A simple C# console-based Expense Tracker application that allows users to manag
 - Automatic Balance Calculation
 - Input Validation
 - Event-Driven Balance Updates
+- File-Based Data Persistence
+
+---
 
 ## Project Structure
 
@@ -25,10 +30,11 @@ ExpenseTracker
 ├── Models
 │   ├── Transaction.cs
 │   ├── Income.cs
-│   └── Expense.cs
+│   ├── Expense.cs
+│   └── TransactionSummary.cs
 │
 ├── Repository
-│   └── Transactions.cs
+│   └── TransactionFileRepository.cs
 │
 ├── Service
 │   ├── TransactionService.cs
@@ -38,7 +44,8 @@ ExpenseTracker
 │   └── ExpenseTrackerView.cs
 │
 ├── Helper
-│   └── Validator.cs
+│   ├── Validator.cs
+│   └── FileHandler.cs
 │
 ├── Enums
 │   ├── MenuOption.cs
@@ -48,15 +55,24 @@ ExpenseTracker
 │   ├── ViewOption.cs
 │   └── TransactionType.cs
 │
+├── Data
+│   └── Transactions.json
+│
 └── Program.cs
 ```
+
+---
 
 ## Technologies Used
 
 - C#
-- .NET
+- .NET 6
 - Object-Oriented Programming (OOP)
 - Event-Driven Programming
+- JSON Serialization
+- File Handling
+
+---
 
 ## Design Overview
 
@@ -67,24 +83,25 @@ Represents the application entities.
 - `Transaction` - Base class for all transactions.
 - `Income` - Represents an income transaction.
 - `Expense` - Represents an expense transaction.
+- `TransactionSummary` - Maintains total income, total expense, and current balance.
 
 ### Repository Layer
 
-`Transactions` stores and manages transaction records.
+`TransactionFileRepository` stores and manages transaction records using a JSON file.
 
-Responsibilities:
+**Responsibilities:**
 
-- Add records
-- Update records
-- Delete records
-- Retrieve records
-- Maintain balance
+- Load transactions from file
+- Save transactions to file
+- Update transaction records
+- Delete transaction records
+- Persist transaction data between application runs
 
 ### Service Layer
 
 `TransactionService` contains the business logic.
 
-Responsibilities:
+**Responsibilities:**
 
 - Add transactions
 - Update transactions
@@ -95,7 +112,7 @@ Responsibilities:
 
 ### Event Manager
 
-`TransactionEventManager` notifies subscribers whenever a transaction changes.
+`TransactionEventManager` notifies subscribers whenever transaction data changes.
 
 Whenever a transaction is:
 
@@ -103,7 +120,7 @@ Whenever a transaction is:
 - Updated
 - Deleted
 
-the balance is automatically recalculated.
+the transaction summary is automatically recalculated.
 
 ### View Layer
 
@@ -122,6 +139,17 @@ the balance is automatically recalculated.
 - Text input
 - Date input
 - Menu selections
+
+### File Storage
+
+All transaction data is stored in a JSON file. This allows the application to retain records even after it is closed and reopened.
+
+Benefits include:
+
+- Persistent storage
+- Lightweight implementation
+- Easy maintenance
+- No database dependency
 
 ---
 
@@ -143,10 +171,10 @@ the balance is automatically recalculated.
 ### Add Income
 
 ```text
-1.Add income
-2.Add expense
-Enter your choice
+1. Add Income
+2. Add Expense
 
+Enter your choice:
 1
 
 Choose your option
@@ -155,10 +183,10 @@ Choose your option
 
 2
 
-Enter income amount
+Enter income amount:
 25000
 
-Enter income source
+Enter income source:
 Salary
 
 Income added successfully.
@@ -178,8 +206,8 @@ Source: Salary
 ```text
 Your Summary
 
-Total Income : 28000
-Total Expense : 5000
+Total Income    : 28000
+Total Expense   : 5000
 Current Balance : 23000
 ```
 
@@ -213,29 +241,4 @@ Add / Edit / Delete Transaction
 Raise TransactionChanged Event
                 |
                 v
-Recalculate Balance
-                |
-                v
-Update Repository Balance
-```
-
----
-
-## Future Improvements
-
-- Data persistence using files or database
-- Monthly reports
-- Filtering by date range
-- Search functionality
-- Unit testing
-- Dependency Injection
-- Generic transaction management
-- Export transactions to CSV/Excel
-
----
-
-## Author
-
-Lakshmi Narayan Rajkumar
-
-Console-based Expense Tracker developed using C# and .NET.
+Recalculate
