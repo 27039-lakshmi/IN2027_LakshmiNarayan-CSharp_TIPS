@@ -1,7 +1,8 @@
-﻿using ExpenseTracker.Enums;
+﻿using System.Text.Json;
+using ExpenseTracker.Enums;
 using ExpenseTracker.Models;
 using ExpenseTracker.Service;
-using System.Text.Json;
+
 namespace ExpenseTracker.Repository
 {
     /// <summary>
@@ -82,17 +83,6 @@ namespace ExpenseTracker.Repository
         {
             return this._data.Balance;
         }
-
-        /// <summary>
-        /// Recalculates the current balance based on total income
-        /// and total expenses.
-        /// </summary>
-        //public void UpdateSummary(int totalIncome, int totalExpense, int balance)
-        //{
-        //    TransactionSummary.TotalIncome = totalIncome;
-        //    TransactionSummary.TotalExpense = totalExpense;
-        //    TransactionSummary.Balance = balance;
-        //}
 
         /// <summary>
         /// Updates the current balance.
