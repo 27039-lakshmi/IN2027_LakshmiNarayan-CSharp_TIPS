@@ -169,6 +169,9 @@ namespace InventoryManager.View
             }
         }
 
+        /// <summary>
+        /// Displays all the products from inventory
+        /// </summary>
         private static void ListAllProducts()
         {
             if (InventoryService.IsInventoryEmpty())
@@ -182,7 +185,7 @@ namespace InventoryManager.View
         }
 
         /// <summary>
-        /// Collects and validates product details entered by the user.
+        /// Collects product details entered by the user.
         /// </summary>
         /// <returns>
         /// <param name="operation">
@@ -211,12 +214,11 @@ namespace InventoryManager.View
         /// </returns>
         private static (Product productDetails, bool isSuccess) GetProductDetails(ProductOperation operation)
         {
-            const string EmptyString = "";
-            var failureResult = (new Product(EmptyString, EmptyString, 0, 0), false);
+            var failureResult = (new Product(string.Empty, string.Empty, 0, 0), false);
 
             string productId = GetProductId();
 
-            if (string.IsNullOrWhiteSpace(productId))
+            if (Validators.IsValidString(productId))
             {
                 Console.WriteLine(Messages.NullErrorMessage);
                 return failureResult;
@@ -235,7 +237,7 @@ namespace InventoryManager.View
 
             string productName = GetProductName();
 
-            if (string.IsNullOrWhiteSpace(productName))
+            if (Validators.IsValidString(productName))
             {
                 Console.WriteLine(Messages.NullErrorMessage);
                 return failureResult;
@@ -296,14 +298,11 @@ namespace InventoryManager.View
         {
             Console.WriteLine(message);
             string productPriceInput = Console.ReadLine() ?? string.Empty;
-            if (!Validators.IsPriceValid(productPriceInput))
+            if (!Validators.IsPriceValid(productPriceInput, out value))
             {
                 Console.WriteLine(Messages.PositiveInputErrorMessage);
-                value = 0;
                 return false;
             }
-
-            value = decimal.Parse(productPriceInput);
             return true;
         }
 

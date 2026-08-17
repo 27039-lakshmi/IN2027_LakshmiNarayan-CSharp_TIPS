@@ -16,9 +16,9 @@
         /// <c>true</c> if the value can be parsed as a decimal
         /// and is greater than zero; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsPriceValid(string value)
+        public static bool IsPriceValid(string value, out decimal decimalValue)
         {
-            return decimal.TryParse(value, out decimal decimalValue) && decimalValue > 0;
+            return decimal.TryParse(value, out decimalValue) && decimalValue > 0;
         }
 
         /// <summary>
@@ -36,6 +36,11 @@
         public static bool IsQuantityValid(string value)
         {
             return int.TryParse(value, out int intValue) && intValue >= 0;
+        }
+
+        public static bool IsValidString(string value)
+        {
+            return string.IsNullOrWhiteSpace(value);
         }
     }
 }
