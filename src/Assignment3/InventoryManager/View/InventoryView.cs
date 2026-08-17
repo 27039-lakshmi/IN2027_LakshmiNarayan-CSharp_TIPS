@@ -303,6 +303,7 @@ namespace InventoryManager.View
                 Console.WriteLine(Messages.PositiveInputErrorMessage);
                 return false;
             }
+
             return true;
         }
 
@@ -324,14 +325,12 @@ namespace InventoryManager.View
         {
             Console.WriteLine(message);
             string productQuantityInput = Console.ReadLine() ?? string.Empty;
-            if (!Validators.IsQuantityValid(productQuantityInput))
+            if (!Validators.IsQuantityValid(productQuantityInput, out value))
             {
                 Console.WriteLine(Messages.PositiveInputErrorMessage);
-                value = 0;
                 return false;
             }
 
-            value = int.Parse(productQuantityInput);
             return true;
         }
 
