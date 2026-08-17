@@ -104,9 +104,6 @@ namespace InventoryManager.Services
         /// <summary>
         /// Determines whether the inventory contains any products.
         /// </summary>
-        /// <param name="message">
-        /// Returns a message indicating that the inventory is empty.
-        /// </param>
         /// <returns>
         /// <c>true</c> if the inventory contains no products;
         /// otherwise, <c>false</c>.

@@ -128,7 +128,7 @@ The application validates:
 - Product ID cannot be empty
 - Product ID must be unique
 - Product Price must be a positive integer
-- Product Quantity must be a positive integer
+- Product Quantity must not be a negative integer
 
 ---
 
@@ -151,15 +151,3 @@ The application validates:
 - Collections (List<T>)
 - Resource Files (.resx)
 - Object-Oriented Programming (OOP)
-
----
-
-## Future Enhancements
-
-- File-based data persistence
-- Database integration (SQL Server)
-- Product category management
-- Inventory stock alerts
-- Sorting and filtering products
-- Unit testing using NUnit/xUnit
-- Dependency Injection support

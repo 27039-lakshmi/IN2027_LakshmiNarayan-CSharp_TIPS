@@ -18,17 +18,7 @@
         /// </returns>
         public static bool IsPriceValid(string value)
         {
-            if (decimal.TryParse(value, out decimal decimalValue))
-            {
-                if (decimalValue > 0)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-
-            return false;
+            return decimal.TryParse(value, out decimal decimalValue) && decimalValue > 0;
         }
 
         /// <summary>
@@ -45,17 +35,7 @@
         /// </returns>
         public static bool IsQuantityValid(string value)
         {
-            if (int.TryParse(value, out int intValue))
-            {
-                if (intValue >= 0)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-
-            return false;
+            return int.TryParse(value, out int intValue) && intValue >= 0;
         }
     }
 }
