@@ -79,7 +79,6 @@ namespace ExpenseTracker.View
                 case MenuOption.View:
                     this.DisplayViewMenu();
                     break;
-
                 case MenuOption.Summary:
                     this.ViewSummary();
                     break;
@@ -115,7 +114,7 @@ namespace ExpenseTracker.View
         /// </summary>
         public void AddExpense()
         {
-            Expense? newExpense = this.GetExpenseDetails();
+            var newExpense = this.GetExpenseDetails();
             if (newExpense != null)
             {
                 this._transactionService.AddTransaction(newExpense);
@@ -140,7 +139,7 @@ namespace ExpenseTracker.View
 
             Console.WriteLine("Enter income ID");
             string idToEdit = Console.ReadLine() ?? string.Empty;
-            Income? existingIncome = this._transactionService.GetExistingIncome(idToEdit);
+            var existingIncome = this._transactionService.GetExistingIncome(idToEdit);
             if (existingIncome == null)
             {
                 WriteColored("No matching income found\nCouldn't update the income", ConsoleColor.Red);
