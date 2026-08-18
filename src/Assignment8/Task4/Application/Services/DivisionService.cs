@@ -1,4 +1,4 @@
-﻿namespace Task2.Application.Services
+﻿namespace Task4.Application.Services
 {
     /// <summary>
     /// Provides functionality for performing division operations.
