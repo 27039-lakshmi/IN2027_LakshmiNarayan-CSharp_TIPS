@@ -83,6 +83,7 @@ namespace ExpenseTracker.Service
             TransactionSummary.TotalIncome = this.GetTotal(TransactionType.Income);
             TransactionSummary.TotalExpense = this.GetTotal(TransactionType.Expense);
             TransactionSummary.Balance = TransactionSummary.TotalIncome - TransactionSummary.TotalExpense;
+            this._transactions.UpdateBalance(TransactionSummary.Balance);
         }
 
         /// <summary>
