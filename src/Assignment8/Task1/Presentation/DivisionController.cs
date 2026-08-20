@@ -42,9 +42,11 @@ namespace Task1.Presentation
         {
             try
             {
+                Console.WriteLine("Task 1: Divide by zero exception");
+                Console.WriteLine("Dividing 10 by 5");
                 int result = this._dividor.DivideTwoNumbers(10, 5);
                 Console.WriteLine("Result : " + result);
-
+                Console.WriteLine("Dividing 10 by 0");
                 result = this._dividor.DivideTwoNumbers(10, 0);
                 Console.WriteLine("Result : " + result);
             }

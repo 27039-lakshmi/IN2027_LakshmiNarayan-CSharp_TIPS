@@ -47,7 +47,8 @@ namespace Task4.Presentation
             {
                 try
                 {
-                    Console.WriteLine("Enter input");
+                    Console.WriteLine("Task 3: Throw custom exception");
+                    Console.WriteLine("Enter input as null to execute custom exception");
                     string? userInput = Console.ReadLine();
 
                     if (string.IsNullOrWhiteSpace(userInput))
@@ -56,19 +57,22 @@ namespace Task4.Presentation
                             "User input should not be null");
                     }
 
-                    AppDomain.CurrentDomain.UnhandledException += this.OnUnhandledException;
-
-                    this.ConvertStringToInt();
-
                     int[] arr = new int[] { 1, 2, 3, 0 };
 
-                    // Index out of range exception
-                    int result = this._dividor.DivideTwoNumbers(arr[0], arr[10]);
-                    Console.WriteLine("Result : " + result);
+                    Console.WriteLine("Task 1: Divide by zero exception");
+                    Console.WriteLine("Enter dividor ");
+                    if (int.TryParse(Console.ReadLine(), out int inputNum))
+                    {
+                        int result = this._dividor.DivideTwoNumbers(10, inputNum);
+                        Console.WriteLine("Result : " + result);
+                    }
 
-                    // Divide by zero exception
-                    result = this._dividor.DivideTwoNumbers(arr[0], arr[3]);
-                    Console.WriteLine("Result : " + result);
+                    Console.WriteLine("Task 4: Use appdomain for unhandle exception.");
+                    Console.WriteLine("Enter a string to get exception");
+                    AppDomain.CurrentDomain.UnhandledException += this.OnUnhandledException;
+                    this.ConvertStringToInt();
+                    Console.WriteLine("Task 2: Index out of range exception");
+                    Console.WriteLine(arr[10]);
                 }
                 catch (DivideByZeroException)
                 {

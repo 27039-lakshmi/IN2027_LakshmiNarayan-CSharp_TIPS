@@ -45,8 +45,8 @@ namespace Task5.Presentation
             {
                 try
                 {
-                    Console.WriteLine("Enter input");
-
+                    Console.WriteLine("Task 3: Throw custom exception");
+                    Console.WriteLine("Enter input as null to execute custom exception");
                     string? userInput = Console.ReadLine();
 
                     if (string.IsNullOrWhiteSpace(userInput))
@@ -55,20 +55,23 @@ namespace Task5.Presentation
                             "User input should not be null");
                     }
 
-                    AppDomain.CurrentDomain.UnhandledException +=
-                        this.OnUnhandledException;
-
-                    this.ConvertStringToInt();
-
                     int[] arr = new int[] { 1, 2, 3, 0 };
 
-                    // Index out of range exception
-                    int result = this._dividor.DivideTwoNumbers(arr[0], arr[10]);
-                    Console.WriteLine("Result : " + result);
+                    Console.WriteLine("Task 1: Divide by zero exception");
+                    Console.WriteLine("Enter dividor ");
+                    if (int.TryParse(Console.ReadLine(), out int inputNum))
+                    {
+                        int result = this._dividor.DivideTwoNumbers(10, inputNum);
+                        Console.WriteLine("Result : " + result);
+                    }
 
-                    // Divide by zero exception
-                    result = this._dividor.DivideTwoNumbers(arr[0], arr[3]);
-                    Console.WriteLine("Result : " + result);
+                    Console.WriteLine("Task 4: Use appdomain for unhandle exception.");
+                    Console.WriteLine("Enter a string to get exception");
+                    string input = Console.ReadLine() ?? string.Empty;
+                    AppDomain.CurrentDomain.UnhandledException += this.OnUnhandledException;
+                    this.ConvertStringToInt(input);
+                    Console.WriteLine("Task 2: Index out of range exception");
+                    Console.WriteLine(arr[10]);
                 }
                 catch (DivideByZeroException)
                 {
@@ -93,14 +96,15 @@ namespace Task5.Presentation
         /// <summary>
         /// Attempts to convert a string value to an integer.
         /// </summary>
+        /// <param name="input"> input string for converting string to int</param>
         /// <remarks>
         /// This method intentionally throws a
         /// <see cref="FormatException"/> because the string
         /// "Hello" cannot be converted to an integer.
         /// </remarks>
-        public void ConvertStringToInt()
+        public void ConvertStringToInt(string input)
         {
-            int a = int.Parse("Hello");
+            int a = int.Parse(input);
         }
 
         /// <summary>
