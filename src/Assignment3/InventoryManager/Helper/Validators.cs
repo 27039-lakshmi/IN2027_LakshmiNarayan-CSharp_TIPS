@@ -3,7 +3,7 @@
     /// <summary>
     /// Provides validation helper methods used throughout the inventory system.
     /// </summary>
-    public static class Validators
+    public class Validators
     {
         /// <summary>
         /// Validates whether the specified value represents
@@ -19,7 +19,7 @@
         /// <c>true</c> if the value can be parsed as a decimal
         /// and is greater than zero; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsPriceValid(string value, out decimal decimalValue)
+        public bool IsPriceValid(string value, out decimal decimalValue)
         {
             return decimal.TryParse(value, out decimalValue) && decimalValue > 0;
         }
@@ -39,7 +39,7 @@
         /// and is greater than or equal to zero; otherwise,
         /// <c>false</c>.
         /// </returns>
-        public static bool IsQuantityValid(string value, out int intValue)
+        public bool IsQuantityValid(string value, out int intValue)
         {
             return int.TryParse(value, out intValue) && intValue >= 0;
         }
@@ -54,7 +54,7 @@
         /// <c>true</c> if the value is neither null nor whitespace; otherwise,
         /// <c>false</c>.
         /// </returns>
-        public static bool IsValidString(string value)
+        public bool IsValidString(string value)
         {
             return string.IsNullOrWhiteSpace(value);
         }

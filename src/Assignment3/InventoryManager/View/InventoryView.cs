@@ -8,18 +8,23 @@ namespace InventoryManager.View
     /// Handles all user interactions related to inventory management,
     /// including displaying menus, reading user input, and showing product information.
     /// </summary>
-    public static class InventoryView
+    public class InventoryView
     {
         /// <summary>
         /// Provides inventory operations such as add, update, search, and delete.
         /// </summary>
-        private static readonly InventoryService InventoryService = new ();
+        private readonly InventoryService _inventoryService = new ();
+
+        /// <summary>
+        /// Provides validation operations for price, quantity, string.
+        /// </summary>
+        private readonly Validators _validators = new ();
 
         /// <summary>
         /// Starts the inventory management user interface and displays the menu
         /// until the user chooses to exit the application.
         /// </summary>
-        public static void Start()
+        public void Start()
         {
             int userChoice;
 
@@ -29,7 +34,7 @@ namespace InventoryManager.View
 
                 if (int.TryParse(Console.ReadLine(), out userChoice))
                 {
-                    HandleMenuOptions((MenuOption)userChoice);
+                    this.HandleMenuOptions((MenuOption)userChoice);
                 }
                 else
                 {
@@ -46,28 +51,28 @@ namespace InventoryManager.View
         /// <param name="option">
         /// The menu option selected by the user.
         /// </param>
-        private static void HandleMenuOptions(MenuOption option)
+        private void HandleMenuOptions(MenuOption option)
         {
             switch (option)
             {
                 case MenuOption.AddProduct:
-                    AddProduct();
+                    this.AddProduct();
                     break;
 
                 case MenuOption.EditProduct:
-                    EditProduct();
+                    this.EditProduct();
                     break;
 
                 case MenuOption.SearchProduct:
-                    SearchProduct();
+                    this.SearchProduct();
                     break;
 
                 case MenuOption.ListAllProducts:
-                    ListAllProducts();
+                    this.ListAllProducts();
                     break;
 
                 case MenuOption.DeleteProduct:
-                    DeleteProduct();
+                    this.DeleteProduct();
                     break;
 
                 case MenuOption.Exit:
@@ -84,13 +89,13 @@ namespace InventoryManager.View
         /// Collects product details from the user and adds the product
         /// to the inventory if validation succeeds.
         /// </summary>
-        private static void AddProduct()
+        private void AddProduct()
         {
-            (Product productDetails, bool isDetailsValid) = GetProductDetails(ProductOperation.Add);
+            (Product productDetails, bool isDetailsValid) = this.GetProductDetails(ProductOperation.Add);
 
             if (isDetailsValid)
             {
-                InventoryService.AddProduct(productDetails);
+                this._inventoryService.AddProduct(productDetails);
 
                 Console.WriteLine(Messages.AddSuccessMessage);
             }
@@ -100,9 +105,9 @@ namespace InventoryManager.View
         /// Collects updated product information from the user and updates
         /// an existing product in the inventory.
         /// </summary>
-        private static void EditProduct()
+        private void EditProduct()
         {
-            if (InventoryService.IsInventoryEmpty())
+            if (this._inventoryService.IsInventoryEmpty())
             {
                 Console.WriteLine(Messages.InventoryEmptyMessage);
                 return;
@@ -110,10 +115,10 @@ namespace InventoryManager.View
 
             Console.WriteLine(Messages.ProductEditDetailsMessage);
 
-            (Product newProduct, bool isDetailsValid) = GetProductDetails(ProductOperation.Update);
+            (Product newProduct, bool isDetailsValid) = this.GetProductDetails(ProductOperation.Update);
             if (isDetailsValid)
             {
-                InventoryService.UpdateProduct(newProduct);
+                this._inventoryService.UpdateProduct(newProduct);
                 Console.WriteLine(Messages.UpdateSuccessMessage);
             }
         }
@@ -121,22 +126,22 @@ namespace InventoryManager.View
         /// <summary>
         /// Searches for products by name and displays all matching products.
         /// </summary>
-        private static void SearchProduct()
+        private void SearchProduct()
         {
-            if (InventoryService.IsInventoryEmpty())
+            if (this._inventoryService.IsInventoryEmpty())
             {
                 Console.WriteLine(Messages.InventoryEmptyMessage);
                 return;
             }
 
-            string productNameToSearch = GetProductName();
+            string productNameToSearch = this.GetProductName();
 
             var productsMatched =
-                InventoryService.ListProductsByName(productNameToSearch);
+                this._inventoryService.ListProductsByName(productNameToSearch);
 
             if (productsMatched.Any())
             {
-                DisplayProducts(productsMatched);
+                this.DisplayProducts(productsMatched);
             }
             else
             {
@@ -147,17 +152,17 @@ namespace InventoryManager.View
         /// <summary>
         /// Deletes a product from the inventory using the provided product ID.
         /// </summary>
-        private static void DeleteProduct()
+        private void DeleteProduct()
         {
-            if (InventoryService.IsInventoryEmpty())
+            if (this._inventoryService.IsInventoryEmpty())
             {
                 Console.WriteLine(Messages.InventoryEmptyMessage);
                 return;
             }
 
-            string productIdToDelete = GetProductId();
+            string productIdToDelete = this.GetProductId();
 
-            bool deleteStatus = InventoryService.DeleteProduct(productIdToDelete);
+            bool deleteStatus = this._inventoryService.DeleteProduct(productIdToDelete);
 
             if (deleteStatus)
             {
@@ -172,16 +177,16 @@ namespace InventoryManager.View
         /// <summary>
         /// Displays all the products from inventory
         /// </summary>
-        private static void ListAllProducts()
+        private void ListAllProducts()
         {
-            if (InventoryService.IsInventoryEmpty())
+            if (this._inventoryService.IsInventoryEmpty())
             {
                 Console.WriteLine(Messages.InventoryEmptyMessage);
                 return;
             }
 
-            var allProducts = InventoryService.ListAllProducts();
-            DisplayProducts(allProducts);
+            var allProducts = this._inventoryService.ListAllProducts();
+            this.DisplayProducts(allProducts);
         }
 
         /// <summary>
@@ -212,43 +217,43 @@ namespace InventoryManager.View
         /// </list>
         /// Returns empty strings and zero values when validation fails.
         /// </returns>
-        private static (Product productDetails, bool isSuccess) GetProductDetails(ProductOperation operation)
+        private (Product productDetails, bool isSuccess) GetProductDetails(ProductOperation operation)
         {
             var failureResult = (new Product(string.Empty, string.Empty, 0, 0), false);
 
-            string productId = GetProductId();
+            string productId = this.GetProductId();
 
-            if (Validators.IsValidString(productId))
+            if (this._validators.IsValidString(productId))
             {
                 Console.WriteLine(Messages.NullErrorMessage);
                 return failureResult;
             }
 
-            if (operation == ProductOperation.Add && InventoryService.DoesProductIdExist(productId))
+            if (operation == ProductOperation.Add && this._inventoryService.DoesProductIdExist(productId))
             {
                 Console.WriteLine(Messages.DuplicateIdMessage);
                 return failureResult;
             }
-            else if (operation == ProductOperation.Update && !InventoryService.DoesProductIdExist(productId))
+            else if (operation == ProductOperation.Update && !this._inventoryService.DoesProductIdExist(productId))
             {
                 Console.WriteLine(Messages.ProductIdNotExist);
                 return failureResult;
             }
 
-            string productName = GetProductName();
+            string productName = this.GetProductName();
 
-            if (Validators.IsValidString(productName))
+            if (this._validators.IsValidString(productName))
             {
                 Console.WriteLine(Messages.NullErrorMessage);
                 return failureResult;
             }
 
-            if (!GetProductPriceInput(Messages.ProductPriceMessage, out decimal productPrice))
+            if (!this.GetProductPriceInput(Messages.ProductPriceMessage, out decimal productPrice))
             {
                 return failureResult;
             }
 
-            if (!GetProductQuantityInput(Messages.ProductQuantityMessage, out int productQuantity))
+            if (!this.GetProductQuantityInput(Messages.ProductQuantityMessage, out int productQuantity))
             {
                 return failureResult;
             }
@@ -260,7 +265,7 @@ namespace InventoryManager.View
         /// Prompts the user to enter a product ID.
         /// </summary>
         /// <returns>The product ID entered by the user.</returns>
-        private static string GetProductId()
+        private string GetProductId()
         {
             Console.WriteLine(Messages.ProductIdMessage);
             string productId = Console.ReadLine() ?? string.Empty;
@@ -272,7 +277,7 @@ namespace InventoryManager.View
         /// Prompts the user to enter a product name.
         /// </summary>
         /// <returns>The product name entered by the user.</returns>
-        private static string GetProductName()
+        private string GetProductName()
         {
             Console.WriteLine(Messages.ProductNameMessage);
             string productName = Console.ReadLine() ?? string.Empty;
@@ -294,11 +299,11 @@ namespace InventoryManager.View
         /// <c>true</c> if a valid non-negative decimal was entered;
         /// otherwise, <c>false</c>.
         /// </returns>
-        private static bool GetProductPriceInput(string message, out decimal value)
+        private bool GetProductPriceInput(string message, out decimal value)
         {
             Console.WriteLine(message);
             string productPriceInput = Console.ReadLine() ?? string.Empty;
-            if (!Validators.IsPriceValid(productPriceInput, out value))
+            if (!this._validators.IsPriceValid(productPriceInput, out value))
             {
                 Console.WriteLine(Messages.PositiveInputErrorMessage);
                 return false;
@@ -321,11 +326,11 @@ namespace InventoryManager.View
         /// <c>true</c> if a valid non-negative integer was entered;
         /// otherwise, <c>false</c>.
         /// </returns>
-        private static bool GetProductQuantityInput(string message, out int value)
+        private bool GetProductQuantityInput(string message, out int value)
         {
             Console.WriteLine(message);
             string productQuantityInput = Console.ReadLine() ?? string.Empty;
-            if (!Validators.IsQuantityValid(productQuantityInput, out value))
+            if (!this._validators.IsQuantityValid(productQuantityInput, out value))
             {
                 Console.WriteLine(Messages.PositiveInputErrorMessage);
                 return false;
@@ -341,7 +346,7 @@ namespace InventoryManager.View
         /// <param name="products">
         /// The collection of products to display.
         /// </param>
-        private static void DisplayProducts(List<Product> products)
+        private void DisplayProducts(List<Product> products)
         {
             foreach (Product product in products)
             {

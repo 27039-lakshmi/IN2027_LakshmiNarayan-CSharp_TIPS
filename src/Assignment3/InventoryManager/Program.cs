@@ -20,7 +20,8 @@ namespace Assignments
         {
             try
             {
-                InventoryView.Start();
+                InventoryView view = new InventoryView();
+                view.Start();
             }
             catch (Exception ex)
             {

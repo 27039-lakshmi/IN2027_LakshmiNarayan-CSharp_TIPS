@@ -6,12 +6,12 @@ namespace InventoryManager.Repository
     /// Represents an in-memory inventory repository that stores and manages products.
     /// Provides methods to add, retrieve, update, remove, and count products.
     /// </summary>
-    public static class Inventory
+    public class Inventory
     {
         /// <summary>
         /// Stores the collection of products in the inventory.
         /// </summary>
-        private static List<Product> _inventory = new ();
+        private List<Product> _inventory = new ();
 
         /// <summary>
         /// Adds a product to the inventory.
@@ -19,9 +19,9 @@ namespace InventoryManager.Repository
         /// <param name="product">
         /// The product to be added.
         /// </param>
-        public static void Add(Product product)
+        public void Add(Product product)
         {
-            _inventory.Add(product);
+            this._inventory.Add(product);
         }
 
         /// <summary>
@@ -33,9 +33,9 @@ namespace InventoryManager.Repository
         /// <returns>
         /// The matching product if found; otherwise, <c>null</c>.
         /// </returns>
-        public static Product? GetById(string id)
+        public Product? GetById(string id)
         {
-            return _inventory.Find(p => p.Id == id);
+            return this._inventory.Find(p => p.Id == id);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace InventoryManager.Repository
         /// <param name="newProduct">
         /// The product containing the new values.
         /// </param>
-        public static void Update(Product oldProduct, Product newProduct)
+        public void Update(Product oldProduct, Product newProduct)
         {
             oldProduct.Name = newProduct.Name;
             oldProduct.Price = newProduct.Price;
@@ -60,9 +60,9 @@ namespace InventoryManager.Repository
         /// <param name="product">
         /// The product to remove.
         /// </param>
-        public static void Remove(Product product)
+        public void Remove(Product product)
         {
-            _inventory.Remove(product);
+            this._inventory.Remove(product);
         }
 
         /// <summary>
@@ -71,9 +71,9 @@ namespace InventoryManager.Repository
         /// <returns>
         /// A list containing all products in the inventory.
         /// </returns>
-        public static List<Product> GetAllProducts()
+        public List<Product> GetAllProducts()
         {
-            return _inventory.ToList();
+            return this._inventory.ToList();
         }
 
         /// <summary>
@@ -82,9 +82,9 @@ namespace InventoryManager.Repository
         /// <returns>
         /// The number of products in the inventory.
         /// </returns>
-        public static int GetTotalProductsCount()
+        public int GetTotalProductsCount()
         {
-            return _inventory.Count;
+            return this._inventory.Count;
         }
     }
 }

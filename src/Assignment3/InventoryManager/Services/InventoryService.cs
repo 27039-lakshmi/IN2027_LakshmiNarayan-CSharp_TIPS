@@ -10,6 +10,11 @@ namespace InventoryManager.Services
     public class InventoryService
     {
         /// <summary>
+        /// Provides inventory repository along with CRUD operations.
+        /// </summary>
+        private readonly Inventory _inventoryRepo = new ();
+
+        /// <summary>
         /// Creates and adds a new product to the inventory.
         /// </summary>
         /// <param name="newProduct">
@@ -17,7 +22,7 @@ namespace InventoryManager.Services
         /// </param>
         public void AddProduct(Product newProduct)
         {
-            Inventory.Add(newProduct);
+            this._inventoryRepo.Add(newProduct);
         }
 
         /// <summary>
@@ -29,8 +34,8 @@ namespace InventoryManager.Services
         /// </param>
         public void UpdateProduct(Product newProduct)
         {
-            Product oldProduct = Inventory.GetById(newProduct.Id) !;
-            Inventory.Update(oldProduct, newProduct);
+            Product oldProduct = this._inventoryRepo.GetById(newProduct.Id) !;
+            this._inventoryRepo.Update(oldProduct, newProduct);
         }
 
         /// <summary>
@@ -45,11 +50,11 @@ namespace InventoryManager.Services
         /// </returns>
         public bool DeleteProduct(string productId)
         {
-            var product = Inventory.GetById(productId);
+            var product = this._inventoryRepo.GetById(productId);
 
             if (product != null)
             {
-                Inventory.Remove(product);
+                this._inventoryRepo.Remove(product);
                 return true;
             }
 
@@ -66,7 +71,7 @@ namespace InventoryManager.Services
         /// <returns>
         /// <c>true</c> if the product exists; otherwise, <c>false</c>.
         /// </returns>
-        public bool DoesProductIdExist(string productId) => Inventory.GetById(productId) != null;
+        public bool DoesProductIdExist(string productId) => this._inventoryRepo.GetById(productId) != null;
 
         /// <summary>
         /// Retrieves all products whose names match the specified value.
@@ -79,7 +84,7 @@ namespace InventoryManager.Services
         /// </returns>
         public List<Product> ListProductsByName(string productName)
         {
-            return Inventory.GetAllProducts().Where(product => product.Name.StartsWith(productName, StringComparison.OrdinalIgnoreCase)).ToList();
+            return this._inventoryRepo.GetAllProducts().Where(product => product.Name.StartsWith(productName, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
         /// <summary>
@@ -90,7 +95,7 @@ namespace InventoryManager.Services
         /// </returns>
         public List<Product> ListAllProducts()
         {
-            return Inventory.GetAllProducts();
+            return this._inventoryRepo.GetAllProducts();
         }
 
         /// <summary>
@@ -99,7 +104,7 @@ namespace InventoryManager.Services
         /// <returns>
         /// The product count.
         /// </returns>
-        public int GetProductsCount() => Inventory.GetTotalProductsCount();
+        public int GetProductsCount() => this._inventoryRepo.GetTotalProductsCount();
 
         /// <summary>
         /// Determines whether the inventory contains any products.
