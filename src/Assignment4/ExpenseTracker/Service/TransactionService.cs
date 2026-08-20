@@ -241,7 +241,7 @@ namespace ExpenseTracker.Service
         /// </returns>
         public bool IsIncomeEmpty()
         {
-            return this._transactions.GetIncomeRecords().Count == 0;
+            return !this._transactions.GetIncomeRecords().Any();
         }
 
         /// <summary>
@@ -252,7 +252,7 @@ namespace ExpenseTracker.Service
         /// </returns>
         public bool IsExpenseEmpty()
         {
-            return this._transactions.GetExpenseRecords().Count == 0;
+            return !this._transactions.GetExpenseRecords().Any();
         }
 
         /// <summary>

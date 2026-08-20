@@ -12,8 +12,6 @@ namespace ExpenseTracker.Repository
         private List<Income> _incomes = new List<Income>();
         private List<Expense> _expenses = new List<Expense>();
 
-        private int Balance { get; set; }
-
         /// <summary>
         /// Adds an income record.
         /// </summary>
@@ -30,15 +28,6 @@ namespace ExpenseTracker.Repository
         public void AddExpense(Expense expense)
         {
             this._expenses.Add(expense);
-        }
-
-        /// <summary>
-        /// Gets the current balance.
-        /// </summary>
-        /// <returns>The current balance.</returns>
-        public int GetBalance()
-        {
-            return this.Balance;
         }
 
         /// <summary>

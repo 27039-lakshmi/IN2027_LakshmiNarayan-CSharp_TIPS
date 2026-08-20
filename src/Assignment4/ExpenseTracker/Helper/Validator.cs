@@ -5,7 +5,7 @@ namespace ExpenseTracker.Helper
     /// <summary>
     /// Provides common validation methods used throughout the application.
     /// </summary>
-    public class Validator
+    public static class Validator
     {
         /// <summary>
         /// Validates that the input contains only letters and white spaces.
