@@ -8,7 +8,7 @@ namespace Task5.Presentation
     /// and demonstrating various exception handling mechanisms including custom exceptions,
     /// nested try-catch blocks, and application-level unhandled exception handling.
     /// </summary>
-    internal class Controller
+    public class Controller
     {
         /// <summary>
         /// Service used to perform division operations.
@@ -29,16 +29,6 @@ namespace Task5.Presentation
         /// <summary>
         /// Validates user input and demonstrates handling of different exception types.
         /// </summary>
-        /// <remarks>
-        /// This method demonstrates:
-        /// <list type="bullet">
-        /// <item><description>Custom exception handling using <see cref="InvalidUserInputException"/>.</description></item>
-        /// <item><description>Handling <see cref="DivideByZeroException"/>.</description></item>
-        /// <item><description>Handling <see cref="IndexOutOfRangeException"/>.</description></item>
-        /// <item><description>Registration of an AppDomain unhandled exception handler.</description></item>
-        /// <item><description>Execution of a finally block regardless of success or failure.</description></item>
-        /// </list>
-        /// </remarks>
         public void Start()
         {
             try
@@ -68,7 +58,6 @@ namespace Task5.Presentation
                     Console.WriteLine("Task 4: Use appdomain for unhandle exception.");
                     Console.WriteLine("Enter a string to get exception");
                     string input = Console.ReadLine() ?? string.Empty;
-                    AppDomain.CurrentDomain.UnhandledException += this.OnUnhandledException;
                     this.ConvertStringToInt(input);
                     Console.WriteLine("Task 2: Index out of range exception");
                     Console.WriteLine(arr[10]);

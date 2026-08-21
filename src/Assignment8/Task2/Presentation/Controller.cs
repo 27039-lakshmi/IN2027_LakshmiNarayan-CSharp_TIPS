@@ -7,7 +7,7 @@ namespace Task2.Presentation
     /// demonstrating exception handling scenarios such as
     /// divide-by-zero and array index access violations.
     /// </summary>
-    internal class Controller
+    public class Controller
     {
         /// <summary>
         /// Service used to perform division operations.
@@ -28,31 +28,6 @@ namespace Task2.Presentation
         /// <summary>
         /// Demonstrates nested exception handling for division and array access operations.
         /// </summary>
-        /// <remarks>
-        /// This method demonstrates:
-        /// <list type="bullet">
-        /// <item>
-        /// <description>
-        /// Handling <see cref="DivideByZeroException"/> when attempting division by zero.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <description>
-        /// Handling <see cref="IndexOutOfRangeException"/> when accessing an invalid array index.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <description>
-        /// Rethrowing exceptions with a custom message.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <description>
-        /// Executing cleanup code using a finally block.
-        /// </description>
-        /// </item>
-        /// </list>
-        /// </remarks>
         public void Start()
         {
             try

@@ -3,7 +3,7 @@
     /// <summary>
     /// Provides functionality for performing division operations.
     /// </summary>
-    internal class DivisionService
+    public class DivisionService
     {
         /// <summary>
         /// Divides one integer by another and returns the result.

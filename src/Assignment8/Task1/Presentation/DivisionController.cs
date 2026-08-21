@@ -7,7 +7,7 @@ namespace Task1.Presentation
     /// It invokes the <see cref="DivisionService"/> to perform division operations
     /// and manages exception handling and result display.
     /// </summary>
-    internal class DivisionController
+    public class DivisionController
     {
         /// <summary>
         /// Service used to perform division operations.
@@ -30,14 +30,6 @@ namespace Task1.Presentation
         /// Handles any <see cref="DivideByZeroException"/> that occurs when attempting
         /// to divide a number by zero.
         /// </summary>
-        /// <remarks>
-        /// This method demonstrates:
-        /// <list type="bullet">
-        /// <item><description>Calling a service method.</description></item>
-        /// <item><description>Exception handling using try-catch.</description></item>
-        /// <item><description>Execution of a finally block.</description></item>
-        /// </list>
-        /// </remarks>
         public void Divide()
         {
             try

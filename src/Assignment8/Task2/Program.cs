@@ -7,7 +7,7 @@ namespace Assignments
     /// Entry point of the application
     /// Its calls the controller
     /// </summary>
-    internal class Program
+    public class Program
     {
         private static void Main(string[] args)
         {

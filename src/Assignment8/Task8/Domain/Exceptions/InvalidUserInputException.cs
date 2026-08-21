@@ -4,7 +4,7 @@
     /// Represents an exception that is thrown when the user provides
     /// invalid, empty, or missing input.
     /// </summary>
-    internal class InvalidUserInputException : Exception
+    public class InvalidUserInputException : Exception
     {
         /// <summary>
         /// Initializes a new instance of the

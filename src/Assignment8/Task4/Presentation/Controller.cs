@@ -8,7 +8,7 @@ namespace Task4.Presentation
     /// and demonstrating various exception handling techniques including custom exceptions,
     /// nested try-catch blocks, and AppDomain-level unhandled exception handling.
     /// </summary>
-    internal class Controller
+    public class Controller
     {
         /// <summary>
         /// Service used to perform division operations.
@@ -31,16 +31,6 @@ namespace Task4.Presentation
         /// including custom exceptions, divide-by-zero exceptions, index-out-of-range
         /// exceptions, and unhandled exceptions.
         /// </summary>
-        /// <remarks>
-        /// The method demonstrates:
-        /// <list type="bullet">
-        /// <item><description>Custom exception handling using <see cref="InvalidUserInputException"/>.</description></item>
-        /// <item><description>Handling <see cref="DivideByZeroException"/>.</description></item>
-        /// <item><description>Handling <see cref="IndexOutOfRangeException"/>.</description></item>
-        /// <item><description>Registering an AppDomain unhandled exception handler.</description></item>
-        /// <item><description>Execution of a finally block regardless of exceptions.</description></item>
-        /// </list>
-        /// </remarks>
         public void Start()
         {
             try
@@ -69,7 +59,6 @@ namespace Task4.Presentation
 
                     Console.WriteLine("Task 4: Use appdomain for unhandle exception.");
                     Console.WriteLine("Enter a string to get exception");
-                    AppDomain.CurrentDomain.UnhandledException += this.OnUnhandledException;
                     this.ConvertStringToInt();
                     Console.WriteLine("Task 2: Index out of range exception");
                     Console.WriteLine(arr[10]);

@@ -29,39 +29,6 @@ namespace Task3.Presentation
         /// Reads user input and performs division operations while demonstrating
         /// multiple exception handling scenarios.
         /// </summary>
-        /// <remarks>
-        /// This method demonstrates:
-        /// <list type="bullet">
-        /// <item>
-        /// <description>
-        /// Throwing a custom <see cref="InvalidUserInputException"/>
-        /// when the user provides empty input.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <description>
-        /// Handling <see cref="DivideByZeroException"/> when division
-        /// is attempted with a divisor of zero.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <description>
-        /// Handling <see cref="IndexOutOfRangeException"/> when accessing
-        /// an array using an invalid index.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <description>
-        /// Using nested try-catch blocks for exception propagation.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <description>
-        /// Executing cleanup code through a finally block.
-        /// </description>
-        /// </item>
-        /// </list>
-        /// </remarks>
         public void Start()
         {
             try

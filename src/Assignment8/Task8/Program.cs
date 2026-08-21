@@ -7,12 +7,13 @@ namespace Assignments
     /// Entry point of the application
     /// Its calls the controller
     /// </summary>
-    internal class Program
+    public class Program
     {
         private static void Main(string[] args)
         {
             var dividor = new DivisionService();
             var controller = new Controller(dividor);
+            AppDomain.CurrentDomain.UnhandledException += controller.OnUnhandledException;
             controller.Start();
         }
     }
