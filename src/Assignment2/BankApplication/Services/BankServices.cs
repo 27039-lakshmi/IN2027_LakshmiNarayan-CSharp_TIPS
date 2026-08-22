@@ -9,48 +9,34 @@ namespace BankApplication.Services
     public static class BankServices
     {
         /// <summary>
-        /// Creates a savings account using the specified account number.
+        /// Creates a bank account using the specified account number.
         /// </summary>
         /// <param name="accountNumber">
         /// The account number used to create the savings account.
+        /// </param>
+        /// <param name="type">
+        /// The bank account type (Savings or Checking).
         /// </param>
         /// <returns>
         /// A <see cref="SavingsAccount"/> object if the account number is valid;
         /// otherwise, <c>null</c>.
         /// </returns>
-        public static SavingsAccount? CreateSavingsAccount(string accountNumber)
+        public static BankAccount? CreateAccount(string accountNumber, AccountType type)
         {
-            if (ValidateAccountNumber(accountNumber))
-            {
-                var savingsAccount = new SavingsAccount(accountNumber);
-                return savingsAccount;
-            }
-            else
+            if (!ValidateAccountNumber(accountNumber))
             {
                 return null;
             }
-        }
-
-        /// <summary>
-        /// Creates a checking account using the specified account number.
-        /// </summary>
-        /// <param name="accountNumber">
-        /// The account number used to create the checking account.
-        /// </param>
-        /// <returns>
-        /// A <see cref="CheckingAccount"/> object if the account number is valid;
-        /// otherwise, <c>null</c>.
-        /// </returns>
-        public static CheckingAccount? CreateCheckingAccount(string accountNumber)
-        {
-            if (ValidateAccountNumber(accountNumber))
-            {
-                var checkingAccount = new CheckingAccount(accountNumber);
-                return checkingAccount;
-            }
             else
             {
-                return null;
+                if (type == AccountType.Savings)
+                {
+                    return new SavingsAccount(accountNumber);
+                }
+                else
+                {
+                    return new CheckingAccount(accountNumber);
+                }
             }
         }
 

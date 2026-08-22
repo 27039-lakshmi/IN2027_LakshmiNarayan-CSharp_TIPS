@@ -37,7 +37,7 @@
                 $"Employee Name {this.Name} \n" +
                 $"Position Manager \n" +
                 $"Salary {this.Salary} \n" +
-                $"Bonus {this.CalculateBonus()}");
+                $"Bonus {this.CalculateBonus():F2}");
         }
     }
 }

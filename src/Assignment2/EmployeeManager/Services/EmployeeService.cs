@@ -9,25 +9,23 @@ namespace EmployeeManager.Services
     public static class EmployeeService
     {
         /// <summary>
-        /// Creates a Developer employee if the provided salary is valid.
+        /// Creates employee with type developer or manager
         /// </summary>
-        /// <param name="name">The name of the developer.</param>
-        /// <param name="salary">The salary of the developer.</param>
-        public static void CreateDeveloper(string name, string salary)
+        /// <param name="name">Name of the employee</param>
+        /// <param name="salary">Salary of the employee</param>
+        /// <param name="type">Whether he is a manager or developer</param>
+        public static void CreateEmployee(string name, string salary, EmployeeType type)
         {
-         var developer = new Developer(name, salary);
-         PrintDetails(developer);
-        }
-
-        /// <summary>
-        /// Creates a Manager employee if the provided salary is valid.
-        /// </summary>
-        /// <param name="name">The name of the manager.</param>
-        /// <param name="salary">The salary of the manager.</param>
-        public static void CreateManager(string name, string salary)
-        {
-            var manager = new Manager(name, salary);
-            PrintDetails(manager);
+            if (type == EmployeeType.Developer)
+            {
+                var developer = new Developer(name, salary);
+                PrintDetails(developer);
+            }
+            else
+            {
+                var manager = new Manager(name, salary);
+                PrintDetails(manager);
+            }
         }
 
         /// <summary>

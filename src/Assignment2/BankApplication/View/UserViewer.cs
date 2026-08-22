@@ -41,12 +41,12 @@ namespace BankApplication.View
                     switch (userChoice)
                     {
                         case "1":
-                            var savingsAccount = BankServices.CreateSavingsAccount(accountNumber);
+                            var savingsAccount = BankServices.CreateAccount(accountNumber, AccountType.Savings);
 
                             if (savingsAccount != null)
                             {
                                 Console.WriteLine("Savings Account Created");
-                                BankOperation(savingsAccount);
+                                PerformBankOperations(savingsAccount);
                             }
                             else
                             {
@@ -56,16 +56,16 @@ namespace BankApplication.View
                             break;
 
                         case "2":
-                            var checkingAccount = BankServices.CreateCheckingAccount(accountNumber);
+                            var checkingAccount = BankServices.CreateAccount(accountNumber, AccountType.Checking);
 
                             if (checkingAccount != null)
                             {
                                 Console.WriteLine("Checking Account Created");
-                                BankOperation(checkingAccount);
+                                PerformBankOperations(checkingAccount);
                             }
                             else
                             {
-                                Console.WriteLine("Account Number should contain digits only");
+                                Console.WriteLine("Account Number should have 10 digits");
                             }
 
                             break;
@@ -95,7 +95,7 @@ namespace BankApplication.View
         /// <param name="bankAccount">
         /// The bank account on which operations will be performed.
         /// </param>
-        public static void BankOperation(BankAccount bankAccount)
+        public static void PerformBankOperations(BankAccount bankAccount)
         {
             string bankOperation;
 

@@ -1,4 +1,5 @@
-﻿using EmployeeManager.Services;
+﻿using EmployeeManager.Models;
+using EmployeeManager.Services;
 
 namespace EmployeeManager.View
 {
@@ -73,11 +74,11 @@ namespace EmployeeManager.View
                 switch (userChoice)
                     {
                         case "1":
-                            EmployeeService.CreateDeveloper(name, salary);
+                            EmployeeService.CreateEmployee(name, salary, EmployeeType.Developer);
                             break;
 
                         case "2":
-                            EmployeeService.CreateManager(name, salary);
+                            EmployeeService.CreateEmployee(name, salary, EmployeeType.Manager);
                             break;
 
                         default:
