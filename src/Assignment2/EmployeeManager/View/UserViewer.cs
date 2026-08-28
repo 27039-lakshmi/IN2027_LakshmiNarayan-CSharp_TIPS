@@ -1,0 +1,92 @@
+﻿using EmployeeManager.Models;
+using EmployeeManager.Services;
+
+namespace EmployeeManager.View
+{
+    /// <summary>
+    /// Handles user interaction for employee management.
+    /// Collects employee information, validates input,
+    /// and delegates employee creation to the service layer.
+    /// </summary>
+    public class UserViewer
+    {
+        /// <summary>
+        /// Starts the employee management workflow.
+        /// Prompts the user for employee details, validates input,
+        /// and allows the user to create either a Developer or Manager.
+        /// The application continues running until the user chooses to exit.
+        /// </summary>
+        public static void Start()
+        {
+            string userChoice = "0";
+
+            do
+            {
+                Console.WriteLine(
+                    "Choose your position \n" +
+                    "[1] Developer \n" +
+                    "[2] Manager\n" +
+                    "[3] Exit");
+
+                userChoice = Console.ReadLine() ?? string.Empty;
+                bool isUserChoiceValid = int.TryParse(userChoice, out int _);
+                if (!isUserChoiceValid)
+                {
+                    Console.WriteLine("Enter proper choice");
+                    continue;
+                }
+
+                if (string.Equals(userChoice, "3"))
+                {
+                    Console.WriteLine("Exitting");
+                    break;
+                }
+
+                Console.WriteLine("Enter your name");
+                string name = Console.ReadLine() ?? string.Empty;
+
+                if (!EmployeeService.IsNameValid(name))
+                {
+                    Console.WriteLine("Name is not valid.");
+                    continue;
+                }
+
+                Console.WriteLine("Enter your salary");
+                var salary = Console.ReadLine() ?? string.Empty;
+
+                if (!int.TryParse(salary, out int _))
+                {
+                    Console.WriteLine("Salary should be a number");
+                    continue;
+                }
+                else if (int.Parse(salary) < 0)
+                {
+                    Console.WriteLine("Salary cannot be negative");
+                    continue;
+                }
+
+                // Handle empty or whitespace input.
+                if (string.IsNullOrWhiteSpace(userChoice))
+                {
+                    userChoice = "0";
+                }
+
+                switch (userChoice)
+                    {
+                        case "1":
+                            EmployeeService.CreateEmployee(name, salary, EmployeeType.Developer);
+                            break;
+
+                        case "2":
+                            EmployeeService.CreateEmployee(name, salary, EmployeeType.Manager);
+                            break;
+
+                        default:
+                            Console.WriteLine("Enter 1 or 2 or 3");
+                            break;
+                    }
+            }
+            while (userChoice != "3");
+        }
+    }
+}
