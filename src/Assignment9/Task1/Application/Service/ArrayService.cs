@@ -5,7 +5,7 @@ namespace LinqExploration.Application.Service
     /// <summary>
     /// Provides utility methods for performing LINQ operations on integer arrays.
     /// </summary>
-    internal class ArrayService
+    public class ArrayService
     {
         /// <summary>
         /// Finds the second highest distinct element in the array.

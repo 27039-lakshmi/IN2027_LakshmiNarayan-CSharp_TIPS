@@ -10,13 +10,16 @@ namespace LinqExploration.Presentation.Controller
     /// </summary>
     public class LinqController
     {
+        private ProductService _productService = new ();
+
+        private SupplierService _supplierService = new ();
+
         /// <summary>
         /// Seeds sample product and supplier data and executes all LINQ tasks.
         /// </summary>
         public void Start()
         {
-            var productService = new ProductService();
-            productService.AddProducts(new List<Product>
+            this._productService.AddProducts(new List<Product>
         {
             new Product
             {
@@ -70,8 +73,7 @@ namespace LinqExploration.Presentation.Controller
             },
         });
 
-            var supplierService = new SupplierService();
-            supplierService.AddSuppliers(new List<Supplier>()
+            this._supplierService.AddSuppliers(new List<Supplier>()
             {
                 new Supplier
             {
@@ -104,11 +106,48 @@ namespace LinqExploration.Presentation.Controller
                 ProductId = 5,
             },
             });
-            this.ExecuteTask1();
-            this.ExecuteTask2();
-            this.ExecuteTask3();
-            this.ExecuteTask4();
-            this.ExecuteTask5();
+            int userChoice;
+            do
+            {
+                Console.WriteLine("Enter your choice\n" +
+                                  "[1] Execute Task1\n" +
+                                  "[2] Execute Task2\n" +
+                                  "[3] Execute Task3\n" +
+                                  "[4] Execute Task4\n" +
+                                  "[5] Execute Task5\n" +
+                                  "[6] Execute Task6");
+                if (!int.TryParse(Console.ReadLine(), out userChoice))
+                {
+                    Console.WriteLine("Invalid choice");
+                    continue;
+                }
+
+                switch (userChoice)
+                {
+                    case 1:
+                        this.ExecuteTask1();
+                        break;
+                    case 2:
+                        this.ExecuteTask2();
+                        break;
+                    case 3:
+                        this.ExecuteTask3();
+                        break;
+                    case 4:
+                        this.ExecuteTask4();
+                        break;
+                    case 5:
+                        this.ExecuteTask5();
+                        break;
+                    case 6:
+                        Console.WriteLine("Exitting");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice");
+                        break;
+                }
+            }
+            while (userChoice != 6);
         }
 
         /// <summary>
@@ -116,8 +155,7 @@ namespace LinqExploration.Presentation.Controller
         /// </summary>
         public void ExecuteTask1()
         {
-            var productService = new ProductService();
-            var products = productService.GetProducts();
+            var products = this._productService.GetProducts();
             var productsTable = new ConsoleTable("Product ID", "Product Name", "Category", "Price");
             Console.WriteLine("Performing task1");
             Console.WriteLine("Products List");
@@ -128,7 +166,7 @@ namespace LinqExploration.Presentation.Controller
 
             productsTable.Write(Format.MarkDown);
             productsTable.Rows.Clear();
-            var filteredProducts = productService.GetFilteredProducts();
+            var filteredProducts = this._productService.GetFilteredProducts();
             var sortedFilteredProducts = filteredProducts.OrderByDescending(product => product.Price).ToList();
             decimal averagePrice = filteredProducts.Average(product => product.Price);
             var filteredTable = new ConsoleTable("S.No", "Product Name", "Product Price");
@@ -156,9 +194,7 @@ namespace LinqExploration.Presentation.Controller
         /// </summary>
         public void ExecuteTask2()
         {
-            var productService = new ProductService();
-            var products = productService.GetProducts();
-            var supplierService = new SupplierService();
+            var products = this._productService.GetProducts();
             var productsTable = new ConsoleTable("Product ID", "Product Name", "Category", "Price");
             Console.WriteLine("Performing Task2");
             Console.WriteLine("Products List");
@@ -170,7 +206,7 @@ namespace LinqExploration.Presentation.Controller
             productsTable.Write(Format.MarkDown);
             productsTable.Rows.Clear();
 
-            var productCategoryWiseSummary = productService.GetProductCategorySummary();
+            var productCategoryWiseSummary = this._productService.GetProductCategorySummary();
             var categorySummaryTable = new ConsoleTable("Category", "Number of products", "Expensive Product");
             Console.WriteLine("Category-wise summary for products");
             foreach (var category in productCategoryWiseSummary)
@@ -179,7 +215,7 @@ namespace LinqExploration.Presentation.Controller
             }
 
             categorySummaryTable.Write(Format.MarkDown);
-            var suppliers = supplierService.GetSuppliers();
+            var suppliers = this._supplierService.GetSuppliers();
             var supplierTable = new ConsoleTable("Supplier Id", "Supplier Name", "Product ID");
             Console.WriteLine("Supplier List");
             foreach (var supplier in suppliers)
@@ -189,7 +225,7 @@ namespace LinqExploration.Presentation.Controller
 
             supplierTable.Write(Format.MarkDown);
             var supplierProductMappingTable = new ConsoleTable("Supplier Id", "Supplier Name", "Product Id", "Product Name");
-            var supplierProductMapping = supplierService.GetProductWithSuppliers();
+            var supplierProductMapping = this._supplierService.GetProductWithSuppliers();
             foreach (var item in supplierProductMapping)
             {
                 supplierProductMappingTable.AddRow(item.SupplierId, item.SupplierName, item.ProductId, item.ProductName);
@@ -228,12 +264,11 @@ namespace LinqExploration.Presentation.Controller
         /// </summary>
         public void ExecuteTask4()
         {
-            var productService = new ProductService();
             Console.WriteLine("Performing Task4");
             Console.WriteLine("Unoptimised Query");
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            var productsUnderBooks = productService.FilterWithoutOptimisation();
+            var productsUnderBooks = this._productService.FilterWithoutOptimisation();
             stopWatch.Stop();
             double unoptimisedTime = stopWatch.Elapsed.TotalMilliseconds;
             var bookProductsTable = new ConsoleTable("Product ID", "Product Name", "Category", "Price");
@@ -248,7 +283,7 @@ namespace LinqExploration.Presentation.Controller
 
             Console.WriteLine("Optimised Query");
             stopWatch.Restart();
-            productsUnderBooks = productService.FilterWithOptimisation();
+            productsUnderBooks = this._productService.FilterWithOptimisation();
             stopWatch.Stop();
             double optimisedTime = stopWatch.Elapsed.TotalMilliseconds;
             foreach (var item in productsUnderBooks)
@@ -266,13 +301,11 @@ namespace LinqExploration.Presentation.Controller
         /// </summary>
         public void ExecuteTask5()
         {
-            var productService = new ProductService();
-            var supplierService = new SupplierService();
             Console.WriteLine("Performing Task5");
-            var result = new QueryBuilder<Product>(productService.GetProducts())
+            var result = new QueryBuilder<Product>(this._productService.GetProducts())
                 .Filter(product => product.Category == "Electronics")
                 .SortBy(product => product.Price)
-                .Join(supplierService.GetSuppliers(), p => p.ProductId, s => s.ProductId, (p, s) => new { SupplierName = s.SupplierName, ProductName = p.ProductName })
+                .Join(this._supplierService.GetSuppliers(), p => p.ProductId, s => s.ProductId, (p, s) => new { SupplierName = s.SupplierName, ProductName = p.ProductName })
                 .Execute();
             foreach (var item in result)
             {

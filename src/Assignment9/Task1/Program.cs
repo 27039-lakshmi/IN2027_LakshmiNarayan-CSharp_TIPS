@@ -1,7 +1,4 @@
-﻿using ConsoleTables;
-using LinqExploration.Application.Service;
-using LinqExploration.Domain.Models;
-using LinqExploration.Presentation.Controller;
+﻿using LinqExploration.Presentation.Controller;
 
 namespace Assignments;
 

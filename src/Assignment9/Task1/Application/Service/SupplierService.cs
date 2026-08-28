@@ -7,7 +7,7 @@ namespace LinqExploration.Application.Service
     /// Provides operations for managing suppliers and retrieving
     /// supplier-product related information.
     /// </summary>
-    internal class SupplierService
+    public class SupplierService
     {
         private readonly SampleDatabaseContext _context = new ();
 
