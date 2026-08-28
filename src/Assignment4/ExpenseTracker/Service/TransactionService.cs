@@ -11,7 +11,7 @@ namespace ExpenseTracker.Service
     /// </summary>
     public class TransactionService
     {
-        private readonly Transactions _transactions;
+        private readonly FileTransactionsRepo _transactions;
         private readonly TransactionEventManager _eventManager;
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace ExpenseTracker.Service
         /// <param name="eventManager">
         /// Manages transaction-related events.
         /// </param>
-        public TransactionService(Transactions transactions, TransactionEventManager eventManager)
+        public TransactionService(FileTransactionsRepo transactions, TransactionEventManager eventManager)
         {
             this._transactions = transactions;
             this._eventManager = eventManager;
@@ -83,10 +83,7 @@ namespace ExpenseTracker.Service
             TransactionSummary.TotalIncome = this.GetTotal(TransactionType.Income);
             TransactionSummary.TotalExpense = this.GetTotal(TransactionType.Expense);
             TransactionSummary.Balance = TransactionSummary.TotalIncome - TransactionSummary.TotalExpense;
-<<<<<<< HEAD
             this._transactions.UpdateBalance(TransactionSummary.Balance);
-=======
->>>>>>> feature-user-27039-Lakshmi-Assignments-Assignment4-ExpenseTracker
         }
 
         /// <summary>
@@ -277,7 +274,6 @@ namespace ExpenseTracker.Service
         public (int, int, int) GetSummary()
         {
             return (TransactionSummary.TotalIncome, TransactionSummary.TotalExpense, TransactionSummary.Balance);
-<<<<<<< HEAD
         }
 
         /// <summary>
@@ -290,8 +286,6 @@ namespace ExpenseTracker.Service
         {
             this._transactions.SetFilePath(path);
             this._eventManager.RaiseTransactionChanged();
-=======
->>>>>>> feature-user-27039-Lakshmi-Assignments-Assignment4-ExpenseTracker
         }
     }
 }

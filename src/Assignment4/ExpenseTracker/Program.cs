@@ -18,7 +18,7 @@ namespace Assignments
         {
             try
             {
-                var transactions = new Transactions();
+                var transactions = new FileTransactionsRepo();
                 var eventManager = new TransactionEventManager();
                 var transactionService = new TransactionService(transactions, eventManager);
                 var userViewer = new ExpenseTrackerView(transactionService);

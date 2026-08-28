@@ -10,13 +10,12 @@ namespace ExpenseTracker.Repository
     /// Provides methods for adding, updating, deleting,
     /// and retrieving transaction data.
     /// </summary>
-    public class Transactions
+    public class FileTransactionsRepo
     {
         private string _filepath = string.Empty;
         private TransactionData _data = new ();
         private TransactionEventManager _eventManager = new ();
 
-<<<<<<< HEAD
         /// <summary>
         /// Sets the filepath
         /// </summary>
@@ -56,8 +55,6 @@ namespace ExpenseTracker.Repository
            File.WriteAllText(this._filepath, json);
         }
 
-=======
->>>>>>> feature-user-27039-Lakshmi-Assignments-Assignment4-ExpenseTracker
         /// <summary>
         /// Adds an income record.
         /// </summary>
@@ -79,7 +76,6 @@ namespace ExpenseTracker.Repository
         }
 
         /// <summary>
-<<<<<<< HEAD
         /// Gets the current balance.
         /// </summary>
         /// <returns>The current balance.</returns>
@@ -99,8 +95,6 @@ namespace ExpenseTracker.Repository
         }
 
         /// <summary>
-=======
->>>>>>> feature-user-27039-Lakshmi-Assignments-Assignment4-ExpenseTracker
         /// Updates an existing income record with new values.
         /// </summary>
         /// <param name="oldIncome">The income to update.</param>
