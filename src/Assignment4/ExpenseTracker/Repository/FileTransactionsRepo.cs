@@ -10,7 +10,7 @@ namespace ExpenseTracker.Repository
     /// Provides methods for adding, updating, deleting,
     /// and retrieving transaction data.
     /// </summary>
-    public class FileTransactionsRepo
+    public class FileTransactionsRepo : IRepository
     {
         private string _filepath = string.Empty;
         private TransactionData _data = new ();

@@ -11,7 +11,7 @@ namespace ExpenseTracker.Service
     /// </summary>
     public class TransactionService
     {
-        private readonly FileTransactionsRepo _transactions;
+        private readonly IRepository _transactions;
         private readonly TransactionEventManager _eventManager;
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace ExpenseTracker.Service
         /// <param name="eventManager">
         /// Manages transaction-related events.
         /// </param>
-        public TransactionService(FileTransactionsRepo transactions, TransactionEventManager eventManager)
+        public TransactionService(IRepository transactions, TransactionEventManager eventManager)
         {
             this._transactions = transactions;
             this._eventManager = eventManager;
@@ -83,7 +83,6 @@ namespace ExpenseTracker.Service
             TransactionSummary.TotalIncome = this.GetTotal(TransactionType.Income);
             TransactionSummary.TotalExpense = this.GetTotal(TransactionType.Expense);
             TransactionSummary.Balance = TransactionSummary.TotalIncome - TransactionSummary.TotalExpense;
-            this._transactions.UpdateBalance(TransactionSummary.Balance);
         }
 
         /// <summary>
@@ -274,18 +273,6 @@ namespace ExpenseTracker.Service
         public (int, int, int) GetSummary()
         {
             return (TransactionSummary.TotalIncome, TransactionSummary.TotalExpense, TransactionSummary.Balance);
-        }
-
-        /// <summary>
-        /// Sends file
-        /// </summary>
-        /// <param name="path">
-        /// File path given by user
-        /// </param>
-        public void SendFilePathToRepository(string path)
-        {
-            this._transactions.SetFilePath(path);
-            this._eventManager.RaiseTransactionChanged();
         }
     }
 }
