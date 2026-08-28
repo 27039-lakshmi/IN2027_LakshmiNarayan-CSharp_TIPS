@@ -19,7 +19,7 @@
         /// <value>
         /// Name of the supplier providing the product.
         /// </value>
-        public string? SupplierName { get; set; }
+        public string SupplierName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the product identifier.

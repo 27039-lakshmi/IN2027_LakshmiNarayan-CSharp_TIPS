@@ -19,7 +19,7 @@
         /// <value>
         /// Name used to identify the product.
         /// </value>
-        public string? ProductName { get; set; }
+        public string ProductName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the product price.
@@ -35,6 +35,6 @@
         /// <value>
         /// Category to which the product belongs, such as Electronics, Books, or Clothing.
         /// </value>
-        public string Category { get; set; }
+        public string Category { get; set; } = string.Empty;
     }
 }
