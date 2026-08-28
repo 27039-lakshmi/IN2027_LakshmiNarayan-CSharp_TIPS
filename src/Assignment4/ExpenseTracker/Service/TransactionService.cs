@@ -11,7 +11,7 @@ namespace ExpenseTracker.Service
     /// </summary>
     public class TransactionService
     {
-        private readonly Transactions _transactions;
+        private readonly InMemoryRepo _transactions;
         private readonly TransactionEventManager _eventManager;
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace ExpenseTracker.Service
         /// <param name="eventManager">
         /// Manages transaction-related events.
         /// </param>
-        public TransactionService(Transactions transactions, TransactionEventManager eventManager)
+        public TransactionService(InMemoryRepo transactions, TransactionEventManager eventManager)
         {
             this._transactions = transactions;
             this._eventManager = eventManager;
@@ -121,11 +121,11 @@ namespace ExpenseTracker.Service
         {
             if (this.TryCast<Income>(transaction, out var income) && income != null)
             {
-                    this._transactions.UpdateIncome((Income)existingTransaction, income);
+                this._transactions.UpdateIncome((Income)existingTransaction, income);
             }
             else if (this.TryCast<Expense>(transaction, out var expense) && expense != null)
             {
-                    this._transactions.UpdateExpense((Expense)existingTransaction, expense);
+                this._transactions.UpdateExpense((Expense)existingTransaction, expense);
             }
 
             this._eventManager.RaiseTransactionChanged();

@@ -30,6 +30,14 @@ namespace ExpenseTracker.View
         /// </summary>
         public void Start()
         {
+            Console.WriteLine("Enter file path (.json)");
+            string filepath = Console.ReadLine() ?? string.Empty;
+            if (!Validator.IsFilePathValid(filepath))
+            {
+                WriteColored("File path must exist and file should be a json type", ConsoleColor.Red);
+                return;
+            }
+
             int userChoice;
             do
             {
@@ -65,7 +73,6 @@ namespace ExpenseTracker.View
                 case MenuOption.View:
                     this.DisplayViewMenu();
                     break;
-
                 case MenuOption.Summary:
                     this.ViewSummary();
                     break;
@@ -126,7 +133,7 @@ namespace ExpenseTracker.View
 
             Console.WriteLine("Enter income ID");
             string idToEdit = Console.ReadLine() ?? string.Empty;
-            Income? existingIncome = this._transactionService.GetExistingIncome(idToEdit);
+            var existingIncome = this._transactionService.GetExistingIncome(idToEdit);
             if (existingIncome == null)
             {
                 WriteColored(Messages.NoIncomeFound, ConsoleColor.Red);
@@ -147,7 +154,7 @@ namespace ExpenseTracker.View
                 else
                 {
                     WriteColored(Messages.NoChanges, ConsoleColor.White);
-                } 
+                }
             }
         }
 
@@ -237,7 +244,9 @@ namespace ExpenseTracker.View
         /// </summary>
         public void DisplayViewMenu()
         {
-            Console.WriteLine(Messages.ViewMenu);
+            Console.WriteLine("1.View income\n" +
+                                      "2.View expense\n" +
+                                      "Enter your choice");
             string choiceInput = Console.ReadLine() ?? string.Empty;
             if (!Validator.IsChoiceValid(choiceInput, out var userViewChoice))
             {
@@ -377,7 +386,7 @@ namespace ExpenseTracker.View
             foreach (var transaction in transactions)
             {
                 Console.WriteLine($"ID: {transaction.Id}");
-                Console.WriteLine($"Transaction Date: {transaction.TransactionDate}");
+                Console.WriteLine($"Transaction Date: {transaction.TransactionDate:d}");
                 Console.WriteLine($"Amount: {transaction.Amount}");
 
                 if (transaction is Income income)

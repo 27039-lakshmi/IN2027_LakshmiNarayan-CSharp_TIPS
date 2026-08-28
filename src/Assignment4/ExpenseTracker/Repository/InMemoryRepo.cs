@@ -7,7 +7,7 @@ namespace ExpenseTracker.Repository
     /// Provides methods for adding, updating, deleting,
     /// and retrieving transaction data.
     /// </summary>
-    public class Transactions
+    public class InMemoryRepo : IRepository
     {
         private List<Income> _incomes = new List<Income>();
         private List<Expense> _expenses = new List<Expense>();
