@@ -10,10 +10,15 @@ namespace LinqExploration.Application.Service
     {
         private readonly SampleDatabaseContext _context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductService"/> class.
+        /// </summary>
+        /// <param name="database">Instance of database from program.cs</param>
         public ProductService(SampleDatabaseContext database)
         {
             this._context = database;
         }
+
         /// <summary>
         /// Retrieves electronics products with a price greater than 500
         /// and projects them into <see cref="ProductDTO"/> objects.

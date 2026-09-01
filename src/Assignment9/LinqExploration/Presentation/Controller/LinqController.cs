@@ -16,13 +16,18 @@ namespace LinqExploration.Presentation.Controller
 
         private ArrayService _arrayService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LinqController"/> class.
+        /// </summary>
+        /// <param name="productService">Instance of ProductService from program.cs</param>
+        /// <param name="supplierService">Instance of SupplierService from program.cs</param>
+        /// <param name="arrayService">Instance of ArrayService from program.cs</param>
         public LinqController(ProductService productService, SupplierService supplierService, ArrayService arrayService)
         {
             this._productService = productService;
             this._supplierService = supplierService;
             this._arrayService = arrayService;
         }
-
 
         /// <summary>
         /// Seeds sample product and supplier data and executes all LINQ tasks.

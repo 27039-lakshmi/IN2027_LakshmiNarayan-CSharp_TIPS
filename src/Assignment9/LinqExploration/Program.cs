@@ -20,7 +20,7 @@ public static class Program
         var productService = new ProductService(database);
         var supplierService = new SupplierService(database);
         var arrayService = new ArrayService();
-        var controller = new LinqController(productService,supplierService,arrayService);
+        var controller = new LinqController(productService, supplierService, arrayService);
         controller.Start();
     }
 }

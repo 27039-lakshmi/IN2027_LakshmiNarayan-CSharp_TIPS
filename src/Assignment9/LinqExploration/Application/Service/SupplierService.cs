@@ -11,6 +11,10 @@ namespace LinqExploration.Application.Service
     {
         private readonly SampleDatabaseContext _context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SupplierService"/> class.
+        /// </summary>
+        /// <param name="database">Instance of database from program.cs</param>
         public SupplierService(SampleDatabaseContext database)
         {
             this._context = database;
