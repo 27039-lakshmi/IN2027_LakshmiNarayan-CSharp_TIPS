@@ -10,9 +10,19 @@ namespace LinqExploration.Presentation.Controller
     /// </summary>
     public class LinqController
     {
-        private ProductService _productService = new ();
+        private ProductService _productService;
 
-        private SupplierService _supplierService = new ();
+        private SupplierService _supplierService;
+
+        private ArrayService _arrayService;
+
+        public LinqController(ProductService productService, SupplierService supplierService, ArrayService arrayService)
+        {
+            this._productService = productService;
+            this._supplierService = supplierService;
+            this._arrayService = arrayService;
+        }
+
 
         /// <summary>
         /// Seeds sample product and supplier data and executes all LINQ tasks.
@@ -115,7 +125,7 @@ namespace LinqExploration.Presentation.Controller
                                   "[3] Execute Task3\n" +
                                   "[4] Execute Task4\n" +
                                   "[5] Execute Task5\n" +
-                                  "[6] Execute Task6");
+                                  "[6] Exit");
                 if (!int.TryParse(Console.ReadLine(), out userChoice))
                 {
                     Console.WriteLine("Invalid choice");
@@ -242,17 +252,17 @@ namespace LinqExploration.Presentation.Controller
         {
             Console.WriteLine("Performing Task3");
             int[] arr = new int[] { 10, 20, 30, 40, 60, 70, 80, 90 };
-            Console.WriteLine("Arra");
+            Console.WriteLine("Array");
             foreach (int num in arr)
             {
                 Console.Write(num + " ");
             }
 
-            var arrayService = new ArrayService();
-            int secondHighest = arrayService.GetSecondHighestElement(arr);
+            int secondHighest = this._arrayService.GetSecondHighestElement(arr);
             Console.WriteLine("Second highest element " + secondHighest);
             int target = 100;
-            var listOfPairs = arrayService.GetPairs(arr, target);
+            var listOfPairs = this._arrayService.GetPairs(arr, target);
+            Console.WriteLine("Pairs with target sum 100");
             foreach (var pair in listOfPairs)
             {
                 Console.WriteLine($"Number 1 : {pair.FirstNumber} Number 2 : {pair.SecondNumber}");
@@ -302,6 +312,7 @@ namespace LinqExploration.Presentation.Controller
         public void ExecuteTask5()
         {
             Console.WriteLine("Performing Task5");
+            Console.WriteLine("Category : Electronics, SortBy : Price");
             var result = new QueryBuilder<Product>(this._productService.GetProducts())
                 .Filter(product => product.Category == "Electronics")
                 .SortBy(product => product.Price)

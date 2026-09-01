@@ -9,7 +9,12 @@ namespace LinqExploration.Application.Service
     /// </summary>
     public class SupplierService
     {
-        private readonly SampleDatabaseContext _context = new ();
+        private readonly SampleDatabaseContext _context;
+
+        public SupplierService(SampleDatabaseContext database)
+        {
+            this._context = database;
+        }
 
         /// <summary>
         /// Adds a collection of suppliers to the database.

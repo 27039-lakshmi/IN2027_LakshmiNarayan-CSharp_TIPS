@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManager", "src\Ass
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment9", "Assignment9", "{4EF9489A-0831-4BB6-9AB6-D2A4127AEC11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqExploration", "src\Assignment9\Task1\LinqExploration.csproj", "{B2032CDB-B05F-41BF-A3BB-8D13143CC8FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqExploration", "src\Assignment9\LinqExploration\LinqExploration.csproj", "{B2032CDB-B05F-41BF-A3BB-8D13143CC8FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

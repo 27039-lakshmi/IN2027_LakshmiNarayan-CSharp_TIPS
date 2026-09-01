@@ -8,8 +8,12 @@ namespace LinqExploration.Application.Service
     /// </summary>
     public class ProductService
     {
-        private readonly SampleDatabaseContext _context = new ();
+        private readonly SampleDatabaseContext _context;
 
+        public ProductService(SampleDatabaseContext database)
+        {
+            this._context = database;
+        }
         /// <summary>
         /// Retrieves electronics products with a price greater than 500
         /// and projects them into <see cref="ProductDTO"/> objects.
