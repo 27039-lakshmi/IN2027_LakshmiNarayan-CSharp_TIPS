@@ -3,6 +3,7 @@
 A simple C# console-based Expense Tracker application that allows users to manage income and expense transactions, view transaction history, monitor their financial summary, and persist data using file storage.
 
 ---
+A simple C# console-based Expense Tracker application that allows users to manage income and expense transactions, view transaction history, and monitor their financial summary.
 
 ## Features
 
@@ -35,6 +36,8 @@ ExpenseTracker
 │
 ├── Repository
 │   └── TransactionFileRepository.cs
+│   └── Expense.cs
+│   └── Transactions.cs
 │
 ├── Service
 │   ├── TransactionService.cs
@@ -46,6 +49,7 @@ ExpenseTracker
 ├── Helper
 │   ├── Validator.cs
 │   └── FileHandler.cs
+│   └── Validator.cs
 │
 ├── Enums
 │   ├── MenuOption.cs
@@ -73,6 +77,15 @@ ExpenseTracker
 - File Handling
 
 ---
+└── Program.cs
+```
+
+## Technologies Used
+
+- C#
+- .NET
+- Object-Oriented Programming (OOP)
+- Event-Driven Programming
 
 ## Design Overview
 
@@ -97,11 +110,24 @@ Represents the application entities.
 - Delete transaction records
 - Persist transaction data between application runs
 
+### Repository Layer
+
+`Transactions` stores and manages transaction records.
+
+Responsibilities:
+
+- Add records
+- Update records
+- Delete records
+- Retrieve records
+- Maintain balance
+
 ### Service Layer
 
 `TransactionService` contains the business logic.
 
 **Responsibilities:**
+Responsibilities:
 
 - Add transactions
 - Update transactions
@@ -113,6 +139,7 @@ Represents the application entities.
 ### Event Manager
 
 `TransactionEventManager` notifies subscribers whenever transaction data changes.
+`TransactionEventManager` notifies subscribers whenever a transaction changes.
 
 Whenever a transaction is:
 
@@ -121,6 +148,7 @@ Whenever a transaction is:
 - Deleted
 
 the transaction summary is automatically recalculated.
+the balance is automatically recalculated.
 
 ### View Layer
 
@@ -175,6 +203,10 @@ Benefits include:
 2. Add Expense
 
 Enter your choice:
+1.Add income
+2.Add expense
+Enter your choice
+
 1
 
 Choose your option
@@ -187,6 +219,10 @@ Enter income amount:
 25000
 
 Enter income source:
+Enter income amount
+25000
+
+Enter income source
 Salary
 
 Income added successfully.
@@ -208,6 +244,8 @@ Your Summary
 
 Total Income    : 28000
 Total Expense   : 5000
+Total Income : 28000
+Total Expense : 5000
 Current Balance : 23000
 ```
 
@@ -242,3 +280,29 @@ Raise TransactionChanged Event
                 |
                 v
 Recalculate
+Recalculate Balance
+                |
+                v
+Update Repository Balance
+```
+
+---
+
+## Future Improvements
+
+- Data persistence using files or database
+- Monthly reports
+- Filtering by date range
+- Search functionality
+- Unit testing
+- Dependency Injection
+- Generic transaction management
+- Export transactions to CSV/Excel
+
+---
+
+## Author
+
+Lakshmi Narayan Rajkumar
+
+Console-based Expense Tracker developed using C# and .NET.
