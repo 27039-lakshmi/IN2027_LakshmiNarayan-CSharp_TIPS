@@ -18,9 +18,10 @@ namespace Assignments
         {
             try
             {
-                var transactions = new InMemoryRepo();
+                var inMemoryRepo = new InMemoryRepo();
+                var fileRepo = new FileRepo();
                 var eventManager = new TransactionEventManager();
-                var transactionService = new TransactionService(transactions, eventManager);
+                var transactionService = new TransactionService(fileRepo, eventManager);
                 var userViewer = new ExpenseTrackerView(transactionService);
                 userViewer.Start();
             }

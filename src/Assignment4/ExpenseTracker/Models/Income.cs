@@ -20,7 +20,7 @@
         /// <param name="source">
         /// The source of the income.
         /// </param>
-        public Income(DateOnly transactionDate, int amount, string source)
+        public Income(DateTime transactionDate, int amount, string source)
             : base($"I{_incomeCounter++}", transactionDate, amount)
         {
             this.Source = source;

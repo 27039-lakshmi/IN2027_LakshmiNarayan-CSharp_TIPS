@@ -89,9 +89,9 @@ namespace ExpenseTracker.View
         /// <returns>
         /// A tuple containing the date, amount, and validation result.
         /// </returns>
-        public (DateOnly, int, bool) GetDateAndAmount(string message)
+        public (DateTime, int, bool) GetDateAndAmount(string message)
         {
-            var failureResult = (DateOnly.MinValue, 0, false);
+            var failureResult = (DateTime.MinValue, 0, false);
             Console.WriteLine(Messages.DateOption);
             var (date, isDateValid) = this.GetDateInput();
             if (isDateValid)
@@ -113,9 +113,9 @@ namespace ExpenseTracker.View
         /// <returns>
         /// A tuple containing the selected date and validation result.
         /// </returns>
-        public (DateOnly, bool) GetDateInput()
+        public (DateTime, bool) GetDateInput()
         {
-            var failureResult = (DateOnly.MinValue, false);
+            var failureResult = (DateTime.MinValue, false);
             Console.WriteLine(Messages.DateMenu);
             string choiceInput = Console.ReadLine() ?? string.Empty;
             if (!Validator.IsChoiceValid(choiceInput, out var userDateChoice))
@@ -139,7 +139,7 @@ namespace ExpenseTracker.View
 
                         break;
                     case DateOptions.TodayDate:
-                        date = DateOnly.FromDateTime(DateTime.Today);
+                        date = DateTime.Today;
                         return (date, true);
                     default:
                         WriteColored(Messages.DefaultMessage, ConsoleColor.Red);
@@ -157,7 +157,7 @@ namespace ExpenseTracker.View
         /// <returns>
         /// The updated date if valid; otherwise the original date.
         /// </returns>
-        public DateOnly GetUpdatedDate(DateOnly oldDate)
+        public DateTime GetUpdatedDate(DateTime oldDate)
         {
             Console.WriteLine($"Current Date: {oldDate}");
             Console.Write("Do you want to edit the date (Enter y): ");
