@@ -100,6 +100,10 @@ namespace Calculator.Presentation.Controller
                     case CalculatorOperation.Exit:
                         Console.WriteLine("Exiting");
                         break;
+
+                    default:
+                        Console.WriteLine("Choices should be between 1 and 5");
+                        break;
                 }
             }
             while (operation != CalculatorOperation.Exit);
