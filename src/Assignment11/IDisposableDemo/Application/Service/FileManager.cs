@@ -4,16 +4,16 @@
     /// Provides functionality to write text to a file, read file contents,
     /// and release file-related resources when they are no longer needed.
     /// </summary>
-    public class FileWriter : IDisposable
+    public class FileManager : IDisposable
     {
         private readonly StreamWriter _writer;
         private readonly string _filepath;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileWriter"/> class.
+        /// Initializes a new instance of the <see cref="FileManager"/> class.
         /// </summary>
         /// <param name="filepath">filepath where data is stored</param>
-        public FileWriter(string filepath)
+        public FileManager(string filepath)
         {
             this._filepath = filepath;
             this._writer = new StreamWriter(filepath);
@@ -25,7 +25,6 @@
         /// </summary>
         public void Dispose()
         {
-            this._writer.Close();
             this._writer.Dispose();
         }
 

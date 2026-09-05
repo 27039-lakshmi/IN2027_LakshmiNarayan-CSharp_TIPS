@@ -1,6 +1,6 @@
 ﻿using ValueReferenceType.Application.Services;
 
-namespace ValueReferenceType.Presentation.Controller
+namespace ValueReferenceType.Presentation.View
 {
     /// <summary>
     /// Handles user interaction for demonstrating the behavior of

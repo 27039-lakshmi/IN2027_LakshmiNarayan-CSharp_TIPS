@@ -13,8 +13,8 @@ namespace IDisposableDemo.Presentation.Controller
         /// </summary>
         public void Start()
         {
-            FileWriter service;
-            using (service = new FileWriter("C:/chummah/data.txt"))
+            FileManager service;
+            using (service = new FileManager("C:/chummah/data.txt"))
             {
                 Console.WriteLine("Enter text to write into file");
                 service.WriteIntoFile(Console.ReadLine());

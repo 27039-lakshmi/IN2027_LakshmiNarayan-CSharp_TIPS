@@ -34,14 +34,11 @@
         public void CreateLargeArray(int size)
         {
             Console.WriteLine("Creating large array...");
-            int[] largeArray = new int[size];
+            var largeArray = new int[size];
             for (int i = 0; i < largeArray.Length; i++)
             {
                 largeArray[i] = i;
             }
-
-            Console.WriteLine($"Created array with {size} elements.");
-            Console.ReadLine();
         }
 
         /// <summary>
@@ -61,13 +58,9 @@
             int a8 = 8;
             int a9 = 9;
             int a10 = 10;
-
             long result =
                 a1 + a2 + a3 + a4 + a5 +
                 a6 + a7 + a8 + a9 + a10;
-
-            Console.WriteLine($"Result = {result}");
-            Console.ReadLine();
         }
     }
 }
