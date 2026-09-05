@@ -52,6 +52,10 @@ namespace Calculator.Presentation.Controller
             while (operation != CalculatorOperation.Exit);
         }
 
+        /// <summary>
+        /// Handles menu options for choosing the operation
+        /// </summary>
+        /// <param name="operation">The operation chosen by user</param>
         public void HandleMenu(CalculatorOperation operation)
         {
             switch (operation)
