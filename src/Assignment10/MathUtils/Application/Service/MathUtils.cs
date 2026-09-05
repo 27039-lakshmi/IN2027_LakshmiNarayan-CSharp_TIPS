@@ -51,7 +51,7 @@
         {
             if (number2 == 0)
             {
-                throw new DivideByZeroException();
+                throw new ArgumentException("Divisor should not be zero");
             }
 
             return number1 / number2;

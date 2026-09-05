@@ -41,72 +41,77 @@ namespace Calculator.Presentation.Controller
 
                 if (!int.TryParse(Console.ReadLine(), out userChoice))
                 {
-                    Console.WriteLine("Invalid Choice");
+                    Console.WriteLine("Choice should be an integer");
                     operation = CalculatorOperation.Invalid;
                     continue;
                 }
 
                 operation = (CalculatorOperation)userChoice;
-                switch (operation)
-                {
-                    case CalculatorOperation.Add:
-                        if (!this.TryGetOperands(out int number1, out int number2))
-                        {
-                            continue;
-                        }
-
-                        int sum = this._mathutils.PerformAddition(number1, number2);
-                        Console.WriteLine("Sum " + sum);
-                        break;
-
-                    case CalculatorOperation.Subtract:
-                        if (!this.TryGetOperands(out number1, out number2))
-                        {
-                            continue;
-                        }
-
-                        int difference = this._mathutils.PerformSubtraction(number1, number2);
-                        Console.WriteLine("Difference " + difference);
-                        break;
-
-                    case CalculatorOperation.Multiplication:
-                        if (!this.TryGetOperands(out number1, out number2))
-                        {
-                            continue;
-                        }
-
-                        int product = this._mathutils.PerformMultiplication(number1, number2);
-                        Console.WriteLine("Product " + product);
-                        break;
-
-                    case CalculatorOperation.Division:
-                        if (!this.TryGetOperands(out number1, out number2))
-                        {
-                            continue;
-                        }
-
-                        try
-                        {
-                            double quotient = this._mathutils.PerformDivision(number1, number2);
-                            Console.WriteLine("Quotient " + quotient);
-                        }
-                        catch (DivideByZeroException)
-                        {
-                            Console.WriteLine("Divisor should not be zero");
-                        }
-
-                        break;
-
-                    case CalculatorOperation.Exit:
-                        Console.WriteLine("Exiting");
-                        break;
-
-                    default:
-                        Console.WriteLine("Choices should be between 1 and 5");
-                        break;
-                }
+                this.HandleMenu(operation);
             }
             while (operation != CalculatorOperation.Exit);
+        }
+
+        public void HandleMenu(CalculatorOperation operation)
+        {
+            switch (operation)
+            {
+                case CalculatorOperation.Add:
+                    if (!this.TryGetOperands(out int number1, out int number2))
+                    {
+                        return;
+                    }
+
+                    int sum = this._mathutils.PerformAddition(number1, number2);
+                    Console.WriteLine("Sum " + sum);
+                    break;
+
+                case CalculatorOperation.Subtract:
+                    if (!this.TryGetOperands(out number1, out number2))
+                    {
+                        return;
+                    }
+
+                    int difference = this._mathutils.PerformSubtraction(number1, number2);
+                    Console.WriteLine("Difference " + difference);
+                    break;
+
+                case CalculatorOperation.Multiplication:
+                    if (!this.TryGetOperands(out number1, out number2))
+                    {
+                        return;
+                    }
+
+                    int product = this._mathutils.PerformMultiplication(number1, number2);
+                    Console.WriteLine("Product " + product);
+                    break;
+
+                case CalculatorOperation.Division:
+                    if (!this.TryGetOperands(out number1, out number2))
+                    {
+                        return;
+                    }
+
+                    try
+                    {
+                        double quotient = this._mathutils.PerformDivision(number1, number2);
+                        Console.WriteLine("Quotient " + quotient);
+                    }
+                    catch (DivideByZeroException)
+                    {
+                        Console.WriteLine("Divisor should not be zero");
+                    }
+
+                    break;
+
+                case CalculatorOperation.Exit:
+                    Console.WriteLine("Exiting");
+                    break;
+
+                default:
+                    Console.WriteLine("Choices should be between 1 and 5");
+                    break;
+            }
         }
 
         /// <summary>

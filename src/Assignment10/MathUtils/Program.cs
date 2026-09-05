@@ -20,8 +20,8 @@ namespace Assignments
         /// </param>
         public static void Main(string[] args)
         {
-            MathUtils mathUtils = new MathUtils();
-            MathUtilController controller = new MathUtilController(mathUtils);
+            var mathUtils = new MathUtils();
+            var controller = new MathUtilController(mathUtils);
 
             controller.Start();
         }
