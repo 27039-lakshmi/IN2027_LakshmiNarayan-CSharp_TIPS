@@ -166,20 +166,11 @@ namespace ExpenseTracker.View
 
             if (string.Equals(input, "y"))
             {
-                var (newDate, isValid) = this.GetDateInput();
-
-                if (isValid)
-                {
-                    return newDate;
-                }
-
-                Console.WriteLine(Messages.InvalidDate);
-                return oldDate;
+                var (newDate, isDateValid) = this.GetDateInput();
+                return isDateValid ? newDate : oldDate;
             }
-            else
-            {
-                return oldDate;
-            }
+
+            return oldDate;
         }
 
         /// <summary>
@@ -194,21 +185,13 @@ namespace ExpenseTracker.View
             Console.Write($"Current amount {oldAmount}\n" +
                               $"do you want to edit the amount (Enter y)");
             string input = (Console.ReadLine() ?? "n").ToLower();
-            if (input == "y")
+            if (string.Equals(input, "y"))
             {
-                var (newAmount, isValid) = this.GetAmountInput();
-                if (isValid)
-                {
-                    return newAmount;
-                }
+                var (newAmount, isAmountValid) = this.GetAmountInput();
+                return isAmountValid ? newAmount : oldAmount;
+            }
 
-                Console.WriteLine(Messages.InvalidAmount);
-                return oldAmount;
-            }
-            else
-            {
-                return oldAmount;
-            }
+            return oldAmount;
         }
 
         /// <summary>
@@ -223,23 +206,13 @@ namespace ExpenseTracker.View
             Console.Write($"Current source {oldSource}\n" +
                               $"do you want to edit the source (Enter y)");
             string input = (Console.ReadLine() ?? "n").ToLower();
-            if (input == "y")
+            if (string.Equals(input, "y"))
             {
                 var (newSource, isSourceValid) = this.GetTextInput("Source");
-                if (isSourceValid)
-                {
-                    return newSource;
-                }
-                else
-                {
-                    Console.WriteLine(Messages.InvalidSource);
-                    return oldSource;
-                }
+                return isSourceValid ? newSource : oldSource;
             }
-            else
-            {
-                return oldSource;
-            }
+
+            return oldSource;
         }
 
         /// <summary>
@@ -254,23 +227,13 @@ namespace ExpenseTracker.View
             Console.Write($"Current category {category}\n" +
                               $"do you want to edit the category (y/n)");
             string input = (Console.ReadLine() ?? "n").ToLower();
-            if (input == "y")
+            if (string.Equals(input, "y"))
             {
                 var (newCategory, isCategoryValid) = this.GetTextInput("Category");
-                if (isCategoryValid)
-                {
-                    return newCategory;
-                }
-                else
-                {
-                    Console.WriteLine(Messages.InvalidCategory);
-                    return category;
-                }
+                return isCategoryValid ? newCategory : category;
             }
-            else
-            {
-                return category;
-            }
+
+            return category;
         }
 
         /// <summary>

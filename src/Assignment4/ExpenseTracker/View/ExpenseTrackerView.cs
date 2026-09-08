@@ -30,8 +30,6 @@ namespace ExpenseTracker.View
         /// </summary>
         public void Start()
         {
-            Console.WriteLine("Enter file path (.json)");
-            string filepath = Console.ReadLine() ?? string.Empty;
             int userChoice;
             do
             {
@@ -157,7 +155,7 @@ namespace ExpenseTracker.View
         /// </summary>
         public void DisplayAddMenu()
         {
-            Console.WriteLine();
+            Console.WriteLine(Messages.AddMenu);
             string choiceInput = Console.ReadLine() ?? string.Empty;
             if (!Validator.IsChoiceValid(choiceInput, out var userAddChoice))
             {
@@ -184,7 +182,7 @@ namespace ExpenseTracker.View
         /// </summary>
         public void DisplayEditMenu()
         {
-            Console.WriteLine();
+            Console.WriteLine(Messages.EditMenu);
             string choiceInput = Console.ReadLine() ?? string.Empty;
             if (!Validator.IsChoiceValid(choiceInput, out var userEditChoice))
             {
@@ -238,9 +236,7 @@ namespace ExpenseTracker.View
         /// </summary>
         public void DisplayViewMenu()
         {
-            Console.WriteLine("1.View income\n" +
-                                      "2.View expense\n" +
-                                      "Enter your choice");
+            Console.WriteLine(Messages.ViewMenu);
             string choiceInput = Console.ReadLine() ?? string.Empty;
             if (!Validator.IsChoiceValid(choiceInput, out var userViewChoice))
             {
