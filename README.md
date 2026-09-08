@@ -1,221 +1,83 @@
-**Contact Manager (Console Application)**
+# Memory Optimization in C#: A Practical Assignment 3
 
+## Overview
 
-
-**Overview**
-
-
-
-Contact Manager is a console-based application developed using C# that allows users to manage their contacts efficiently. The application follows a 3-Layer Architecture consisting of View, Service, and Repository layers to ensure separation of concerns and maintainable code.
-
-
+This assignment focuses on identifying, fixing, and analyzing memory-related issues in a C# application. The goal is to understand how memory is allocated on the managed heap, how the Garbage Collector (GC) works, and how memory profiling tools can help optimize application performance.
 
 ---
 
+# Task 1: Detecting Memory Issues
 
+## Problem
 
-**Features**
+The application continuously allocates memory and stores references in a list.
 
+```csharp
+memAlloc.Add(new int[1000]);
+```
 
+As the list keeps growing, the allocated arrays remain referenced and cannot be garbage collected, leading to continuous heap growth and potential memory exhaustion.
 
-- Add a new contact
+## Outcome
 
-- Edit an existing contact
-
-- Delete a contact
-
-- Search a contact using its unique ID
-
-- Display all contacts
-
-- Support multiple phone numbers for a contact
-
-- Support multiple email IDs for a contact
-
-- Automatically generate a unique GUID for every contact
-
-
+- Identified uncontrolled memory allocation.
+- Diagnosed memory growth using Visual Studio Diagnostic Tools.
+- Observed increasing heap usage due to retained object references.
 
 ---
 
+# Task 2: Implementing Memory Management Best Practices
 
+## Solution
 
+- Added a heap memory limit.
+- Stopped allocations once the limit is reached.
+- Released references by setting the collection to `null`.
+- Triggered garbage collection for demonstration purposes.
 
+## Best Practices Applied
 
-
-**Project Structure**
-
-
-
-ContactsManager
-
-│
-
-├── Models
-
-│   └── Contact.cs
-
-│
-
-├── Repository
-
-│   └── ContactRepository.cs
-
-│
-
-├── Service
-
-│   └── ContactService.cs
-
-│
-
-├── View
-
-│   └── ContactView.cs
-
-│
-
-├── Program.cs
-
-│
-
-└── README.md
-
-
+- Controlled memory allocation.
+- Released unused references.
+- Reduced risk of memory leaks.
+- Improved application stability.
 
 ---
 
+# Task 3: Memory Profiling
 
+## Before Optimization
 
+- Continuous heap growth.
+- Increasing number of live objects.
+- High memory consumption.
 
+## After Optimization
 
+- Heap growth is controlled.
+- Memory is released after use.
+- Lower memory footprint.
 
+## Outcome
 
-
-
-**Contact Model**
-
-
-
-**Each contact contains:**
-
-
-
-- GUID (Unique Identifier)
-
-- Name
-
-- Multiple Phone Numbers
-
-- Multiple Email IDs
-
-
+Memory profiling showed improved memory usage and reduced object retention after optimization.
 
 ---
 
+# Task 4: Reflection
 
+Through this assignment, I learned how unmanaged memory allocation can negatively affect application performance. When memory is continuously allocated inside a loop without any stopping condition, heap memory usage keeps increasing, which can eventually slow down the application and lead to memory-related issues.
 
-**Functionalities**
+I also learned how to use the `GC.GetTotalMemory()` method to monitor the amount of heap memory being used at a given point in time. This information can be used to implement a memory threshold and stop allocations before memory consumption becomes excessive.
 
+Another important takeaway was understanding object references and garbage collection. Even though .NET has an automatic Garbage Collector, objects cannot be collected if references to them are still maintained. In the original implementation, arrays were continuously added to a collection and their references remained active, preventing the Garbage Collector from reclaiming memory.
 
+The most challenging part was understanding why memory usage continued to grow even though the application was running in a managed environment. Through profiling and analysis, I realized that memory leaks in managed applications are often caused by unintended object retention rather than the absence of garbage collection.
 
-**Add Contact**
-
-
-
-Creates a new contact with:
-
-
-
-- Auto-generated GUID
-
-- Name
-
-- One or more phone numbers
-
-- One or more email IDs
-
-
-
-
-
-
-
-**Edit Contact**
-
-
-
-Updates an existing contact using its GUID.
-
-
-
-
-
-
-
-**Delete Contact**
-
-
-
-Removes a contact using its GUID.
-
-
-
-
-
-
-
-**Search Contact**
-
-
-
-Searches for a contact using its GUID and displays all details.
-
-
-
-
-
-
-
-**Display All Contacts**
-
-
-
-Displays every contact stored in the application.
-
-
+Overall, this assignment helped me understand heap memory behavior, garbage collection, object lifetimes, and the importance of releasing references when objects are no longer needed. These concepts are essential for building efficient and high-performance C# applications.
 
 ---
 
+# Conclusion
 
-
-
-
-
-
-**Design Principles**
-
-
-
-- Three-layer architecture
-
-- Separation of concerns
-
-- Modular and maintainable code
-
-- Simple and user-friendly console interface
-
-- Automatic GUID generation for unique contact identification
-
-
-
----
-
-
-
-
-
-
----
-
-
+This assignment demonstrated how improper object retention can lead to excessive memory usage. By controlling allocations, releasing unused references, and profiling application behavior, memory consumption was significantly improved, resulting in a more efficient and stable C# application.
