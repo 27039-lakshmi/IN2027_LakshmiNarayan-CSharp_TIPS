@@ -37,18 +37,6 @@ namespace Task4.Presentation
             {
                 try
                 {
-                    Console.WriteLine("Task 3: Throw custom exception");
-                    Console.WriteLine("Enter input as null to execute custom exception");
-                    string? userInput = Console.ReadLine();
-
-                    if (string.IsNullOrWhiteSpace(userInput))
-                    {
-                        throw new InvalidUserInputException(
-                            "User input should not be null");
-                    }
-
-                    int[] arr = new int[] { 1, 2, 3, 0 };
-
                     Console.WriteLine("Task 1: Divide by zero exception");
                     Console.WriteLine("Enter dividor ");
                     if (int.TryParse(Console.ReadLine(), out int inputNum))
@@ -57,19 +45,24 @@ namespace Task4.Presentation
                         Console.WriteLine("Result : " + result);
                     }
 
+                    Console.WriteLine("Task 3: Throw custom exception");
+                    Console.WriteLine("Enter input as null or whitespace to execute custom exception");
+                    string? userInput = Console.ReadLine();
+
+                    if (string.IsNullOrWhiteSpace(userInput))
+                    {
+                        throw new InvalidUserInputException(
+                            "User input should not be null");
+                    }
+
                     Console.WriteLine("Task 4: Use appdomain for unhandle exception.");
                     Console.WriteLine("Enter a string to get exception");
-                    this.ConvertStringToInt();
-                    Console.WriteLine("Task 2: Index out of range exception");
-                    Console.WriteLine(arr[10]);
+                    string input = Console.ReadLine() ?? string.Empty;
+                    this.ConvertStringToInt(input);
                 }
                 catch (DivideByZeroException)
                 {
                     Console.WriteLine("Cannot divide by zero");
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    throw new Exception("Index should be within size of array");
                 }
                 catch (InvalidUserInputException ex)
                 {
@@ -85,14 +78,10 @@ namespace Task4.Presentation
         /// <summary>
         /// Attempts to convert a string value to an integer.
         /// </summary>
-        /// <remarks>
-        /// This method intentionally causes a <see cref="FormatException"/>
-        /// because the string "Hello" cannot be converted to an integer.
-        /// The exception is unhandled within this method.
-        /// </remarks>
-        public void ConvertStringToInt()
+        /// <param name="input"> string input given by user</param>
+        public void ConvertStringToInt(string input)
         {
-            int a = int.Parse("Hello");
+            int a = int.Parse(input);
         }
 
         /// <summary>

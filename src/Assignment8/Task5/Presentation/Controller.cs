@@ -35,6 +35,14 @@ namespace Task5.Presentation
             {
                 try
                 {
+                    Console.WriteLine("Task 1: Divide by zero exception");
+                    Console.WriteLine("Enter dividor ");
+                    if (int.TryParse(Console.ReadLine(), out int inputNum))
+                    {
+                        int result = this._dividor.DivideTwoNumbers(10, inputNum);
+                        Console.WriteLine("Result : " + result);
+                    }
+
                     Console.WriteLine("Task 3: Throw custom exception");
                     Console.WriteLine("Enter input as null to execute custom exception");
                     string? userInput = Console.ReadLine();
@@ -45,31 +53,14 @@ namespace Task5.Presentation
                             "User input should not be null");
                     }
 
-                    int[] arr = new int[] { 1, 2, 3, 0 };
-
-                    Console.WriteLine("Task 1: Divide by zero exception");
-                    Console.WriteLine("Enter dividor ");
-                    if (int.TryParse(Console.ReadLine(), out int inputNum))
-                    {
-                        int result = this._dividor.DivideTwoNumbers(10, inputNum);
-                        Console.WriteLine("Result : " + result);
-                    }
-
                     Console.WriteLine("Task 4: Use appdomain for unhandle exception.");
                     Console.WriteLine("Enter a string to get exception");
                     string input = Console.ReadLine() ?? string.Empty;
                     this.ConvertStringToInt(input);
-                    Console.WriteLine("Task 2: Index out of range exception");
-                    Console.WriteLine(arr[10]);
                 }
                 catch (DivideByZeroException)
                 {
                     Console.WriteLine("Cannot divide by zero");
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    throw new Exception(
-                        "Index should be within size of array");
                 }
                 catch (InvalidUserInputException ex)
                 {

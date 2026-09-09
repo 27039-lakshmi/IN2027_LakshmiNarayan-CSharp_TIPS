@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task3", "src\Assignment8\Ta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task4", "src\Assignment8\Task4\Task4.csproj", "{7ABF6B27-6A7E-4808-A8D0-46A7243387F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task5", "src\Assignment8\Task8\Task5.csproj", "{F1FDE213-2745-452F-9AB4-DB4E2BFE1AF2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task5", "src\Assignment8\Task5\Task5.csproj", "{F1FDE213-2745-452F-9AB4-DB4E2BFE1AF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

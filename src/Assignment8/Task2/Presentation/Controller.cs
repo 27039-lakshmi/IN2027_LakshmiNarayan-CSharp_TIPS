@@ -43,6 +43,10 @@ namespace Task2.Presentation
                         int result = this._dividor.DivideTwoNumbers(10, inputNum);
                         Console.WriteLine("Result : " + result);
                     }
+                    else
+                    {
+                        Console.WriteLine("Enter valid integer");
+                    }
 
                     Console.WriteLine("Task 2: Index out of range exception");
                     Console.WriteLine(arr[10]);

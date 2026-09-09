@@ -8,13 +8,13 @@
         /// <summary>
         /// Divides one integer by another and returns the result.
         /// </summary>
-        /// <param name="a">The dividend (number to be divided).</param>
-        /// <param name="b">The divisor (number by which the dividend is divided).</param>
+        /// <param name="a">The dividend.</param>
+        /// <param name="b">The divisor.</param>
         /// <returns>
-        /// The quotient obtained by dividing <paramref name="a"/> by <paramref name="b"/>.
+        /// The quotient obtained after division.
         /// </returns>
         /// <exception cref="DivideByZeroException">
-        /// Thrown when <paramref name="b"/> is zero.
+        /// Thrown when divisor is zero.
         /// </exception>
         public int DivideTwoNumbers(int a, int b)
         {

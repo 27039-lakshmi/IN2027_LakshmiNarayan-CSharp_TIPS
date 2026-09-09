@@ -7,7 +7,7 @@ namespace Task3.Presentation
     /// Controller responsible for handling user input, performing division operations,
     /// and demonstrating the handling of custom and system exceptions.
     /// </summary>
-    internal class Controller
+    public class Controller
     {
         /// <summary>
         /// Service used to perform division operations.
@@ -35,18 +35,6 @@ namespace Task3.Presentation
             {
                 try
                 {
-                    Console.WriteLine("Task 3: Throw custom exception");
-                    Console.WriteLine("Enter input as null to execute custom exception");
-                    string? userInput = Console.ReadLine();
-
-                    if (string.IsNullOrWhiteSpace(userInput))
-                    {
-                        throw new InvalidUserInputException(
-                            "User input should not be null");
-                    }
-
-                    int[] arr = new int[] { 1, 2, 3, 0 };
-
                     Console.WriteLine("Task 1: Divide by zero exception");
                     Console.WriteLine("Enter dividor ");
                     if (int.TryParse(Console.ReadLine(), out int inputNum))
@@ -55,16 +43,19 @@ namespace Task3.Presentation
                         Console.WriteLine("Result : " + result);
                     }
 
-                    Console.WriteLine("Task 2: Index out of range exception");
-                    Console.WriteLine(arr[10]);
+                    Console.WriteLine("Task 3: Throw custom exception");
+                    Console.WriteLine("Enter input as null or whitespace to execute custom exception");
+                    string? userInput = Console.ReadLine();
+
+                    if (string.IsNullOrWhiteSpace(userInput))
+                    {
+                        throw new InvalidUserInputException(
+                            "User input should not be null");
+                    }
                 }
                 catch (DivideByZeroException)
                 {
                     Console.WriteLine("Cannot divide by zero");
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    throw new Exception("Index should be within size of array");
                 }
                 catch (InvalidUserInputException ex)
                 {
