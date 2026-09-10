@@ -34,6 +34,57 @@ namespace LinqExploration.Presentation.Controller
         /// </summary>
         public void Start()
         {
+            this.AddProducts();
+            this.AddSuppliers();
+            int userChoice;
+            do
+            {
+                Console.WriteLine("Enter your choice\n" +
+                                  "[1] Execute Task1\n" +
+                                  "[2] Execute Task2\n" +
+                                  "[3] Execute Task3\n" +
+                                  "[4] Execute Task4\n" +
+                                  "[5] Execute Task5\n" +
+                                  "[6] Exit");
+                if (!int.TryParse(Console.ReadLine(), out userChoice))
+                {
+                    Console.WriteLine("Choice must be an integer");
+                    continue;
+                }
+
+                switch (userChoice)
+                {
+                    case 1:
+                        this.ExecuteTask1();
+                        break;
+                    case 2:
+                        this.ExecuteTask2();
+                        break;
+                    case 3:
+                        this.ExecuteTask3();
+                        break;
+                    case 4:
+                        this.ExecuteTask4();
+                        break;
+                    case 5:
+                        this.ExecuteTask5();
+                        break;
+                    case 6:
+                        Console.WriteLine("Exitting");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice");
+                        break;
+                }
+            }
+            while (userChoice != 6);
+        }
+
+        /// <summary>
+        /// Adds a list of products to product database
+        /// </summary>
+        private void AddProducts()
+        {
             this._productService.AddProducts(new List<Product>
         {
             new Product
@@ -87,7 +138,13 @@ namespace LinqExploration.Presentation.Controller
                 Category = "Books",
             },
         });
+        }
 
+        /// <summary>
+        /// Adds a list of suppliers to supplier database
+        /// </summary>
+        private void AddSuppliers()
+        {
             this._supplierService.AddSuppliers(new List<Supplier>()
             {
                 new Supplier
@@ -121,66 +178,17 @@ namespace LinqExploration.Presentation.Controller
                 ProductId = 5,
             },
             });
-            int userChoice;
-            do
-            {
-                Console.WriteLine("Enter your choice\n" +
-                                  "[1] Execute Task1\n" +
-                                  "[2] Execute Task2\n" +
-                                  "[3] Execute Task3\n" +
-                                  "[4] Execute Task4\n" +
-                                  "[5] Execute Task5\n" +
-                                  "[6] Exit");
-                if (!int.TryParse(Console.ReadLine(), out userChoice))
-                {
-                    Console.WriteLine("Invalid choice");
-                    continue;
-                }
-
-                switch (userChoice)
-                {
-                    case 1:
-                        this.ExecuteTask1();
-                        break;
-                    case 2:
-                        this.ExecuteTask2();
-                        break;
-                    case 3:
-                        this.ExecuteTask3();
-                        break;
-                    case 4:
-                        this.ExecuteTask4();
-                        break;
-                    case 5:
-                        this.ExecuteTask5();
-                        break;
-                    case 6:
-                        Console.WriteLine("Exitting");
-                        break;
-                    default:
-                        Console.WriteLine("Invalid choice");
-                        break;
-                }
-            }
-            while (userChoice != 6);
         }
 
         /// <summary>
         /// Demonstrates filtering, sorting, and aggregation operations on products.
         /// </summary>
-        public void ExecuteTask1()
+        private void ExecuteTask1()
         {
             var products = this._productService.GetProducts();
-            var productsTable = new ConsoleTable("Product ID", "Product Name", "Category", "Price");
             Console.WriteLine("Performing task1");
             Console.WriteLine("Products List");
-            foreach (var product in products)
-            {
-                productsTable.AddRow(product.ProductId, product.ProductName, product.Category, product.Price);
-            }
-
-            productsTable.Write(Format.MarkDown);
-            productsTable.Rows.Clear();
+            this.PrintProducts(products);
             var filteredProducts = this._productService.GetFilteredProducts();
             var sortedFilteredProducts = filteredProducts.OrderByDescending(product => product.Price).ToList();
             decimal averagePrice = filteredProducts.Average(product => product.Price);
@@ -207,20 +215,12 @@ namespace LinqExploration.Presentation.Controller
         /// <summary>
         /// Demonstrates grouping products by category and joining products with suppliers.
         /// </summary>
-        public void ExecuteTask2()
+        private void ExecuteTask2()
         {
             var products = this._productService.GetProducts();
-            var productsTable = new ConsoleTable("Product ID", "Product Name", "Category", "Price");
             Console.WriteLine("Performing Task2");
             Console.WriteLine("Products List");
-            foreach (var product in products)
-            {
-                productsTable.AddRow(product.ProductId, product.ProductName, product.Category, product.Price);
-            }
-
-            productsTable.Write(Format.MarkDown);
-            productsTable.Rows.Clear();
-
+            this.PrintProducts(products);
             var productCategoryWiseSummary = this._productService.GetProductCategorySummary();
             var categorySummaryTable = new ConsoleTable("Category", "Number of products", "Expensive Product");
             Console.WriteLine("Category-wise summary for products");
@@ -253,7 +253,7 @@ namespace LinqExploration.Presentation.Controller
         /// Demonstrates array-based LINQ operations including finding the
         /// second highest element and identifying number pairs matching a target sum.
         /// </summary>
-        public void ExecuteTask3()
+        private void ExecuteTask3()
         {
             Console.WriteLine("Performing Task3");
             int[] arr = new int[] { 10, 20, 30, 40, 60, 70, 80, 90 };
@@ -277,7 +277,7 @@ namespace LinqExploration.Presentation.Controller
         /// <summary>
         /// Compares the performance of optimized and non-optimized LINQ queries.
         /// </summary>
-        public void ExecuteTask4()
+        private void ExecuteTask4()
         {
             Console.WriteLine("Performing Task4");
             Console.WriteLine("Unoptimised Query");
@@ -286,27 +286,15 @@ namespace LinqExploration.Presentation.Controller
             var productsUnderBooks = this._productService.FilterWithoutOptimisation();
             stopWatch.Stop();
             double unoptimisedTime = stopWatch.Elapsed.TotalMilliseconds;
-            var bookProductsTable = new ConsoleTable("Product ID", "Product Name", "Category", "Price");
-            foreach (var item in productsUnderBooks)
-            {
-                bookProductsTable.AddRow(item.ProductId, item.ProductName, item.Category, item.Price);
-            }
-
-            bookProductsTable.Write(Format.MarkDown);
+            this.PrintProducts(productsUnderBooks);
             Console.WriteLine("Execution time: " + unoptimisedTime);
-            bookProductsTable.Rows.Clear();
 
             Console.WriteLine("Optimised Query");
             stopWatch.Restart();
             productsUnderBooks = this._productService.FilterWithOptimisation();
             stopWatch.Stop();
             double optimisedTime = stopWatch.Elapsed.TotalMilliseconds;
-            foreach (var item in productsUnderBooks)
-            {
-                bookProductsTable.AddRow(item.ProductId, item.ProductName, item.Category, item.Price);
-            }
-
-            bookProductsTable.Write(Format.MarkDown);
+            this.PrintProducts(productsUnderBooks);
             Console.WriteLine("Execution time: " + optimisedTime);
         }
 
@@ -314,20 +302,35 @@ namespace LinqExploration.Presentation.Controller
         /// Demonstrates the custom QueryBuilder fluent API with filtering,
         /// sorting, joining, and query execution.
         /// </summary>
-        public void ExecuteTask5()
+        private void ExecuteTask5()
         {
             Console.WriteLine("Performing Task5");
             Console.WriteLine("Category : Electronics, SortBy : Price");
             var result = new QueryBuilder<Product>(this._productService.GetProducts())
                 .Filter(product => product.Category == "Electronics")
                 .SortBy(product => product.Price)
-                .Join(this._supplierService.GetSuppliers(), p => p.ProductId, s => s.ProductId, (p, s) => new { SupplierName = s.SupplierName, ProductName = p.ProductName })
+                .Join(
+                      this._supplierService.GetSuppliers(),
+                      p => p.ProductId,
+                      s => s.ProductId,
+                      (p, s) => new { SupplierName = s.SupplierName, ProductName = p.ProductName })
                 .Execute();
             foreach (var item in result)
             {
                 Console.WriteLine(item.SupplierName);
                 Console.WriteLine(item.ProductName);
             }
+        }
+
+        private void PrintProducts(List<Product> products)
+        {
+            var table = new ConsoleTable("Product ID", "Product Name", "Category", "Price");
+            foreach (var product in products)
+            {
+                table.AddRow(product.ProductId, product.ProductName, product.Category, product.Price);
+            }
+
+            table.Write(Format.MarkDown);
         }
     }
 }
