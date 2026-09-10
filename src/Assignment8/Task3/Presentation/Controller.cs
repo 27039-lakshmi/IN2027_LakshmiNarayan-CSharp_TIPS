@@ -12,55 +12,28 @@ namespace Task3.Presentation
         /// <summary>
         /// Service used to perform division operations.
         /// </summary>
-        private readonly DivisionService _dividor;
+        private readonly DivisionService _divisionService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Controller"/> class.
         /// </summary>
-        /// <param name="dividor">
+        /// <param name="divisionService">
         /// The division service used to perform arithmetic operations.
         /// </param>
-        public Controller(DivisionService dividor)
+        public Controller(DivisionService divisionService)
         {
-            this._dividor = dividor;
+            this._divisionService = divisionService;
         }
 
         /// <summary>
-        /// Reads user input and performs division operations while demonstrating
-        /// multiple exception handling scenarios.
+        /// Demonstrates nested exception handling for division operation and custom exception.
         /// </summary>
         public void Start()
         {
             try
             {
-                try
-                {
-                    Console.WriteLine("Task 1: Divide by zero exception");
-                    Console.WriteLine("Enter dividor ");
-                    if (int.TryParse(Console.ReadLine(), out int inputNum))
-                    {
-                        int result = this._dividor.DivideTwoNumbers(10, inputNum);
-                        Console.WriteLine("Result : " + result);
-                    }
-
-                    Console.WriteLine("Task 3: Throw custom exception");
-                    Console.WriteLine("Enter input as null or whitespace to execute custom exception");
-                    string? userInput = Console.ReadLine();
-
-                    if (string.IsNullOrWhiteSpace(userInput))
-                    {
-                        throw new InvalidUserInputException(
-                            "User input should not be null");
-                    }
-                }
-                catch (DivideByZeroException)
-                {
-                    Console.WriteLine("Cannot divide by zero");
-                }
-                catch (InvalidUserInputException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                this.ExecuteDivisionTask();
+                this.ExecuteCustomExceptionTask();
             }
             catch (Exception ex)
             {
@@ -69,6 +42,54 @@ namespace Task3.Presentation
             finally
             {
                 Console.WriteLine("Finally is executing");
+            }
+        }
+
+        /// <summary>
+        /// Demonstrates exception handling for division operation.
+        /// </summary>
+        private void ExecuteDivisionTask()
+        {
+            try
+            {
+                Console.WriteLine("Task 1: Divide by zero exception");
+                Console.WriteLine("Enter divisor as zero to throw DivideByZeroException");
+
+                if (int.TryParse(Console.ReadLine(), out int inputNum))
+                {
+                    int result = this._divisionService.DivideTwoNumbers(10, inputNum);
+                    Console.WriteLine($"Result: {result}");
+                }
+                else
+                {
+                    Console.WriteLine("Please enter a valid integer.");
+                }
+            }
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("Cannot divide by zero.");
+            }
+        }
+
+        /// <summary>
+        /// Demonstrates exception handling with custom exception.
+        /// </summary>
+        private void ExecuteCustomExceptionTask()
+        {
+            try
+            {
+                Console.WriteLine("Task 3: Throw custom exception");
+                Console.WriteLine("Enter input as null or whitespace to execute custom exception");
+                string? userInput = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(userInput))
+                {
+                    throw new InvalidUserInputException("User input should not be null");
+                }
+            }
+            catch (InvalidUserInputException ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }

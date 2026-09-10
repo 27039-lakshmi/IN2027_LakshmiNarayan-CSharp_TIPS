@@ -12,17 +12,17 @@ namespace Task2.Presentation
         /// <summary>
         /// Service used to perform division operations.
         /// </summary>
-        private readonly DivisionService _dividor;
+        private readonly DivisionService _divisionService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Controller"/> class.
         /// </summary>
-        /// <param name="dividor">
+        /// <param name="divisionService">
         /// The division service used to perform arithmetic operations.
         /// </param>
-        public Controller(DivisionService dividor)
+        public Controller(DivisionService divisionService)
         {
-            this._dividor = dividor;
+            this._divisionService = divisionService;
         }
 
         /// <summary>
@@ -32,41 +32,59 @@ namespace Task2.Presentation
         {
             try
             {
-                try
-                {
-                    int[] arr = new int[] { 1, 2, 3, 0 };
-
-                    Console.WriteLine("Task 1: Divide by zero exception");
-                    Console.WriteLine("Enter dividor ");
-                    if (int.TryParse(Console.ReadLine(), out int inputNum))
-                    {
-                        int result = this._dividor.DivideTwoNumbers(10, inputNum);
-                        Console.WriteLine("Result : " + result);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Enter valid integer");
-                    }
-
-                    Console.WriteLine("Task 2: Index out of range exception");
-                    Console.WriteLine(arr[10]);
-                }
-                catch (DivideByZeroException)
-                {
-                    Console.WriteLine("Cannot divide by zero");
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    throw new Exception("Index should be within size of array");
-                }
+                this.ExecuteDivisionTask();
+                this.ExecuteArrayAccessTask();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine(ex.Message);
             }
             finally
             {
                 Console.WriteLine("Finally is executing");
+            }
+        }
+
+        /// <summary>
+        /// Demonstrates exception handling for division operation.
+        /// </summary>
+        private void ExecuteDivisionTask()
+        {
+            try
+            {
+                Console.WriteLine("Task 1: Divide by zero exception");
+                Console.WriteLine("Enter divisor as zero to throw DivideByZeroException");
+
+                if (int.TryParse(Console.ReadLine(), out int inputNum))
+                {
+                    int result = this._divisionService.DivideTwoNumbers(10, inputNum);
+                    Console.WriteLine($"Result: {result}");
+                }
+                else
+                {
+                    Console.WriteLine("Please enter a valid integer.");
+                }
+            }
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("Cannot divide by zero.");
+            }
+        }
+
+        /// <summary>
+        /// Demonstrates exception handling for index out of range.
+        /// </summary>
+        private void ExecuteArrayAccessTask()
+        {
+            try
+            {
+                int[] arr = { 1, 2, 3, 0 };
+                Console.WriteLine("Task 2: Index out of range exception");
+                Console.WriteLine(arr[10]);
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                throw new Exception("Index should be within the size of the array.", ex);
             }
         }
     }

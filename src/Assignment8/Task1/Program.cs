@@ -11,8 +11,8 @@ namespace Assignments
     {
         private static void Main(string[] args)
         {
-            var dividor = new DivisionService();
-            var controller = new DivisionController(dividor);
+            var divisionService = new DivisionService();
+            var controller = new DivisionController(divisionService);
             controller.Divide();
         }
     }
