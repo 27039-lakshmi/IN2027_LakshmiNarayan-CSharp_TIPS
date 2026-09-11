@@ -1,5 +1,4 @@
-﻿using Task4.Application.Services;
-using Task4.Presentation;
+﻿using Task4.Presentation;
 
 namespace Assignments
 {
@@ -11,8 +10,7 @@ namespace Assignments
     {
         private static void Main(string[] args)
         {
-            var divisionService = new DivisionService();
-            var controller = new Controller(divisionService);
+            var controller = new Controller();
             AppDomain.CurrentDomain.UnhandledException += controller.OnUnhandledException;
             controller.Start();
         }

@@ -1,5 +1,4 @@
-﻿using Task2.Application.Services;
-using Task2.Presentation;
+﻿using Task2.Presentation;
 
 namespace Assignments
 {
@@ -11,8 +10,7 @@ namespace Assignments
     {
         private static void Main(string[] args)
         {
-            var divisionService = new DivisionService();
-            var controller = new Controller(divisionService);
+            var controller = new Controller();
             controller.Start();
         }
     }
