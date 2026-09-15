@@ -15,7 +15,7 @@ namespace Assignments
         /// </param>
         public static void Main(string[] args)
         {
-            var controller = new IDisposableController();
+            var controller = new IDisposableViewer();
             controller.Start();
         }
     }

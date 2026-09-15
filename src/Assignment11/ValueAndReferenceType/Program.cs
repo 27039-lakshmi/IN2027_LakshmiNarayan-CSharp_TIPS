@@ -18,7 +18,8 @@ namespace Assignments
         public static void Main(string[] args)
         {
             var service = new ValueReferenceDemoService();
-            var controller = new ValueReferenceController(service);
+            var controller = new ValueReferenceViewer(service);
+            controller.Start();
         }
     }
 }

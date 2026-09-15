@@ -6,22 +6,23 @@ namespace IDisposableDemo.Presentation.Controller
     /// Coordinates user interaction for the IDisposable demonstration,
     /// including writing data to a file and reading it back.
     /// </summary>
-    public class IDisposableController
+    public class IDisposableViewer
     {
         /// <summary>
         /// Starts the IDisposable demonstration workflow.
         /// </summary>
         public void Start()
         {
-            FileManager service;
-            using (service = new FileManager("C:/chummah/data.txt"))
+            string filepath = "C:/chummah/data.txt";
+            using (var fileWriter = new FileWriter(filepath))
             {
                 Console.WriteLine("Enter text to write into file");
-                service.WriteIntoFile(Console.ReadLine());
+                fileWriter.WriteIntoFile(Console.ReadLine());
             }
 
+            var fileReader = new FileReader(filepath);
             Console.WriteLine("Data in file");
-            string? text = service.ReadFromFile();
+            string? text = fileReader.ReadFromFile();
             Console.WriteLine(text);
         }
     }

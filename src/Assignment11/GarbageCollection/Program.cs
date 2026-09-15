@@ -18,7 +18,7 @@ namespace Assignments
         public static void Main(string[] args)
         {
             var service = new GarbageCollectionService();
-            var controller = new GarbageCollectionController(service);
+            var controller = new GarbageCollectionViewer(service);
             controller.Start();
         }
     }

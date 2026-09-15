@@ -5,18 +5,18 @@ namespace GarbageCollection.Presentation.Controller
     /// <summary>
     /// Coordinates the execution of the garbage collection demonstration.
     /// </summary>
-    public class GarbageCollectionController
+    public class GarbageCollectionViewer
     {
         private readonly GarbageCollectionService _service;
 
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="GarbageCollectionController"/> class.
+        /// <see cref="GarbageCollectionViewer"/> class.
         /// </summary>
         /// <param name="service">
         /// The service responsible for creating and releasing memory allocations.
         /// </param>
-        public GarbageCollectionController(GarbageCollectionService service)
+        public GarbageCollectionViewer(GarbageCollectionService service)
         {
             this._service = service;
         }

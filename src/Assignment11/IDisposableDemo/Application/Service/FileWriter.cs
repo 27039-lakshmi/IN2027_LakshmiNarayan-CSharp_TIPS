@@ -1,19 +1,21 @@
-﻿namespace IDisposableDemo.Application.Service
+﻿using System.Text.Json.Serialization;
+
+namespace IDisposableDemo.Application.Service
 {
     /// <summary>
     /// Provides functionality to write text to a file, read file contents,
     /// and release file-related resources when they are no longer needed.
     /// </summary>
-    public class FileManager : IDisposable
+    public class FileWriter : IDisposable
     {
         private readonly StreamWriter _writer;
         private readonly string _filepath;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileManager"/> class.
+        /// Initializes a new instance of the <see cref="FileWriter"/> class.
         /// </summary>
         /// <param name="filepath">filepath where data is stored</param>
-        public FileManager(string filepath)
+        public FileWriter(string filepath)
         {
             this._filepath = filepath;
             this._writer = new StreamWriter(filepath);
@@ -37,17 +39,6 @@
         public void WriteIntoFile(string? text)
         {
             this._writer.WriteLine(text);
-        }
-
-        /// <summary>
-        /// Reads and returns the entire content of the file.
-        /// </summary>
-        /// <returns>
-        /// A string containing all text from the file.
-        /// </returns>
-        public string? ReadFromFile()
-        {
-            return File.ReadAllText(this._filepath);
         }
     }
 }

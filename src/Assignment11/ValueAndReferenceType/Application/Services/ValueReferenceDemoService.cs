@@ -7,21 +7,30 @@
     public class ValueReferenceDemoService
     {
         /// <summary>
-        /// Demonstrates the difference between passing a value type and
-        /// a reference type to a method.
+        /// Demonstrates changing value of value type.
         /// </summary>
         /// <param name="value">
         /// The value type parameter whose changes remain local to the method.
         /// </param>
-        /// <param name="array">
-        /// The reference type parameter whose contents can be modified within the method.
-        /// </param>
         /// <param name="newValue">
         /// The new value assigned to both the value parameter and the first element of the array.
         /// </param>
-        public void ChangeValue(int value, int[] array, int newValue)
+        public void ChangeValueType(int value, int newValue)
         {
             value = newValue;
+        }
+
+        /// <summary>
+        /// Demonstrates changing value of reference type.
+        /// </summary>
+        /// <param name="array">
+        /// The reference type parameter whose contents can be modified within the method.
+        /// </param>
+        /// /// <param name="newValue">
+        /// The new value assigned to both the value parameter and the first element of the array.
+        /// </param>
+        public void ChangeReferenceType(int[] array, int newValue)
+        {
             array[0] = newValue;
         }
 
@@ -33,7 +42,6 @@
         /// </param>
         public void CreateLargeArray(int size)
         {
-            Console.WriteLine("Creating large array...");
             var largeArray = new int[size];
             for (int i = 0; i < largeArray.Length; i++)
             {
@@ -47,7 +55,6 @@
         /// </summary>
         public void PerformLargeCalculation()
         {
-            Console.WriteLine("Performing large calculation...");
             int a1 = 1;
             int a2 = 2;
             int a3 = 3;
