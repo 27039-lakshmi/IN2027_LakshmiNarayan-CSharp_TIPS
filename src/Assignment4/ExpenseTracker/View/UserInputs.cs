@@ -13,7 +13,7 @@ namespace ExpenseTracker.View
         /// Collects income details from the user.
         /// </summary>
         /// <returns>
-        /// A tuple containing the created income object and a flag indicating success.
+        /// An income object with income details if details are valid otherwise null.
         /// </returns>
         public Income? GetIncomeDetails()
         {
@@ -59,9 +59,7 @@ namespace ExpenseTracker.View
         /// <summary>
         /// Collects expense details from the user.
         /// </summary>
-        /// <returns>
-        /// A tuple containing the created expense object and a flag indicating success.
-        /// </returns>
+        /// <returns>An expense object with details, if details are valid otherwise null.</returns>
         public Expense? GetExpenseDetails()
         {
             var (date, amount, isValid) = this.GetDateAndAmount("expense");
@@ -89,7 +87,7 @@ namespace ExpenseTracker.View
         /// <returns>
         /// A tuple containing the date, amount, and validation result.
         /// </returns>
-        public (DateOnly, int, bool) GetDateAndAmount(string message)
+        public (DateOnly, decimal, bool) GetDateAndAmount(string message)
         {
             var failureResult = (DateOnly.MinValue, 0, false);
             Console.WriteLine(Messages.DateOption);
@@ -97,7 +95,7 @@ namespace ExpenseTracker.View
             if (isDateValid)
             {
                 Console.WriteLine($"Enter {message} amount");
-                (int amount, bool isAmountValid) = this.GetAmountInput();
+                (decimal amount, bool isAmountValid) = this.GetAmountInput();
                 if (isAmountValid)
                 {
                     return (date, amount, true);
@@ -154,9 +152,7 @@ namespace ExpenseTracker.View
         /// Allows the user to update an existing transaction date.
         /// </summary>
         /// <param name="oldDate">The current transaction date.</param>
-        /// <returns>
-        /// The updated date if valid; otherwise the original date.
-        /// </returns>
+        /// <returns> The updated date if valid; otherwise the original date. </returns>
         public DateOnly GetUpdatedDate(DateOnly oldDate)
         {
             Console.WriteLine($"Current Date: {oldDate}");
@@ -182,10 +178,8 @@ namespace ExpenseTracker.View
         /// Allows the user to update an existing transaction amount.
         /// </summary>
         /// <param name="oldAmount">The current amount.</param>
-        /// <returns>
-        /// The updated amount if valid; otherwise the original amount.
-        /// </returns>
-        public int GetUpdatedAmount(int oldAmount)
+        /// <returns> The updated amount if valid; otherwise the original amount. </returns>
+        public decimal GetUpdatedAmount(decimal oldAmount)
         {
             Console.Write($"Current amount {oldAmount}\n" +
                               $"do you want to edit the amount (Enter y)");
@@ -209,9 +203,7 @@ namespace ExpenseTracker.View
         /// </summary>
         /// <param name="oldText">The current text value.</param>
         /// <param name="inputType">The inputType whether its source or category</param>
-        /// <returns>
-        /// The updated text if valid; otherwise the original text.
-        /// </returns>
+        /// <returns>The updated text if valid; otherwise the original text. </returns>
         public string GetUpdatedText(string oldText, string inputType)
         {
             Console.Write($"Current {inputType} {oldText}\n" +
@@ -237,11 +229,11 @@ namespace ExpenseTracker.View
         /// <returns>
         /// A tuple containing the amount and validation result.
         /// </returns>
-        public (int, bool) GetAmountInput()
+        public (decimal, bool) GetAmountInput()
         {
             var failureResult = (0, false);
             string amountInput = Console.ReadLine() ?? string.Empty;
-            if (Validator.IsAmountValid(amountInput, out int amount))
+            if (Validator.IsAmountValid(amountInput, out decimal amount))
             {
                 return (amount, true);
             }

@@ -133,7 +133,7 @@ namespace ExpenseTracker.View
             else
             {
                 var incomeDate = this._userInputs.GetUpdatedDate(existingIncome.TransactionDate);
-                int incomeAmount = this._userInputs.GetUpdatedAmount(existingIncome.Amount);
+                decimal incomeAmount = this._userInputs.GetUpdatedAmount(existingIncome.Amount);
                 string incomeSource = this._userInputs.GetUpdatedText(existingIncome.Source, "source");
                 bool hasChanges = incomeDate != existingIncome.TransactionDate ||
                                   incomeAmount != existingIncome.Amount ||
@@ -279,7 +279,7 @@ namespace ExpenseTracker.View
             else
             {
                 var expenseDate = this._userInputs.GetUpdatedDate(existingExpense.TransactionDate);
-                int expenseAmount = this._userInputs.GetUpdatedAmount(existingExpense.Amount);
+                decimal expenseAmount = this._userInputs.GetUpdatedAmount(existingExpense.Amount);
                 string expenseCategory = this._userInputs.GetUpdatedText(existingExpense.Category, "category");
                 bool hasChanges = expenseDate != existingExpense.TransactionDate ||
                                   expenseAmount != existingExpense.Amount ||
