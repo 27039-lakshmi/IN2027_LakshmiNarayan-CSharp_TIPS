@@ -11,7 +11,7 @@
         /// <value>
         /// The sum of all income transactions.
         /// </value>
-        public static int TotalIncome { get; set; }
+        public static decimal TotalIncome { get; set; }
 
         /// <summary>
         /// Gets or sets the total expense amount.
@@ -19,7 +19,7 @@
         /// <value>
         /// The sum of all expense transactions.
         /// </value>
-        public static int TotalExpense { get; set; }
+        public static decimal TotalExpense { get; set; }
 
         /// <summary>
         /// Gets or sets the current account balance.
@@ -27,6 +27,6 @@
         /// <value>
         /// The difference between total income and total expenses.
         /// </value>
-        public static int Balance { get; set; }
+        public static decimal Balance { get; set; }
     }
 }

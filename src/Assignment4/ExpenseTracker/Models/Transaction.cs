@@ -18,7 +18,7 @@
         /// <param name="amount">
         /// The monetary value of the transaction.
         /// </param>
-        public Transaction(string id, DateTime transactionDate, int amount)
+        public Transaction(string id, DateTime transactionDate, decimal amount)
         {
             this.Id = id;
             this.TransactionDate = transactionDate;
@@ -48,6 +48,6 @@
         /// <value>
         /// The monetary amount associated with the transaction.
         /// </value>
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
     }
 }

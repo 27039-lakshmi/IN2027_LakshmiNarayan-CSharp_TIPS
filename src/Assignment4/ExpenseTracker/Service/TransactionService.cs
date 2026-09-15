@@ -75,9 +75,7 @@ namespace ExpenseTracker.Service
         /// When this method returns, contains the converted transaction if the cast
         /// succeeded; otherwise, null.
         /// </param>
-        /// <returns>
-        /// True if the cast succeeds; otherwise, false.
-        /// </returns>
+        /// <returns> True if the cast succeeds; otherwise, false. </returns>
         public bool TryCast<T>(Transaction transaction, out T? result)
             where T : Transaction
         {
@@ -102,9 +100,7 @@ namespace ExpenseTracker.Service
         /// <param name="recordType">
         /// The type of transactions to retrieve.
         /// </param>
-        /// <returns>
-        /// A list of transactions matching the specified type.
-        /// </returns>
+        /// <returns> A list of transactions matching the specified type.</returns>
         public List<Transaction> GetRecords(TransactionType recordType)
         {
             if (recordType == TransactionType.Income)
@@ -151,10 +147,7 @@ namespace ExpenseTracker.Service
         /// <param name="recordType">
         /// The type of transaction to delete.
         /// </param>
-        /// <returns>
-        /// True if the transaction was found and deleted;
-        /// otherwise, false.
-        /// </returns>
+        /// <returns> True if the transaction was found and deleted; otherwise, false.</returns>
         public bool DeleteTransaction(string id, TransactionType recordType)
         {
             var transaction = recordType == TransactionType.Income
@@ -188,9 +181,7 @@ namespace ExpenseTracker.Service
         /// <param name="id">
         /// The identifier of the transaction.
         /// </param>
-        /// <returns>
-        /// The matching transaction if found; otherwise, null.
-        /// </returns>
+        /// <returns> The matching transaction if found; otherwise, null.</returns>
         public Transaction? SearchTransaction(List<Transaction> transactions, string id)
         {
             return transactions.Find(transaction => string.Equals(transaction.Id, id));
@@ -202,10 +193,8 @@ namespace ExpenseTracker.Service
         /// <param name="type">
         /// The transaction type.
         /// </param>
-        /// <returns>
-        /// The sum of all transaction amounts for the specified type.
-        /// </returns>
-        public int GetTotal(TransactionType type)
+        /// <returns> The sum of all transaction amounts for the specified type.</returns>
+        public decimal GetTotal(TransactionType type)
         {
             return this.GetRecords(type).Sum(t => t.Amount);
         }
@@ -216,9 +205,7 @@ namespace ExpenseTracker.Service
         /// <param name="id">
         /// The income transaction identifier.
         /// </param>
-        /// <returns>
-        /// The matching income transaction if found; otherwise, null.
-        /// </returns>
+        /// <returns>The matching income transaction if found; otherwise, null. </returns>
         public Income? GetExistingIncome(string id)
         {
             return this.SearchTransaction(this.GetRecords(TransactionType.Income), id) as Income;
@@ -230,9 +217,7 @@ namespace ExpenseTracker.Service
         /// <param name="id">
         /// The expense transaction identifier.
         /// </param>
-        /// <returns>
-        /// The matching expense transaction if found; otherwise, null.
-        /// </returns>
+        /// <returns> The matching expense transaction if found; otherwise, null </returns>
         public Expense? GetExistingExpense(string id)
         {
             return this.SearchTransaction(this.GetRecords(TransactionType.Expense), id) as Expense;
@@ -241,9 +226,7 @@ namespace ExpenseTracker.Service
         /// <summary>
         /// Determines whether any income records exist.
         /// </summary>
-        /// <returns>
-        /// True if income records exist; otherwise, false.
-        /// </returns>
+        /// <returns>True if income records exist; otherwise, false. </returns>
         public bool HasIncomeRecords()
         {
             return this._transactions.GetIncomeRecords().Any();
@@ -252,9 +235,7 @@ namespace ExpenseTracker.Service
         /// <summary>
         /// Determines whether any expense records exist.
         /// </summary>
-        /// <returns>
-        /// True if expense records exist; otherwise, false.
-        /// </returns>
+        /// <returns>True if expense records exist; otherwise, false.</returns>
         public bool HasExpenseRecords()
         {
             return this._transactions.GetExpenseRecords().Any();
@@ -263,10 +244,8 @@ namespace ExpenseTracker.Service
         /// <summary>
         /// Gets the current balance.
         /// </summary>
-        /// <returns>
-        /// The current balance amount.
-        /// </returns>
-        public int GetBalance()
+        /// <returns> The current balance amount. </returns>
+        public decimal GetBalance()
         {
             return TransactionSummary.Balance;
         }
@@ -275,7 +254,7 @@ namespace ExpenseTracker.Service
         /// Gets the transaction summary
         /// </summary>
         /// <returns> The transaction summary </returns>
-        public (int, int, int) GetSummary()
+        public (decimal, decimal, decimal) GetSummary()
         {
             return (TransactionSummary.TotalIncome, TransactionSummary.TotalExpense, TransactionSummary.Balance);
         }

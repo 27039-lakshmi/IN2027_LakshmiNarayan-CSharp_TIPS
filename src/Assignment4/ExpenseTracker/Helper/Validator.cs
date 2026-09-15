@@ -48,9 +48,9 @@ namespace ExpenseTracker.Helper
         /// <returns>
         /// True if the amount is a positive integer; otherwise, false.
         /// </returns>
-        public static bool IsAmountValid(string amountInput, out int amount)
+        public static bool IsAmountValid(string amountInput, out decimal amount)
         {
-            return int.TryParse(amountInput, out amount) &&
+            return decimal.TryParse(amountInput, out amount) &&
                    amount > 0;
         }
 
