@@ -6,6 +6,19 @@
     public class Supplier
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="Supplier"/> class.
+        /// </summary>
+        /// <param name="supplierId">Id of the supplier</param>
+        /// <param name="supplierName">Name of the supplier</param>
+        /// <param name="productId">Id of the product</param>
+        public Supplier(int supplierId, string supplierName, int productId)
+        {
+            this.SupplierId = supplierId;
+            this.SupplierName = supplierName;
+            this.ProductId = productId;
+        }
+
+        /// <summary>
         /// Gets or sets the supplier identifier.
         /// </summary>
         /// <value>

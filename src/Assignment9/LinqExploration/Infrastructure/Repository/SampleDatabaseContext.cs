@@ -1,11 +1,12 @@
 ﻿using LinqExploration.Domain.Models;
+using LinqExploration.Infrastructure.Interface;
 
 namespace LinqExploration.Infrastructure.Repository
 {
     /// <summary>
     /// Represents an in-memory data store for products, suppliers, and orders.
     /// </summary>
-    public class SampleDatabaseContext
+    public class SampleDatabaseContext : ISampleDatabaseContext
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SampleDatabaseContext"/> class.
@@ -17,20 +18,20 @@ namespace LinqExploration.Infrastructure.Repository
         }
 
         /// <summary>
-        /// Gets or sets the collection of products.
+        /// Gets the collection of products.
         /// </summary>
         /// <value>
         /// Products available in the data store.
         /// </value>
-        public List<Product> Products { get; set; }
+        public List<Product> Products { get; private set; }
 
         /// <summary>
-        /// Gets or sets the collection of suppliers.
+        /// Gets the collection of suppliers.
         /// </summary>
         /// <value>
         /// Suppliers available in the data store.
         /// </value>
-        public List<Supplier> Suppliers { get; set; }
+        public List<Supplier> Suppliers { get; private set; }
 
         /// <summary>
         /// Retrieves all products from the data store.
@@ -38,9 +39,9 @@ namespace LinqExploration.Infrastructure.Repository
         /// <returns>
         /// A list containing all products.
         /// </returns>
-        public List<Product> GetAllProducts()
+        public IReadOnlyList<Product> GetAllProducts()
         {
-            return this.Products.ToList();
+            return this.Products;
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace LinqExploration.Infrastructure.Repository
         /// <returns>
         /// A list containing all suppliers.
         /// </returns>
-        public List<Supplier> GetAllSuppliers()
+        public IReadOnlyList<Supplier> GetAllSuppliers()
         {
             return this.Suppliers.ToList();
         }

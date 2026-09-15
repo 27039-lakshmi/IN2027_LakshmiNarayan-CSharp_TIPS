@@ -10,11 +10,11 @@ namespace LinqExploration.Presentation.Controller
     /// </summary>
     public class LinqController
     {
-        private ProductService _productService;
+        private readonly ProductService _productService;
 
-        private SupplierService _supplierService;
+        private readonly SupplierService _supplierService;
 
-        private ArrayService _arrayService;
+        private readonly ArrayService _arrayService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LinqController"/> class.
@@ -87,56 +87,12 @@ namespace LinqExploration.Presentation.Controller
         {
             this._productService.AddProducts(new List<Product>
         {
-            new Product
-            {
-                ProductId = 1,
-                ProductName = "Laptop",
-                Price = 600m,
-                Category = "Electronics",
-            },
-            new Product
-            {
-                ProductId = 2,
-                ProductName = "Smartphone",
-                Price = 550m,
-                Category = "Electronics",
-            },
-
-            new Product
-            {
-                ProductId = 3,
-                ProductName = "Office Chair",
-                Price = 200m,
-                Category = "Furniture",
-            },
-            new Product
-            {
-                ProductId = 4,
-                ProductName = "Desk",
-                Price = 1200m,
-                Category = "Furniture",
-            },
-            new Product
-            {
-                ProductId = 5,
-                ProductName = "Coffee Maker",
-                Price = 300m,
-                Category = "Appliances",
-            },
-            new Product
-            {
-                ProductId = 6,
-                ProductName = "Harry Potter",
-                Price = 200m,
-                Category = "Books",
-            },
-            new Product
-            {
-                ProductId = 7,
-                ProductName = "Game of thrones",
-                Price = 550m,
-                Category = "Books",
-            },
+             new Product(1, "Soap", 20, "Daily_Utilities"),
+             new Product(2, "Phone", 10000, "Electronics"),
+             new Product(3, "TV", 500000, "Electronics"),
+             new Product(4, "Laptop", 70000, "Electronics"),
+             new Product(5, "Shampoo", 55, "Daily_Utilities"),
+             new Product(6, "Trimmer", 100, "Electronics"),
         });
         }
 
@@ -147,36 +103,11 @@ namespace LinqExploration.Presentation.Controller
         {
             this._supplierService.AddSuppliers(new List<Supplier>()
             {
-                new Supplier
-            {
-                SupplierId = 101,
-                SupplierName = "ABC Electronics",
-                ProductId = 1,
-            },
-                new Supplier
-            {
-                SupplierId = 102,
-                SupplierName = "XYZ Mobiles",
-                ProductId = 2,
-            },
-                new Supplier
-            {
-                SupplierId = 103,
-                SupplierName = "Comfort Furnitures",
-                ProductId = 3,
-            },
-                new Supplier
-            {
-                SupplierId = 104,
-                SupplierName = "Wood Works",
-                ProductId = 4,
-            },
-                new Supplier
-            {
-                SupplierId = 105,
-                SupplierName = "Home Appliances Ltd",
-                ProductId = 5,
-            },
+                    new Supplier(101, "ABC Electronics", 1),
+                    new Supplier(102, "XYZ Mobiles", 2),
+                    new Supplier(103, "Comfort Furnitures", 3),
+                    new Supplier(104, "Wood Works", 4),
+                    new Supplier(105, "Home Appliances Ltd", 5),
             });
         }
 
@@ -187,29 +118,66 @@ namespace LinqExploration.Presentation.Controller
         {
             var products = this._productService.GetProducts();
             Console.WriteLine("Performing task1");
-            Console.WriteLine("Products List");
             this.PrintProducts(products);
             var filteredProducts = this._productService.GetFilteredProducts();
-            var sortedFilteredProducts = filteredProducts.OrderByDescending(product => product.Price).ToList();
-            decimal averagePrice = filteredProducts.Average(product => product.Price);
-            var filteredTable = new ConsoleTable("S.No", "Product Name", "Product Price");
-            Console.WriteLine("Filtered products category \"Electronics\" with a price greater than $500");
-            for (int i = 0; i < filteredProducts.Count; i++)
-            {
-                filteredTable.AddRow(i + 1, filteredProducts[i].Name, filteredProducts[i].Price);
-            }
+            this.DisplayFilteredProducts(filteredProducts);
 
-            filteredTable.Write(Format.MarkDown);
-            filteredTable.Rows.Clear();
+            var sortedFilteredProducts = filteredProducts.OrderByDescending(product => product.Price).ToList();
+            this.DisplaySortedProducts(sortedFilteredProducts);
+
+            decimal averagePrice = filteredProducts.Average(product => product.Price);
+            this.DisplayAveragePrice(averagePrice);
+        }
+
+        /// <summary>
+        /// Displays the calculated average price of the filtered products.
+        /// </summary>
+        /// <param name="averagePrice">
+        /// The average price to display.
+        /// </param>
+        private void DisplayAveragePrice(decimal averagePrice)
+        {
+            Console.WriteLine("Average of price: " + averagePrice);
+        }
+
+        /// <summary>
+        /// Displays the filtered products sorted in descending order of price.
+        /// </summary>
+        /// <param name="sortedFilteredProducts">
+        /// The collection of products sorted by price in descending order.
+        /// </param>
+        private void DisplaySortedProducts(List<ProductDTO> sortedFilteredProducts)
+        {
+            var table = new ConsoleTable("S.No", "Product Name", "Product Price");
             Console.WriteLine("Sorted by descending");
             for (int i = 0; i < sortedFilteredProducts.Count; i++)
             {
-                filteredTable.AddRow(i + 1, sortedFilteredProducts[i].Name, sortedFilteredProducts[i].Price);
+                table.AddRow(i + 1, sortedFilteredProducts[i].Name, sortedFilteredProducts[i].Price);
             }
 
-            filteredTable.Write(Format.MarkDown);
-            filteredTable.Rows.Clear();
-            Console.WriteLine("Average of price: " + averagePrice);
+            table.Write(Format.MarkDown);
+            table.Rows.Clear();
+        }
+
+        /// <summary>
+        /// Displays the filtered products in a tabular format.
+        /// </summary>
+        /// <param name="products">
+        /// The filtered products to display.
+        /// </param>
+        private void DisplayFilteredProducts(IReadOnlyList<ProductDTO> products)
+        {
+            Console.WriteLine(
+                "Filtered products category \"Electronics\" with a price greater than $500");
+
+            var table = new ConsoleTable("S.No", "Product Name", "Product Price");
+
+            for (int i = 0; i < products.Count; i++)
+            {
+                table.AddRow(i + 1, products[i].Name, products[i].Price);
+            }
+
+            table.Write(Format.MarkDown);
         }
 
         /// <summary>
@@ -219,18 +187,40 @@ namespace LinqExploration.Presentation.Controller
         {
             var products = this._productService.GetProducts();
             Console.WriteLine("Performing Task2");
-            Console.WriteLine("Products List");
             this.PrintProducts(products);
             var productCategoryWiseSummary = this._productService.GetProductCategorySummary();
-            var categorySummaryTable = new ConsoleTable("Category", "Number of products", "Expensive Product");
-            Console.WriteLine("Category-wise summary for products");
-            foreach (var category in productCategoryWiseSummary)
+            this.DisplayCategorySummary(productCategoryWiseSummary);
+            var suppliers = this._supplierService.GetSuppliers();
+            this.DisplaySuppliers(suppliers);
+            var supplierProductMapping = this._supplierService.GetProductWithSuppliers();
+            this.DisplaySupplierProductMapping(supplierProductMapping);
+        }
+
+        /// <summary>
+        /// Displays the supplier and product mappings produced by the join operation.
+        /// </summary>
+        /// <param name="supplierProductMapping">
+        /// The collection containing supplier and product information.
+        /// </param>
+        private void DisplaySupplierProductMapping(List<ProductWithSupplierDto> supplierProductMapping)
+        {
+            var supplierProductMappingTable = new ConsoleTable("Supplier Id", "Supplier Name", "Product Id", "Product Name");
+            foreach (var item in supplierProductMapping)
             {
-                categorySummaryTable.AddRow(category.Category, category.Count, category.ExpensiveProduct);
+                supplierProductMappingTable.AddRow(item.SupplierId, item.SupplierName, item.ProductId, item.ProductName);
             }
 
-            categorySummaryTable.Write(Format.MarkDown);
-            var suppliers = this._supplierService.GetSuppliers();
+            supplierProductMappingTable.Write(Format.MarkDown);
+        }
+
+        /// <summary>
+        /// Displays the list of suppliers in a tabular format.
+        /// </summary>
+        /// <param name="suppliers">
+        /// The suppliers to display.
+        /// </param>
+        private void DisplaySuppliers(IEnumerable<Supplier> suppliers)
+        {
             var supplierTable = new ConsoleTable("Supplier Id", "Supplier Name", "Product ID");
             Console.WriteLine("Supplier List");
             foreach (var supplier in suppliers)
@@ -239,14 +229,25 @@ namespace LinqExploration.Presentation.Controller
             }
 
             supplierTable.Write(Format.MarkDown);
-            var supplierProductMappingTable = new ConsoleTable("Supplier Id", "Supplier Name", "Product Id", "Product Name");
-            var supplierProductMapping = this._supplierService.GetProductWithSuppliers();
-            foreach (var item in supplierProductMapping)
+        }
+
+        /// <summary>
+        /// Displays the category-wise product summary including product count
+        /// and the most expensive product in each category.
+        /// </summary>
+        /// <param name="productCategoryWiseSummary">
+        /// The category summary data to display.
+        /// </param>
+        private void DisplayCategorySummary(IReadOnlyList<CategorySummaryDTO> productCategoryWiseSummary)
+        {
+            var categorySummaryTable = new ConsoleTable("Category", "Number of products", "Expensive Product");
+            Console.WriteLine("Category-wise summary for products");
+            foreach (var category in productCategoryWiseSummary)
             {
-                supplierProductMappingTable.AddRow(item.SupplierId, item.SupplierName, item.ProductId, item.ProductName);
+                categorySummaryTable.AddRow(category.Category, category.Count, category.ExpensiveProduct);
             }
 
-            supplierProductMappingTable.Write(Format.MarkDown);
+            categorySummaryTable.Write(Format.MarkDown);
         }
 
         /// <summary>
@@ -257,20 +258,45 @@ namespace LinqExploration.Presentation.Controller
         {
             Console.WriteLine("Performing Task3");
             int[] arr = new int[] { 10, 20, 30, 40, 60, 70, 80, 90 };
+            this.DisplayArray(arr);
+
+            int secondHighest = this._arrayService.GetSecondHighestElement(arr);
+            Console.WriteLine("Second highest element " + secondHighest);
+
+            int target = 100;
+            var pairs = this._arrayService.GetPairsWithTargetSum(arr, target);
+            this.DisplayPairsWithTargetSum(pairs);
+        }
+
+        /// <summary>
+        /// Displays the pairs of numbers whose sum matches the target value.
+        /// </summary>
+        /// <param name="pairs">
+        /// The collection of matching number pairs.
+        /// </param>
+        private void DisplayPairsWithTargetSum(List<PairsDTO> pairs)
+        {
+            Console.WriteLine($"Pairs with target sum");
+
+            foreach (var pair in pairs)
+            {
+                Console.WriteLine(
+                    $"Number 1 : {pair.FirstNumber} Number 2 : {pair.SecondNumber}");
+            }
+        }
+
+        /// <summary>
+        /// Displays all elements of the input array.
+        /// </summary>
+        /// <param name="arr">
+        /// The array to display.
+        /// </param>
+        private void DisplayArray(int[] arr)
+        {
             Console.WriteLine("Array");
             foreach (int num in arr)
             {
                 Console.Write(num + " ");
-            }
-
-            int secondHighest = this._arrayService.GetSecondHighestElement(arr);
-            Console.WriteLine("Second highest element " + secondHighest);
-            int target = 100;
-            var listOfPairs = this._arrayService.GetPairs(arr, target);
-            Console.WriteLine("Pairs with target sum 100");
-            foreach (var pair in listOfPairs)
-            {
-                Console.WriteLine($"Number 1 : {pair.FirstNumber} Number 2 : {pair.SecondNumber}");
             }
         }
 
@@ -280,18 +306,36 @@ namespace LinqExploration.Presentation.Controller
         private void ExecuteTask4()
         {
             Console.WriteLine("Performing Task4");
-            Console.WriteLine("Unoptimised Query");
+            this.PerformUnoptimisedQuery();
+            this.PerformOptimisedQuery();
+        }
+
+        /// <summary>
+        /// Executes the non-optimized product filtering query and
+        /// displays its execution time.
+        /// </summary>
+        private void PerformUnoptimisedQuery()
+        {
             var stopWatch = new Stopwatch();
+            Console.WriteLine("Unoptimised Query");
             stopWatch.Start();
             var productsUnderBooks = this._productService.FilterWithoutOptimisation();
             stopWatch.Stop();
             double unoptimisedTime = stopWatch.Elapsed.TotalMilliseconds;
             this.PrintProducts(productsUnderBooks);
             Console.WriteLine("Execution time: " + unoptimisedTime);
+        }
 
+        /// <summary>
+        /// Executes the optimized product filtering query and
+        /// displays its execution time.
+        /// </summary>
+        private void PerformOptimisedQuery()
+        {
+            var stopWatch = new Stopwatch();
             Console.WriteLine("Optimised Query");
             stopWatch.Restart();
-            productsUnderBooks = this._productService.FilterWithOptimisation();
+            var productsUnderBooks = this._productService.FilterWithOptimisation();
             stopWatch.Stop();
             double optimisedTime = stopWatch.Elapsed.TotalMilliseconds;
             this.PrintProducts(productsUnderBooks);
@@ -315,15 +359,34 @@ namespace LinqExploration.Presentation.Controller
                       s => s.ProductId,
                       (p, s) => new { SupplierName = s.SupplierName, ProductName = p.ProductName })
                 .Execute();
-            foreach (var item in result)
+            this.PrintSupplierProducts(result);
+        }
+
+        /// <summary>
+        /// Displays supplier and product information returned by the query builder.
+        /// </summary>
+        /// <param name="products">
+        /// The collection containing supplier and product details.
+        /// </param>
+        private void PrintSupplierProducts(IEnumerable<dynamic> products)
+        {
+            foreach (var item in products)
             {
-                Console.WriteLine(item.SupplierName);
-                Console.WriteLine(item.ProductName);
+                Console.WriteLine(
+                    $"Supplier Name : {item.SupplierName}\n" +
+                    $"Product Name  : {item.ProductName}");
             }
         }
 
-        private void PrintProducts(List<Product> products)
+        /// <summary>
+        /// Displays the provided products in a tabular format.
+        /// </summary>
+        /// <param name="products">
+        /// The products to display.
+        /// </param>
+        private void PrintProducts(IReadOnlyList<Product> products)
         {
+            Console.WriteLine("Products List");
             var table = new ConsoleTable("Product ID", "Product Name", "Category", "Price");
             foreach (var product in products)
             {

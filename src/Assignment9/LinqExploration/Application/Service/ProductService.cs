@@ -1,5 +1,6 @@
-﻿using LinqExploration.Domain.Models;
-using LinqExploration.Infrastructure.Repository;
+﻿using LinqExploration.Domain.Constants;
+using LinqExploration.Domain.Models;
+using LinqExploration.Infrastructure.Interface;
 
 namespace LinqExploration.Application.Service
 {
@@ -8,13 +9,13 @@ namespace LinqExploration.Application.Service
     /// </summary>
     public class ProductService
     {
-        private readonly SampleDatabaseContext _context;
+        private readonly ISampleDatabaseContext _context;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProductService"/> class.
         /// </summary>
         /// <param name="database">Instance of database from program.cs</param>
-        public ProductService(SampleDatabaseContext database)
+        public ProductService(ISampleDatabaseContext database)
         {
             this._context = database;
         }
@@ -27,7 +28,7 @@ namespace LinqExploration.Application.Service
         public List<ProductDTO> GetFilteredProducts()
         {
             return this._context.GetAllProducts()
-                .Where(product => product.Category.Equals("Electronics")
+                .Where(product => product.Category.Equals(ProductCategory.Electronics, StringComparison.OrdinalIgnoreCase)
                                && product.Price > 500)
                 .Select(product => new ProductDTO(
                     product.ProductName,
@@ -39,7 +40,7 @@ namespace LinqExploration.Application.Service
         /// Retrieves all products.
         /// </summary>
         /// <returns>A list of products.</returns>
-        public List<Product> GetProducts()
+        public IReadOnlyList<Product> GetProducts()
         {
             return this._context.GetAllProducts();
         }
@@ -61,43 +62,45 @@ namespace LinqExploration.Application.Service
         /// A list containing the category name, product count,
         /// and most expensive product for each category.
         /// </returns>
-        public List<CategorySummaryDTO> GetProductCategorySummary()
+        public IReadOnlyList<CategorySummaryDTO> GetProductCategorySummary()
         {
             return this._context.GetAllProducts()
                 .GroupBy(product => product.Category)
                 .Select(g => new CategorySummaryDTO(
                  g.Key,
                  g.Count(),
-                 g.OrderByDescending(product => product.Price).First().ProductName))
+                 g.MaxBy(product => product.Price) !.ProductName))
                 .ToList();
         }
 
         /// <summary>
         /// Demonstrates a less optimal query by sorting products
-        /// before applying the filter.
+        /// before applying the filter. When sorting is performed before filtering,
+        /// it sorts the full database and then with the result filtering is done.
         /// </summary>
         /// <returns>
         /// A list of books ordered by price.
         /// </returns>
-        public List<Product> FilterWithoutOptimisation()
+        public IReadOnlyList<Product> FilterWithoutOptimisation()
         {
             return this.GetProducts()
                 .OrderBy(product => product.Price)
-                .Where(product => product.Category.Equals("Books"))
+                .Where(product => product.Category.Equals(ProductCategory.Books, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
 
         /// <summary>
         /// Demonstrates a more optimal query by filtering products
-        /// before sorting them.
+        /// before sorting them. When filtering is done before sorting
+        /// the size of the database will be reduced and sorting is much quicker.
         /// </summary>
         /// <returns>
         /// A list of books ordered by price.
         /// </returns>
-        public List<Product> FilterWithOptimisation()
+        public IReadOnlyList<Product> FilterWithOptimisation()
         {
             return this.GetProducts()
-                .Where(product => product.Category.Equals("Books"))
+                .Where(product => product.Category.Equals(ProductCategory.Books, StringComparison.OrdinalIgnoreCase))
                 .OrderBy(product => product.Price)
                 .ToList();
         }

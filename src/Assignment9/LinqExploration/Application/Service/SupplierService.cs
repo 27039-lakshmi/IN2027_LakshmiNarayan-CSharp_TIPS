@@ -1,5 +1,5 @@
 ﻿using LinqExploration.Domain.Models;
-using LinqExploration.Infrastructure.Repository;
+using LinqExploration.Infrastructure.Interface;
 
 namespace LinqExploration.Application.Service
 {
@@ -9,13 +9,13 @@ namespace LinqExploration.Application.Service
     /// </summary>
     public class SupplierService
     {
-        private readonly SampleDatabaseContext _context;
+        private readonly ISampleDatabaseContext _context;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SupplierService"/> class.
         /// </summary>
         /// <param name="database">Instance of database from program.cs</param>
-        public SupplierService(SampleDatabaseContext database)
+        public SupplierService(ISampleDatabaseContext database)
         {
             this._context = database;
         }
@@ -33,7 +33,7 @@ namespace LinqExploration.Application.Service
         /// Retrieves all suppliers from the database.
         /// </summary>
         /// <returns>A list of suppliers.</returns>
-        public List<Supplier> GetSuppliers()
+        public IEnumerable<Supplier> GetSuppliers()
         {
             return this._context.GetAllSuppliers();
         }

@@ -16,11 +16,18 @@ public static class Program
     /// </summary>
     public static void Main()
     {
-        var database = new SampleDatabaseContext();
-        var productService = new ProductService(database);
-        var supplierService = new SupplierService(database);
-        var arrayService = new ArrayService();
-        var controller = new LinqController(productService, supplierService, arrayService);
-        controller.Start();
+        try
+        {
+            var database = new SampleDatabaseContext();
+            var productService = new ProductService(database);
+            var supplierService = new SupplierService(database);
+            var arrayService = new ArrayService();
+            var controller = new LinqController(productService, supplierService, arrayService);
+            controller.Start();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
     }
 }

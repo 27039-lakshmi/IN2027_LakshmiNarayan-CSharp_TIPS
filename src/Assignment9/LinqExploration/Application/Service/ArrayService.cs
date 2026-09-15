@@ -17,11 +17,18 @@ namespace LinqExploration.Application.Service
         /// </exception>
         public int GetSecondHighestElement(int[] arr)
         {
-            return arr
-                .OrderByDescending(num => num)
+            var distinctElements = arr
                 .Distinct()
-                .Skip(1)
-                .First();
+                .OrderByDescending(num => num)
+                .ToList();
+
+            if (distinctElements.Count < 2)
+            {
+                throw new InvalidOperationException(
+                    "The array must contain at least two distinct elements.");
+            }
+
+            return distinctElements[1];
         }
 
         /// <summary>
@@ -32,7 +39,7 @@ namespace LinqExploration.Application.Service
         /// <returns>
         /// A list of <see cref="PairsDTO"/> objects containing the matching pairs.
         /// </returns>
-        public List<PairsDTO> GetPairs(int[] arr, int target)
+        public List<PairsDTO> GetPairsWithTargetSum(int[] arr, int target)
         {
             return arr.SelectMany(
                     (number, index) => arr
