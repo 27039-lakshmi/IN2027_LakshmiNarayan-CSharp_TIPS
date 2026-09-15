@@ -11,7 +11,7 @@ namespace ExpenseTracker.Service
     /// </summary>
     public class TransactionService
     {
-        private readonly FileRepo _transactions;
+        private readonly IRepository _transactions;
         private readonly TransactionEventManager _eventManager;
 
         /// <summary>
@@ -24,22 +24,11 @@ namespace ExpenseTracker.Service
         /// <param name="eventManager">
         /// Manages transaction-related events.
         /// </param>
-        public TransactionService(FileRepo transactions, TransactionEventManager eventManager)
+        public TransactionService(IRepository transactions, TransactionEventManager eventManager)
         {
             this._transactions = transactions;
             this._eventManager = eventManager;
             this._eventManager.TransactionChanged += this.RecalculateSummary;
-        }
-
-        /// <summary>
-        /// Sends file path to repository.
-        /// </summary>
-        /// <param name="filePath">
-        /// The filepath where data to be stored.
-        /// </param>
-        public void SendFilePathToRepository(string filePath)
-        {
-            this._transactions.SetFilePath(filePath);
         }
 
         /// <summary>

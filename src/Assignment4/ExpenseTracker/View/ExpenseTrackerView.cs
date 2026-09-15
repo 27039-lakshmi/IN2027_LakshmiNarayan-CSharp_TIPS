@@ -30,15 +30,6 @@ namespace ExpenseTracker.View
         /// </summary>
         public void Start()
         {
-            Console.WriteLine("Enter file path (.json)");
-            string filepath = Console.ReadLine() ?? string.Empty;
-            if (!Validator.IsFilePathValid(filepath))
-            {
-                WriteColored("File path must exist and file should be a json type", ConsoleColor.Red);
-                return;
-            }
-
-            this._transactionService.SendFilePathToRepository(filepath);
             int userChoice;
             do
             {

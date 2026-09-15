@@ -12,15 +12,15 @@ namespace ExpenseTracker.Repository
     /// </summary>
     public class FileRepo : IRepository
     {
-        private string _filepath = string.Empty;
+        private string _filepath;
         private TransactionData _data = new ();
         private TransactionEventManager _eventManager = new ();
 
         /// <summary>
-        /// Sets the filepath
+        /// Initializes a new instance of the <see cref="FileRepo"/> class.
         /// </summary>
-        /// <param name="filepath">The filepath received from service layer</param>
-        public void SetFilePath(string filepath)
+        /// <param name="filepath">The filepath where data will be stored</param>
+        public FileRepo(string filepath)
         {
             this._filepath = filepath;
             this._data = this.LoadDataFromFile();
@@ -61,7 +61,7 @@ namespace ExpenseTracker.Repository
         /// <param name="income">The income to add.</param>
         public void AddIncome(Income income)
         {
-            this._data.Incomes.Add(income);
+            this._data.Income.Add(income);
             this.WriteDataIntoFile();
         }
 
@@ -126,7 +126,7 @@ namespace ExpenseTracker.Repository
         /// <returns>A list of income transactions.</returns>
         public List<Transaction> GetIncomeRecords()
         {
-            return this._data.Incomes.ToList<Transaction>();
+            return this._data.Income.ToList<Transaction>();
         }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace ExpenseTracker.Repository
         /// <param name="income">The income to remove.</param>
         public void DeleteIncome(Income income)
         {
-            this._data.Incomes.Remove(income);
+            this._data.Income.Remove(income);
             this.WriteDataIntoFile();
         }
 

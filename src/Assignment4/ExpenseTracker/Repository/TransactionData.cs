@@ -13,7 +13,7 @@ namespace ExpenseTracker.Repository
         /// <value>
         /// List of incomes made
         /// </value>
-        public List<Income> Incomes { get; set; } = new ();
+        public List<Income> Income { get; set; } = new ();
 
         /// <summary>
         /// Gets or sets the expense list

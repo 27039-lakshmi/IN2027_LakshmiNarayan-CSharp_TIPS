@@ -18,8 +18,7 @@ namespace Assignments
         {
             try
             {
-                var inMemoryRepo = new InMemoryRepo();
-                var fileRepo = new FileRepo();
+                var fileRepo = new FileRepo("transactions.json");
                 var eventManager = new TransactionEventManager();
                 var transactionService = new TransactionService(fileRepo, eventManager);
                 var userViewer = new ExpenseTrackerView(transactionService);
