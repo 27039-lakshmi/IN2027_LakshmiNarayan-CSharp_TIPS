@@ -169,7 +169,7 @@ namespace ExpenseTracker.View
                 var (newDate, isDateValid) = this.GetDateInput();
                 if (!isDateValid)
                 {
-                    Console.WriteLine("Date is not valid. Keeping old date");
+                    Console.WriteLine(Messages.UpdateDateFailed);
                 }
 
                 return isDateValid ? newDate : oldDate;
@@ -195,7 +195,7 @@ namespace ExpenseTracker.View
                 var (newAmount, isAmountValid) = this.GetAmountInput();
                 if (!isAmountValid)
                 {
-                    Console.WriteLine("Amount is not valid. Keeping old amount");
+                    Console.WriteLine(Messages.UpdateAmountFailed);
                 }
 
                 return isAmountValid ? newAmount : oldAmount;
@@ -220,6 +220,11 @@ namespace ExpenseTracker.View
             if (string.Equals(input, "y"))
             {
                 var (newText, isTextValid) = this.GetTextInput(inputType);
+                if (!isTextValid)
+                {
+                    Console.WriteLine(Messages.UpdateTextFailed);
+                }
+
                 return isTextValid ? newText : oldText;
             }
 

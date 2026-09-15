@@ -301,6 +301,24 @@ namespace ExpenseTracker {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount is not valid. Keeping old amount.
+        /// </summary>
+        internal static string UpdateAmountFailed {
+            get {
+                return ResourceManager.GetString("UpdateAmountFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date is not valid. Keeping old date.
+        /// </summary>
+        internal static string UpdateDateFailed {
+            get {
+                return ResourceManager.GetString("UpdateDateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expense updated successfully.
         /// </summary>
         internal static string UpdateExpenseSuccess {
@@ -315,6 +333,15 @@ namespace ExpenseTracker {
         internal static string UpdateIncomeSuccess {
             get {
                 return ResourceManager.GetString("UpdateIncomeSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Text. Keeping old text.
+        /// </summary>
+        internal static string UpdateTextFailed {
+            get {
+                return ResourceManager.GetString("UpdateTextFailed", resourceCulture);
             }
         }
         
