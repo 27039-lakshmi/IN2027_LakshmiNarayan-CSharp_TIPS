@@ -17,14 +17,19 @@ namespace Assignments
         /// <param name="args">Command-line arguments passed to the application.</param>
         public static void Main(string[] args)
         {
-            var memoryEater = new MemoryEater();
-
-            memoryEater.Allocate();
-
-            Console.WriteLine("Total Allocated Memory: " + GC.GetTotalMemory(false));
-            Console.WriteLine("Exitting application");
-
-            Console.ReadKey();
+            try
+            {
+                var memoryEater = new MemoryEater();
+                memoryEater.Allocate();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                Console.WriteLine("Total Allocated Memory: " + GC.GetTotalMemory(false));
+            }
         }
     }
 }

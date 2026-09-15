@@ -48,19 +48,85 @@ As the list keeps growing, the allocated arrays remain referenced and cannot be 
 
 ## Before Optimization
 
-- Continuous heap growth.
-- Increasing number of live objects.
-- High memory consumption.
+### Original Implementation
+
+The application continuously allocated memory and stored references in a collection.
+
+```csharp
+private readonly List<int[]> memAlloc = new();
+
+while (true)
+            {
+                this._memAlloc.Add(new int[1000]);
+
+                Console.WriteLine(
+                    $"Heap Used: {GC.GetTotalMemory(false) / 1024.0 / 1024.0:F2} MB");
+
+                Thread.Sleep(1000);
+            }
+```
+
+### Issues Identified
+
+- Memory allocations continued indefinitely.
+- References were retained in the collection.
+- The Garbage Collector could not reclaim allocated arrays because they were still referenced.
+- Heap memory usage continuously increased.
+
+
+### Outcome
+
+- Continuous heap growth was observed.
+- Increasing number of live objects remained in memory.
+- Risk of memory exhaustion increased over time.
+
+---
 
 ## After Optimization
 
-- Heap growth is controlled.
-- Memory is released after use.
-- Lower memory footprint.
+### Optimized Implementation
+
+A memory threshold was introduced to limit allocations. References were released after use and garbage collection was triggered for demonstration purposes.
+
+```csharp
+while (true)
+            {
+                if (GC.GetTotalMemory(false) > limitBytes)
+                {
+                    break;
+                }
+
+                this._memAlloc!.Add(new int[1000]);
+                Console.WriteLine(
+                    $"Heap Used: {GC.GetTotalMemory(false) / 1024.0 / 1024.0:F2} MB");
+                Thread.Sleep(1000);
+            }
+```
+
+### Improvements Made
+
+- Added a heap memory limit.
+- Stopped allocations when the threshold was reached.
+- Released object references after processing.
+- Allowed the Garbage Collector to reclaim memory.
+
+
+---
+
+## Profiling Comparison
+
+| Metric | Before Optimization | After Optimization |
+|----------|----------|----------|
+| Heap Growth | Continuous | Controlled |
+| Live Objects | Increasing | Released after use |
+| Memory Consumption | High | Reduced |
+| Garbage Collection Efficiency | Limited by retained references | Improved |
+| Risk of Memory Exhaustion | High | Low |
+| Application Stability | Degrades over time | Improved |
 
 ## Outcome
 
-Memory profiling showed improved memory usage and reduced object retention after optimization.
+Memory profiling showed that heap growth was significantly reduced after optimization. Once references were released, unused objects became eligible for garbage collection, resulting in a lower memory footprint and improved application stability.
 
 ---
 

@@ -27,14 +27,15 @@
 
             while (true)
             {
-                this._memAlloc!.Add(new int[1000]);
-                Console.WriteLine(
-                    $"Heap Used: {GC.GetTotalMemory(false) / 1024.0 / 1024.0:F2} MB");
-                Thread.Sleep(1000);
                 if (GC.GetTotalMemory(false) > limitBytes)
                 {
                     break;
                 }
+
+                this._memAlloc!.Add(new int[1000]);
+                Console.WriteLine(
+                    $"Heap Used: {GC.GetTotalMemory(false) / 1024.0 / 1024.0:F2} MB");
+                Thread.Sleep(1000);
             }
 
             this._memAlloc = null;
