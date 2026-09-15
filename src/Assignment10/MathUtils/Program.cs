@@ -13,7 +13,7 @@ namespace Assignments
         /// <summary>
         /// Application entry method.
         /// Creates instances of <see cref="MathUtils"/> and
-        /// <see cref="MathUtilController"/>, then starts the calculator.
+        /// <see cref="MathUtilViewer"/>, then starts the calculator.
         /// </summary>
         /// <param name="args">
         /// Command-line arguments passed to the application.
@@ -21,7 +21,7 @@ namespace Assignments
         public static void Main(string[] args)
         {
             var mathUtils = new MathUtils();
-            var controller = new MathUtilController(mathUtils);
+            var controller = new MathUtilViewer(mathUtils);
 
             controller.Start();
         }

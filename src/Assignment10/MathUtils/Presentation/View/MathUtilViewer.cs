@@ -6,17 +6,17 @@ namespace Calculator.Presentation.Controller
     /// <summary>
     /// Handles user interaction and coordinates calculator operations.
     /// </summary>
-    public class MathUtilController
+    public class MathUtilViewer
     {
         private readonly MathUtils _mathutils;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MathUtilController"/> class.
+        /// Initializes a new instance of the <see cref="MathUtilViewer"/> class.
         /// </summary>
         /// <param name="mathutil">
         /// Provides arithmetic operation functionalities.
         /// </param>
-        public MathUtilController(MathUtils mathutil)
+        public MathUtilViewer(MathUtils mathutil)
         {
             this._mathutils = mathutil;
         }
