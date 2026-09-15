@@ -7,7 +7,7 @@ namespace ExpenseTracker.View
     /// <summary>
     /// Handles user related inputs for transaction details
     /// </summary>
-    internal class UserInputs
+    public class UserInputs
     {
         /// <summary>
         /// Collects income details from the user.
@@ -166,20 +166,16 @@ namespace ExpenseTracker.View
 
             if (string.Equals(input, "y"))
             {
-                var (newDate, isValid) = this.GetDateInput();
-
-                if (isValid)
+                var (newDate, isDateValid) = this.GetDateInput();
+                if (!isDateValid)
                 {
-                    return newDate;
+                    Console.WriteLine(Messages.UpdateDateFailed);
                 }
 
-                Console.WriteLine(Messages.InvalidDate);
-                return oldDate;
+                return isDateValid ? newDate : oldDate;
             }
-            else
-            {
-                return oldDate;
-            }
+
+            return oldDate;
         }
 
         /// <summary>
@@ -194,83 +190,45 @@ namespace ExpenseTracker.View
             Console.Write($"Current amount {oldAmount}\n" +
                               $"do you want to edit the amount (Enter y)");
             string input = (Console.ReadLine() ?? "n").ToLower();
-            if (input == "y")
+            if (string.Equals(input, "y"))
             {
-                var (newAmount, isValid) = this.GetAmountInput();
-                if (isValid)
+                var (newAmount, isAmountValid) = this.GetAmountInput();
+                if (!isAmountValid)
                 {
-                    return newAmount;
+                    Console.WriteLine(Messages.UpdateAmountFailed);
                 }
 
-                Console.WriteLine(Messages.InvalidAmount);
-                return oldAmount;
+                return isAmountValid ? newAmount : oldAmount;
             }
-            else
-            {
-                return oldAmount;
-            }
+
+            return oldAmount;
         }
 
         /// <summary>
-        /// Allows the user to update an income source.
+        /// Allows the user to update an expense category and income source.
         /// </summary>
-        /// <param name="oldSource">The current source.</param>
+        /// <param name="oldText">The current text value.</param>
+        /// <param name="inputType">The inputType whether its source or category</param>
         /// <returns>
-        /// The updated source if valid; otherwise the original source.
+        /// The updated text if valid; otherwise the original text.
         /// </returns>
-        public string GetUpdatedSource(string oldSource)
+        public string GetUpdatedText(string oldText, string inputType)
         {
-            Console.Write($"Current source {oldSource}\n" +
-                              $"do you want to edit the source (Enter y)");
+            Console.Write($"Current {inputType} {oldText}\n" +
+                              $"do you want to edit the {inputType} (y/n)");
             string input = (Console.ReadLine() ?? "n").ToLower();
-            if (input == "y")
+            if (string.Equals(input, "y"))
             {
-                var (newSource, isSourceValid) = this.GetTextInput("Source");
-                if (isSourceValid)
+                var (newText, isTextValid) = this.GetTextInput(inputType);
+                if (!isTextValid)
                 {
-                    return newSource;
+                    Console.WriteLine(Messages.UpdateTextFailed);
                 }
-                else
-                {
-                    Console.WriteLine(Messages.InvalidSource);
-                    return oldSource;
-                }
-            }
-            else
-            {
-                return oldSource;
-            }
-        }
 
-        /// <summary>
-        /// Allows the user to update an expense category.
-        /// </summary>
-        /// <param name="category">The current category.</param>
-        /// <returns>
-        /// The updated category if valid; otherwise the original category.
-        /// </returns>
-        public string GetUpdatedCategory(string category)
-        {
-            Console.Write($"Current category {category}\n" +
-                              $"do you want to edit the category (y/n)");
-            string input = (Console.ReadLine() ?? "n").ToLower();
-            if (input == "y")
-            {
-                var (newCategory, isCategoryValid) = this.GetTextInput("Category");
-                if (isCategoryValid)
-                {
-                    return newCategory;
-                }
-                else
-                {
-                    Console.WriteLine(Messages.InvalidCategory);
-                    return category;
-                }
+                return isTextValid ? newText : oldText;
             }
-            else
-            {
-                return category;
-            }
+
+            return oldText;
         }
 
         /// <summary>

@@ -218,4 +218,13 @@ Couldn't update the expense</value>
   <data name="InvalidCategory" xml:space="preserve">
     <value>Invalid category</value>
   </data>
+  <data name="UpdateAmountFailed" xml:space="preserve">
+    <value>Amount is not valid. Keeping old amount</value>
+  </data>
+  <data name="UpdateDateFailed" xml:space="preserve">
+    <value>Date is not valid. Keeping old date</value>
+  </data>
+  <data name="UpdateTextFailed" xml:space="preserve">
+    <value>Invalid Text. Keeping old text</value>
+  </data>
 </root>

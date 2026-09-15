@@ -126,7 +126,7 @@ namespace ExpenseTracker.View
         /// </summary>
         public void EditIncome()
         {
-            if (this._transactionService.IsIncomeEmpty())
+            if (!this._transactionService.HasIncomeRecords())
             {
                 WriteColored(Messages.IncomeEmpty, ConsoleColor.Yellow);
                 return;
@@ -143,7 +143,7 @@ namespace ExpenseTracker.View
             {
                 var incomeDate = this._userInputs.GetUpdatedDate(existingIncome.TransactionDate);
                 int incomeAmount = this._userInputs.GetUpdatedAmount(existingIncome.Amount);
-                string incomeSource = this._userInputs.GetUpdatedSource(existingIncome.Source);
+                string incomeSource = this._userInputs.GetUpdatedText(existingIncome.Source, "source");
                 bool hasChanges = incomeDate != existingIncome.TransactionDate ||
                                   incomeAmount != existingIncome.Amount ||
                                   incomeSource != existingIncome.Source;
@@ -164,7 +164,7 @@ namespace ExpenseTracker.View
         /// </summary>
         public void DisplayAddMenu()
         {
-            Console.WriteLine();
+            Console.WriteLine(Messages.AddMenu);
             string choiceInput = Console.ReadLine() ?? string.Empty;
             if (!Validator.IsChoiceValid(choiceInput, out var userAddChoice))
             {
@@ -191,7 +191,7 @@ namespace ExpenseTracker.View
         /// </summary>
         public void DisplayEditMenu()
         {
-            Console.WriteLine();
+            Console.WriteLine(Messages.EditMenu);
             string choiceInput = Console.ReadLine() ?? string.Empty;
             if (!Validator.IsChoiceValid(choiceInput, out var userEditChoice))
             {
@@ -245,9 +245,7 @@ namespace ExpenseTracker.View
         /// </summary>
         public void DisplayViewMenu()
         {
-            Console.WriteLine("1.View income\n" +
-                                      "2.View expense\n" +
-                                      "Enter your choice");
+            Console.WriteLine(Messages.ViewMenu);
             string choiceInput = Console.ReadLine() ?? string.Empty;
             if (!Validator.IsChoiceValid(choiceInput, out var userViewChoice))
             {
@@ -274,7 +272,7 @@ namespace ExpenseTracker.View
         /// </summary>
         public void EditExpense()
         {
-            if (this._transactionService.IsExpenseEmpty())
+            if (!this._transactionService.HasExpenseRecords())
             {
                 WriteColored(Messages.ExpenseEmpty, ConsoleColor.Yellow);
                 return;
@@ -291,7 +289,7 @@ namespace ExpenseTracker.View
             {
                 var expenseDate = this._userInputs.GetUpdatedDate(existingExpense.TransactionDate);
                 int expenseAmount = this._userInputs.GetUpdatedAmount(existingExpense.Amount);
-                string expenseCategory = this._userInputs.GetUpdatedCategory(existingExpense.Category);
+                string expenseCategory = this._userInputs.GetUpdatedText(existingExpense.Category, "category");
                 bool hasChanges = expenseDate != existingExpense.TransactionDate ||
                                   expenseAmount != existingExpense.Amount ||
                                   expenseCategory != existingExpense.Category;
@@ -334,7 +332,7 @@ namespace ExpenseTracker.View
         public void ViewIncome()
         {
             var incomeRecords = this._transactionService.GetRecords(TransactionType.Income);
-            if (this._transactionService.IsIncomeEmpty())
+            if (!this._transactionService.HasIncomeRecords())
             {
                 WriteColored(Messages.IncomeEmpty, ConsoleColor.Yellow);
             }
@@ -350,7 +348,7 @@ namespace ExpenseTracker.View
         public void ViewExpense()
         {
             var expenseRecords = this._transactionService.GetRecords(TransactionType.Expense);
-            if (this._transactionService.IsExpenseEmpty())
+            if (!this._transactionService.HasExpenseRecords())
             {
                 WriteColored(Messages.ExpenseEmpty, ConsoleColor.Yellow);
             }
@@ -365,7 +363,7 @@ namespace ExpenseTracker.View
         /// </summary>
         public void ViewSummary()
         {
-            if (this._transactionService.IsIncomeEmpty() && this._transactionService.IsExpenseEmpty())
+            if (!this._transactionService.HasIncomeRecords() && !this._transactionService.HasExpenseRecords())
             {
                 WriteColored(Messages.TransactionEmpty, ConsoleColor.Yellow);
                 return;
