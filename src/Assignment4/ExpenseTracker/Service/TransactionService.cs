@@ -146,31 +146,25 @@ namespace ExpenseTracker.Service
         /// </returns>
         public bool DeleteTransaction(string id, TransactionType recordType)
         {
+            var transaction = recordType == TransactionType.Income
+                ? this.SearchTransaction(this._transactions.GetIncomeRecords(), id)
+                : this.SearchTransaction(this._transactions.GetExpenseRecords(), id);
+
+            if (transaction == null)
+            {
+                return false;
+            }
+
             if (recordType == TransactionType.Income)
             {
-                var incomeList = this._transactions.GetIncomeRecords();
-                var matchedIncome = this.SearchTransaction(incomeList, id);
-                if (matchedIncome == null)
-                {
-                    return false;
-                }
-
-                this._transactions.DeleteIncome((Income)matchedIncome);
+                this._transactions.DeleteIncome((Income)transaction);
             }
             else
             {
-                var expenseList = this._transactions.GetExpenseRecords();
-                var matchedExpense = this.SearchTransaction(expenseList, id);
-                if (matchedExpense == null)
-                {
-                    return false;
-                }
-
-                this._transactions.DeleteExpense((Expense)matchedExpense);
+                this._transactions.DeleteExpense((Expense)transaction);
             }
 
             this._eventManager.RaiseTransactionChanged();
-
             return true;
         }
 
@@ -237,22 +231,22 @@ namespace ExpenseTracker.Service
         /// Determines whether any income records exist.
         /// </summary>
         /// <returns>
-        /// True if no income records exist; otherwise, false.
+        /// True if income records exist; otherwise, false.
         /// </returns>
-        public bool IsIncomeEmpty()
+        public bool HasIncomeRecords()
         {
-            return !this._transactions.GetIncomeRecords().Any();
+            return this._transactions.GetIncomeRecords().Any();
         }
 
         /// <summary>
         /// Determines whether any expense records exist.
         /// </summary>
         /// <returns>
-        /// True if no expense records exist; otherwise, false.
+        /// True if expense records exist; otherwise, false.
         /// </returns>
-        public bool IsExpenseEmpty()
+        public bool HasExpenseRecords()
         {
-            return !this._transactions.GetExpenseRecords().Any();
+            return this._transactions.GetExpenseRecords().Any();
         }
 
         /// <summary>
