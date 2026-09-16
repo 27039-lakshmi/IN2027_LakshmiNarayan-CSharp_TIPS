@@ -1,7 +1,7 @@
 ﻿using Calculator.Application.Service;
 using Calculator.Domain.Enums;
 
-namespace Calculator.Presentation.Controller
+namespace Calculator.Presentation.View
 {
     /// <summary>
     /// Handles user interaction and coordinates calculator operations.

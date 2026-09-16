@@ -1,5 +1,5 @@
 ﻿using Calculator.Application.Service;
-using Calculator.Presentation.Controller;
+using Calculator.Presentation.View;
 
 namespace Assignments
 {
@@ -20,10 +20,16 @@ namespace Assignments
         /// </param>
         public static void Main(string[] args)
         {
-            var mathUtils = new MathUtils();
-            var controller = new MathUtilViewer(mathUtils);
-
-            controller.Start();
+            try
+            {
+                var mathUtils = new MathUtils();
+                var view = new MathUtilViewer(mathUtils);
+                view.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
