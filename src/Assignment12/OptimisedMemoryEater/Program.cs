@@ -19,7 +19,7 @@ namespace Assignments
             {
                 var memoryEater = new MemoryEater();
                 Console.WriteLine("Enter heap memory limit in Mb");
-                if (!int.TryParse(Console.ReadLine(), out int heapLimit) && heapLimit >= 0)
+                if (!int.TryParse(Console.ReadLine(), out int heapLimit) || heapLimit <= 0)
                 {
                     Console.WriteLine("It should be a positive non zero integer");
                 }
