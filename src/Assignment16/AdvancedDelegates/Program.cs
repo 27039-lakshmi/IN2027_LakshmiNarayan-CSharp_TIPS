@@ -29,14 +29,7 @@ namespace Assignments
         /// <param name="args">Command-line arguments.</param>
         public static void Main(string[] args)
         {
-            List<Product> products = new List<Product>
-            {
-                new Product("Iphone", "Smartphone", 100000),
-                new Product("Victus", "Laptop", 200000),
-                new Product("Harry Potter", "Book", 1000),
-                new Product("Apple", "Fruit", 100),
-                new Product("Guava", "Fruit", 200),
-            };
+            List<Product> products = AddProducts();
 
             SortDelegate sortByName = SortName;
             SortDelegate sortByCategory = SortCategory;
@@ -53,6 +46,22 @@ namespace Assignments
         }
 
         /// <summary>
+        /// Adds products and returns the list of products
+        /// </summary>
+        /// <returns>A list of products</returns>
+        private static List<Product> AddProducts()
+        {
+            return new List<Product>
+            {
+                new Product("Iphone", "Smartphone", 100000),
+                new Product("Victus", "Laptop", 200000),
+                new Product("Harry Potter", "Book", 1000),
+                new Product("Apple", "Fruit", 100),
+                new Product("Guava", "Fruit", 200),
+            };
+        }
+
+        /// <summary>
         /// Sorts the provided list of products using the specified delegate
         /// and displays the sorted results on the console.
         /// </summary>
@@ -62,7 +71,7 @@ namespace Assignments
         /// <param name="products">
         /// List of products to be sorted and displayed.
         /// </param>
-        public static void SortAndDisplay(SortDelegate sort, List<Product> products)
+        private static void SortAndDisplay(SortDelegate sort, List<Product> products)
         {
             products.Sort((firstProduct, secondProduct) =>
                 sort(firstProduct, secondProduct));
@@ -84,7 +93,7 @@ namespace Assignments
         /// <returns>
         /// A value indicating the relative order of the product names.
         /// </returns>
-        public static int SortName(Product firstProduct, Product secondProduct)
+        private static int SortName(Product firstProduct, Product secondProduct)
         {
             return firstProduct.Name.CompareTo(secondProduct.Name);
         }
@@ -97,7 +106,7 @@ namespace Assignments
         /// <returns>
         /// A value indicating the relative order of the product categories.
         /// </returns>
-        public static int SortCategory(Product firstProduct, Product secondProduct)
+        private static int SortCategory(Product firstProduct, Product secondProduct)
         {
             return firstProduct.Category.CompareTo(secondProduct.Category);
         }
@@ -110,7 +119,7 @@ namespace Assignments
         /// <returns>
         /// A value indicating the relative order of the product prices.
         /// </returns>
-        public static int SortPrice(Product firstProduct, Product secondProduct)
+        private static int SortPrice(Product firstProduct, Product secondProduct)
         {
             return firstProduct.Price.CompareTo(secondProduct.Price);
         }
