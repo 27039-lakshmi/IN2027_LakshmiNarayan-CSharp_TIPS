@@ -47,7 +47,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment16", "Assignment1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventsAndDelegates", "src\Assignment16\EventsAndDelegates\EventsAndDelegates.csproj", "{95844D3E-0647-4138-875F-CFCE632D08A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VarAndDynamicDemo", "VarAndDynamicDemo\VarAndDynamicDemo.csproj", "{A2138D1B-9C20-43B2-B01D-832B1588C9FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VarAndDynamicDemo", "src\Assignment16\VarAndDynamicDemo\VarAndDynamicDemo.csproj", "{A2138D1B-9C20-43B2-B01D-832B1588C9FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
