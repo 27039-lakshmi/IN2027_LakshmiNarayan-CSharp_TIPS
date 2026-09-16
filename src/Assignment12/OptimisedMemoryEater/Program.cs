@@ -19,15 +19,15 @@ namespace Assignments
             {
                 var memoryEater = new MemoryEater();
                 Console.WriteLine("Enter heap memory limit in Mb");
-                if (!int.TryParse(Console.ReadLine(), out int heapLimit) && heapLimit > 0)
+                if (!int.TryParse(Console.ReadLine(), out int heapLimit) && heapLimit >= 0)
                 {
-                    Console.WriteLine("It should be a positive integer");
+                    Console.WriteLine("It should be a positive non zero integer");
                 }
                 else
                 {
                     memoryEater.Allocate(heapLimit);
                     Console.WriteLine("Total Allocated Memory: " + GC.GetTotalMemory(false));
-                    Console.WriteLine("Exitting application");
+                    Console.WriteLine("Exiting application");
                     Console.ReadKey();
                 }
             }
