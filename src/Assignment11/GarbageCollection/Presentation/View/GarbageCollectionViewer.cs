@@ -1,6 +1,6 @@
 ﻿using GarbageCollection.Application.Service;
 
-namespace GarbageCollection.Presentation.Controller
+namespace GarbageCollection.Presentation.View
 {
     /// <summary>
     /// Coordinates the execution of the garbage collection demonstration.

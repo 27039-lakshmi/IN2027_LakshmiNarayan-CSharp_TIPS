@@ -1,4 +1,4 @@
-﻿using IDisposableDemo.Presentation.Controller;
+﻿using IDisposableDemo.Presentation.View;
 
 namespace Assignments
 {

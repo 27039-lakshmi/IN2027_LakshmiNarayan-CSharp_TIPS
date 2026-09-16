@@ -1,5 +1,5 @@
 ﻿using GarbageCollection.Application.Service;
-using GarbageCollection.Presentation.Controller;
+using GarbageCollection.Presentation.View;
 
 namespace Assignments
 {

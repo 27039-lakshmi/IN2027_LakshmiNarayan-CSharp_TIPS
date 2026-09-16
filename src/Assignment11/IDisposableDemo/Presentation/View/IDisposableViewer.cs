@@ -1,6 +1,6 @@
 ﻿using IDisposableDemo.Application.Service;
 
-namespace IDisposableDemo.Presentation.Controller
+namespace IDisposableDemo.Presentation.View
 {
     /// <summary>
     /// Coordinates user interaction for the IDisposable demonstration,
