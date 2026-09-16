@@ -40,9 +40,9 @@ namespace ValueReferenceType.Presentation.View
             Console.WriteLine("Executing task 2");
             Console.WriteLine("Enter a large number for size of the array");
 
-            if (!int.TryParse(Console.ReadLine(), out int size))
+            if (!int.TryParse(Console.ReadLine(), out int size) || size <= 0)
             {
-                Console.WriteLine("Enter integer value");
+                Console.WriteLine("Enter positive non zero integer value");
                 return;
             }
 

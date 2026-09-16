@@ -15,8 +15,15 @@ namespace Assignments
         /// </param>
         public static void Main(string[] args)
         {
-            var controller = new IDisposableViewer();
-            controller.Start();
+            try
+            {
+                var view = new IDisposableViewer();
+                view.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

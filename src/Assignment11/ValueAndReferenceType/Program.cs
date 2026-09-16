@@ -17,9 +17,16 @@ namespace Assignments
         /// </param>
         public static void Main(string[] args)
         {
-            var service = new ValueReferenceDemoService();
-            var controller = new ValueReferenceViewer(service);
-            controller.Start();
+            try
+            {
+                var service = new ValueReferenceDemoService();
+                var view = new ValueReferenceViewer(service);
+                view.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

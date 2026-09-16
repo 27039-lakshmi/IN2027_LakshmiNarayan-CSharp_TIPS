@@ -17,9 +17,16 @@ namespace Assignments
         /// </param>
         public static void Main(string[] args)
         {
-            var service = new GarbageCollectionService();
-            var controller = new GarbageCollectionViewer(service);
-            controller.Start();
+            try
+            {
+                var service = new GarbageCollectionService();
+                var view = new GarbageCollectionViewer(service);
+                view.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
