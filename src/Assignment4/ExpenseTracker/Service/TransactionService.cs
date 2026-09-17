@@ -11,7 +11,7 @@ namespace ExpenseTracker.Service
     /// </summary>
     public class TransactionService
     {
-        private readonly InMemoryRepo _transactions;
+        private readonly IRepository _transactions;
         private readonly TransactionEventManager _eventManager;
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace ExpenseTracker.Service
         /// <param name="eventManager">
         /// Manages transaction-related events.
         /// </param>
-        public TransactionService(InMemoryRepo transactions, TransactionEventManager eventManager)
+        public TransactionService(IRepository transactions, TransactionEventManager eventManager)
         {
             this._transactions = transactions;
             this._eventManager = eventManager;

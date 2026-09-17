@@ -1,5 +1,8 @@
 # Expense Tracker
 
+A simple C# console-based Expense Tracker application that allows users to manage income and expense transactions, view transaction history, monitor their financial summary, and persist data using file storage.
+
+---
 A simple C# console-based Expense Tracker application that allows users to manage income and expense transactions, view transaction history, and monitor their financial summary.
 
 ## Features
@@ -16,6 +19,9 @@ A simple C# console-based Expense Tracker application that allows users to manag
 - Automatic Balance Calculation
 - Input Validation
 - Event-Driven Balance Updates
+- File-Based Data Persistence
+
+---
 
 ## Project Structure
 
@@ -25,9 +31,12 @@ ExpenseTracker
 ├── Models
 │   ├── Transaction.cs
 │   ├── Income.cs
-│   └── Expense.cs
+│   ├── Expense.cs
+│   └── TransactionSummary.cs
 │
 ├── Repository
+│   └── TransactionFileRepository.cs
+│   └── Expense.cs
 │   └── Transactions.cs
 │
 ├── Service
@@ -38,6 +47,8 @@ ExpenseTracker
 │   └── ExpenseTrackerView.cs
 │
 ├── Helper
+│   ├── Validator.cs
+│   └── FileHandler.cs
 │   └── Validator.cs
 │
 ├── Enums
@@ -48,6 +59,24 @@ ExpenseTracker
 │   ├── ViewOption.cs
 │   └── TransactionType.cs
 │
+├── Data
+│   └── Transactions.json
+│
+└── Program.cs
+```
+
+---
+
+## Technologies Used
+
+- C#
+- .NET 6
+- Object-Oriented Programming (OOP)
+- Event-Driven Programming
+- JSON Serialization
+- File Handling
+
+---
 └── Program.cs
 ```
 
@@ -67,6 +96,19 @@ Represents the application entities.
 - `Transaction` - Base class for all transactions.
 - `Income` - Represents an income transaction.
 - `Expense` - Represents an expense transaction.
+- `TransactionSummary` - Maintains total income, total expense, and current balance.
+
+### Repository Layer
+
+`TransactionFileRepository` stores and manages transaction records using a JSON file.
+
+**Responsibilities:**
+
+- Load transactions from file
+- Save transactions to file
+- Update transaction records
+- Delete transaction records
+- Persist transaction data between application runs
 
 ### Repository Layer
 
@@ -84,6 +126,7 @@ Responsibilities:
 
 `TransactionService` contains the business logic.
 
+**Responsibilities:**
 Responsibilities:
 
 - Add transactions
@@ -95,6 +138,7 @@ Responsibilities:
 
 ### Event Manager
 
+`TransactionEventManager` notifies subscribers whenever transaction data changes.
 `TransactionEventManager` notifies subscribers whenever a transaction changes.
 
 Whenever a transaction is:
@@ -103,6 +147,7 @@ Whenever a transaction is:
 - Updated
 - Deleted
 
+the transaction summary is automatically recalculated.
 the balance is automatically recalculated.
 
 ### View Layer
@@ -122,6 +167,17 @@ the balance is automatically recalculated.
 - Text input
 - Date input
 - Menu selections
+
+### File Storage
+
+All transaction data is stored in a JSON file. This allows the application to retain records even after it is closed and reopened.
+
+Benefits include:
+
+- Persistent storage
+- Lightweight implementation
+- Easy maintenance
+- No database dependency
 
 ---
 
@@ -143,6 +199,10 @@ the balance is automatically recalculated.
 ### Add Income
 
 ```text
+1. Add Income
+2. Add Expense
+
+Enter your choice:
 1.Add income
 2.Add expense
 Enter your choice
@@ -155,6 +215,10 @@ Choose your option
 
 2
 
+Enter income amount:
+25000
+
+Enter income source:
 Enter income amount
 25000
 
@@ -178,6 +242,8 @@ Source: Salary
 ```text
 Your Summary
 
+Total Income    : 28000
+Total Expense   : 5000
 Total Income : 28000
 Total Expense : 5000
 Current Balance : 23000
@@ -213,6 +279,7 @@ Add / Edit / Delete Transaction
 Raise TransactionChanged Event
                 |
                 v
+Recalculate
 Recalculate Balance
                 |
                 v

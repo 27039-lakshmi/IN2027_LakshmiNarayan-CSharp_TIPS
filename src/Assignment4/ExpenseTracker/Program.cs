@@ -18,9 +18,9 @@ namespace Assignments
         {
             try
             {
-                var transactions = new InMemoryRepo();
+                var fileRepo = new FileRepo("transactions.json");
                 var eventManager = new TransactionEventManager();
-                var transactionService = new TransactionService(transactions, eventManager);
+                var transactionService = new TransactionService(fileRepo, eventManager);
                 var userViewer = new ExpenseTrackerView(transactionService);
                 userViewer.Start();
             }
