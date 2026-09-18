@@ -1,22 +1,21 @@
 # Conclusion
 
-This assignment provided practical experience in working with file streams and processing large files efficiently in C#. A large text file of approximately 1 GB was generated and read using both `FileStream` and `BufferedStream`, allowing a comparison of their performance characteristics.
+This assignment provided hands-on experience in performing large-scale file processing using synchronous and asynchronous programming techniques in C#. Multiple large files were created and processed to evaluate the efficiency of different file I/O approaches while maintaining optimal memory usage.
 
-By reading data in fixed-size chunks, the application was able to process large amounts of data without loading the entire file into memory. This demonstrated an efficient approach for handling large files while maintaining controlled memory usage.
+The application implemented file reading and writing operations using streams and processed file content by converting text data to uppercase before writing the transformed output to new files. By reading data in small chunks instead of loading the entire file into memory, the solution remained scalable and memory efficient even when working with large files.
 
-The assignment also explored the use of `MemoryStream` as an intermediate buffer when writing processed data to an output file. The source file content was transformed by converting all text to uppercase and then written to a new file, illustrating a complete file-processing workflow.
+The assignment also explored the use of asynchronous programming with `async` and `await`. Both synchronous and asynchronous implementations were executed and their performance was measured using the `Stopwatch` class. This provided practical insight into how asynchronous file operations can improve application responsiveness and enable concurrent processing of multiple files.
 
-Through performance measurements using `Stopwatch`, it became evident how stream selection and buffering strategies can impact file I/O performance. Comparing `FileStream` and `BufferedStream` provided valuable insight into how buffering can reduce the overhead of frequent read operations.
+In addition, the assignment demonstrated the use of:
 
-Overall, this assignment helped reinforce the following concepts:
-
-- File input and output operations using `FileStream`
-- Buffered reading using `BufferedStream`
-- In-memory buffering using `MemoryStream`
-- Reading and writing data in chunks
-- Text processing using UTF-8 encoding
+- `FileStream` for file creation, reading, and writing operations
+- `BufferedStream` for improving file-reading performance through buffering
+- `MemoryStream` for temporary in-memory storage before writing data
+- Synchronous file processing
+- Asynchronous file processing using `Task`, `async`, and `await`
+- Chunk-based file reading to control memory consumption
+- Text transformation using UTF-8 encoding
 - Performance measurement using `Stopwatch`
-- Proper resource management with `IDisposable` and `using` statements
+- Resource management using `IDisposable` and `using` statements
 
-This exercise provided a deeper understanding of stream-based file processing and demonstrated how to build scalable and memory-efficient applications capable of handling large data files in C#.
-``
+Through this exercise, a deeper understanding was gained of stream-based file processing, asynchronous programming, and performance optimization techniques in C#. The assignment demonstrated how to design applications that can efficiently process large volumes of data while maintaining reliability, scalability, and efficient resource utilization.
