@@ -18,10 +18,17 @@ namespace Assignments
         /// </param>
         public static void Main(string[] args)
         {
-            string path = "C:/Data/text.txt";
-            string data = "This is some test data";
-            MeasureTimeForInefficientOperation(path, data);
-            MeasureTimeForEfficientOperation(path, data);
+            try
+            {
+                string path = "C:/Data/text.txt";
+                string data = "This is some test data";
+                MeasureTimeForInefficientOperation(path, data);
+                MeasureTimeForEfficientOperation(path, data);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         /// <summary>
