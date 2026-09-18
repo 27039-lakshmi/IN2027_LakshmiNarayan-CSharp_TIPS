@@ -1,3 +1,53 @@
+# Advanced LINQ Challenges
+
+## Overview
+
+This solution demonstrates the implementation of various LINQ concepts ranging from basic querying operations to advanced query building techniques using the Fluent API Pattern.
+
+The project is structured using a simplified Clean Architecture approach with separate Presentation and Application layers for each task. Each task is implemented as an independent project to ensure separation of concerns, maintainability, and ease of testing.
+
+---
+
+## Solution Structure
+
+```text
+AdvancedLinqChallenges
+â
+âââ Task1.BasicQueries
+â   âââ Presentation
+â   âââ Application
+â
+âââ Task2.ComplexQueries
+â   âââ Presentation
+â   âââ Application
+â
+âââ Task3.LinqToObjects
+â   âââ Presentation
+â   âââ Application
+â
+âââ Task4.PerformanceOptimization
+â   âââ Presentation
+â   âââ Application
+â
+âââ Task5.QueryBuilder
+    âââ Presentation
+    âââ Application
+
+# Task Descriptions
+
+## Task 1: Basic LINQ Queries
+
+### Objective
+
+This task focuses on fundamental LINQ operations such as filtering, projection, sorting, and aggregation. Using a collection of products, LINQ queries are used to retrieve Electronics products priced above $500, display selected properties, sort the results by price, and calculate the average price.
+
+### Concepts Covered
+
+- `Where`
+- `Select`
+- `OrderByDescending`
+- `Average`
+- LINQ Method Syntax
 # Memory Optimization in C#: A Practical Assignment 3
 
 ## Overview
@@ -144,15 +194,27 @@ Overall, this assignment helped me understand heap memory behavior, garbage coll
 
 ---
 
+## Task 2: Complex LINQ Queries
 # Conclusion
 
+### Objective
 
+This task extends basic LINQ capabilities by performing grouping and joining operations. Products are grouped by category to calculate product counts and identify the most expensive product within each category. An inner join is also performed between products and suppliers to establish relationships between datasets.
 
+### Concepts Covered
 
+- `GroupBy`
+- `Count`
+- `OrderByDescending`
+- `First`
+- `Join`
+- Query Expressions
 
 ---
 
+## Task 3: LINQ to Objects
 
+### Objective
 # C# OOP Assignments
 
 ## Overview
@@ -194,7 +256,7 @@ Design a shape management system that calculates the area of different shapes an
 - Calculates area using:
 
 ```text
-Area = Length � Breadth
+Area = Length × Breadth
 ```
 
 - Displays:
@@ -207,107 +269,54 @@ Area = Length � Breadth
 #### Property
 - Radius
 
-#### Functionality
-- Calculates area using:
+This task focuses on working with in-memory collections such as arrays. LINQ is used to determine the second highest number in a collection and to identify all unique pairs of numbers whose sum equals a specified target value.
 
+### Concepts Covered
 ```text
-Area = ? � Radius�
+Area = ? × Radius²
 ```
 
-- Displays:
-  - Shape Type
-  - Color
-  - Area
+- `Distinct`
+- `OrderByDescending`
+- `Skip`
+- `First`
+- Cross Joins using LINQ
+- LINQ Query Syntax
 
-### Concepts Demonstrated
-
-- Abstract Classes
-- Method Overriding
-- Inheritance
-- Runtime Polymorphism
 
 ---
 
-# Task 2: Employee Hierarchy
+## Task 4: Performance Considerations with LINQ
 
-## Objective
+### Objective
 
-Build an employee management system where different employee types calculate bonuses differently.
+This task highlights the performance implications of LINQ query execution. A comparison is made between a non-optimized query and an optimized query that leverages deferred execution and avoids unnecessary materialization of data.
 
-## Classes Implemented
+### Concepts Covered
 
-### Employee (Abstract Class)
+- Deferred Execution
+- Immediate Execution
+- `ToList()`
+- Query Optimization
+- Memory Efficiency
 
-#### Properties
-- Name
-- Salary
-
-#### Methods
-- CalculateBonus()
-- PrintDetails()
-
-### Developer (Derived Class)
-
-#### Bonus Calculation
-
-```text
-Bonus = Salary / 10
-```
-
-#### Displays
-
-- Employee Name
-- Position: Developer
-- Salary
-- Bonus
-
-### Manager (Derived Class)
-
-#### Bonus Calculation
-
-```text
-Bonus = Salary / 30
-```
-
-#### Displays
-
-- Employee Name
-- Position: Manager
-- Salary
-- Bonus
-
-### Concepts Demonstrated
-
-- Abstraction
-- Inheritance
-- Method Overriding
-- Polymorphism
 
 ---
 
-# Task 3: Banking System
+## Task 5: Fluent Query Builder
 
-## Objective
+### Objective
 
-Create a banking system that supports different account types with customized withdrawal rules.
+This task involves designing and implementing a reusable Query Builder utility using the Fluent API pattern. The utility supports dynamic filtering, sorting, joining, and execution of LINQ queries while providing an expressive and readable interface through method chaining.
 
-## Classes Implemented
+### Concepts Covered
 
-### BankAccount (Abstract Class)
-
-#### Properties
-- AccountNumber
-- Balance
-
-#### Methods
-- Deposit()
-- Withdraw()
-
-### SavingsAccount (Derived Class)
-
-#### Withdrawal Rule
-
-A withdrawal is allowed only if the remaining balance is greater than or equal to the minimum balance.
+- Fluent API Pattern
+- Method Chaining
+- Expression Trees
+- Generic Programming
+- Dynamic Query Generation
+- LINQ Extensibility
 
 ```text
 Remaining Balance ? 1000
@@ -322,27 +331,20 @@ Withdrawals are allowed as long as sufficient balance is available.
 ```text
 Withdrawal Amount ? Current Balance
 ```
+### Expected Outcome
 
-### Features
-
-- Account Creation
-- Deposit Operations
-- Withdrawal Operations
-- Account Number Validation
-- Balance Validation
-
-### Concepts Demonstrated
-
-- Abstraction
-- Inheritance
-- Encapsulation
-- Method Overriding
-- Polymorphism
+Demonstrates advanced LINQ knowledge by creating a flexible, reusable, and maintainable query-building framework capable of constructing complex queries dynamically.
 
 ---
 
-# Project Structure
+### Exploration
 
+I have explored about using IList instead of List. IList can be used while declaring lists so that if there is a change in requirement to use different collection then
+its enough to only change the concrete part of the declaration . As all the other methods will be dependent on IList the entire code need not change when we use
+different collection. Instead of directly depending on a concrete implementation of collection if we use IList it creates a contract that the objects will follow.
+This promotes the flexibility and maintainability.
+
+---
 ```text
 Assignments
 ?
