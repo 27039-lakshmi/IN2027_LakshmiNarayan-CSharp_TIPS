@@ -125,3 +125,12 @@ This task involves designing and implementing a reusable Query Builder utility u
 Demonstrates advanced LINQ knowledge by creating a flexible, reusable, and maintainable query-building framework capable of constructing complex queries dynamically.
 
 ---
+
+### Exploration
+
+I have explored about using IList instead of List. IList can be used while declaring lists so that if there is a change in requirement to use different collection then
+its enough to only change the concrete part of the declaration . As all the other methods will be dependent on IList the entire code need not change when we use
+different collection. Instead of directly depending on a concrete implementation of collection if we use IList it creates a contract that the objects will follow.
+This promotes the flexibility and maintainability.
+
+---
