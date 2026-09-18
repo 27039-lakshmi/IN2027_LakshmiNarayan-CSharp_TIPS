@@ -1,22 +1,24 @@
 # Conclusion
 
-This assignment provided practical experience in working with file streams and processing large files efficiently in C#. A large text file of approximately 1 GB was generated and read using both `FileStream` and `BufferedStream`, allowing a comparison of their performance characteristics.
+This assignment provided practical experience in implementing and evaluating logging mechanisms in C#. The primary objective was to understand how multiple users or threads can write log data to files and to analyze the performance implications of different logging approaches.
 
-By reading data in fixed-size chunks, the application was able to process large amounts of data without loading the entire file into memory. This demonstrated an efficient approach for handling large files while maintaining controlled memory usage.
+The assignment began with the implementation of a shared logging system where all users wrote to the same log file. To ensure reliable and thread-safe access, a synchronization mechanism using the `lock` statement was implemented. This prevented simultaneous write operations from corrupting the log file and demonstrated the importance of controlling concurrent access to shared resources.
 
-The assignment also explored the use of `MemoryStream` as an intermediate buffer when writing processed data to an output file. The source file content was transformed by converting all text to uppercase and then written to a new file, illustrating a complete file-processing workflow.
+An alternative logging approach was then developed in which each user wrote to a separate log file. By eliminating contention for a single shared resource, this approach reduced the need for synchronization and improved scalability when handling concurrent write operations.
 
-Through performance measurements using `Stopwatch`, it became evident how stream selection and buffering strategies can impact file I/O performance. Comparing `FileStream` and `BufferedStream` provided valuable insight into how buffering can reduce the overhead of frequent read operations.
+To simulate multiple users accessing the logging system simultaneously, asynchronous tasks were created using `Task.Run`, and execution was coordinated through `Task.WhenAll`. This provided a realistic demonstration of concurrent file operations and highlighted the challenges associated with shared file access.
+
+Performance measurements were collected using the `Stopwatch` class. By comparing the execution times of logging to a single shared file versus multiple independent files, the assignment demonstrated how resource contention can impact application performance and how architectural decisions influence scalability.
 
 Overall, this assignment helped reinforce the following concepts:
 
-- File input and output operations using `FileStream`
-- Buffered reading using `BufferedStream`
+- File operations using `FileStream`
 - In-memory buffering using `MemoryStream`
-- Reading and writing data in chunks
-- Text processing using UTF-8 encoding
+- Thread-safe programming using `lock`
+- Concurrent processing with `Task` and `Task.Run`
+- Coordinating asynchronous operations using `Task.WhenAll`
 - Performance measurement using `Stopwatch`
-- Proper resource management with `IDisposable` and `using` statements
+- Managing shared resources in multi-threaded applications
+- Designing scalable and efficient logging systems
 
-This exercise provided a deeper understanding of stream-based file processing and demonstrated how to build scalable and memory-efficient applications capable of handling large data files in C#.
-``
+This exercise provided a deeper understanding of concurrent file access, synchronization techniques, and logging system design in C#. It demonstrated the importance of balancing correctness, performance, and scalability when multiple users or processes interact with shared resources.
