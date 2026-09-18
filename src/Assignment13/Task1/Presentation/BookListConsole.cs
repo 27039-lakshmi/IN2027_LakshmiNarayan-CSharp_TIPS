@@ -37,19 +37,12 @@ namespace Task1.Presentation
             this._listService.AddBook("Chernobyl");
 
             this.DisplayBooks();
-
             Console.WriteLine("Removing Chernobyl book");
             this._listService.RemoveBook("Chernobyl");
 
             this.DisplayBooks();
-
-            Console.WriteLine(
-                "Does Game of Thrones exist : " +
-                this._listService.DoesBookExist("Game of Thrones"));
-
-            Console.WriteLine(
-                "Does Chernobyl exist : " +
-                this._listService.DoesBookExist("Chernobyl"));
+            Console.WriteLine("Does Game of Thrones exist : " + this._listService.DoesBookExist("Game of Thrones"));
+            Console.WriteLine("Does Chernobyl exist : " + this._listService.DoesBookExist("Chernobyl"));
         }
 
         /// <summary>

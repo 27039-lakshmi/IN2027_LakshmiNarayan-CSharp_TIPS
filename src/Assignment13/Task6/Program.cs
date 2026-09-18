@@ -19,11 +19,16 @@ namespace Assignments
         /// </param>
         private static void Main(string[] args)
         {
-            CollectionService collectionService = new ();
-
-            Controller controller = new (collectionService);
-
-            controller.Start();
+            try
+            {
+                var collectionService = new CollectionService();
+                var controller = new Controller(collectionService);
+                controller.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }

@@ -28,27 +28,20 @@ namespace Task2.Presentation
         /// </summary>
         public void Start()
         {
-            Stack<char> stack = new ();
-
             Console.WriteLine("Enter string");
             string userInput = Console.ReadLine() ?? string.Empty;
-
-            string reversedString = string.Empty;
-
-            foreach (char c in userInput)
+            if (string.IsNullOrWhiteSpace(userInput))
             {
-                stack.Push(c);
+                Console.WriteLine("Enter a string with atleast one character");
             }
-
-            int count = stack.Count;
-
-            for (int i = 0; i < count; i++)
+            else
             {
-                reversedString += stack.Pop();
-            }
+                this._stringReverser.AddString(userInput);
+                string reversedString = this._stringReverser.GetReversedString();
 
-            Console.WriteLine("Original string " + userInput);
-            Console.WriteLine("Reversed string " + reversedString);
+                Console.WriteLine("Original string " + userInput);
+                Console.WriteLine("Reversed string " + reversedString);
+            }
         }
     }
 }

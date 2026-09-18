@@ -37,11 +37,9 @@ namespace Task3.Presentation
             this._queueService.AddPerson("Megha");
 
             this.DisplayPersons();
-
             Console.WriteLine("Removing person from queue");
 
             this._queueService.RemovePerson();
-
             this.DisplayPersons();
         }
 

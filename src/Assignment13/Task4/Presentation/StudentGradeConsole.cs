@@ -37,11 +37,9 @@ namespace Task4.Presentation
             this._service.AddStudent("Tarrun", 5);
 
             this.DisplayStudents();
-
             Console.WriteLine("Removing Kani from students");
 
             this._service.RemoveStudent("Kani");
-
             this.DisplayStudents();
         }
 
@@ -54,9 +52,8 @@ namespace Task4.Presentation
 
             foreach (var student in students)
             {
-                Console.WriteLine(
-                    $"Student Name : {student.Key}\n" +
-                    $"Student Grade : {student.Value}");
+                Console.WriteLine($"Student Name : {student.Key}\n" +
+                                  $"Student Grade : {student.Value}");
             }
         }
     }

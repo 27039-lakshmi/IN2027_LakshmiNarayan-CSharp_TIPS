@@ -29,24 +29,16 @@ namespace Task6.Presentation
         /// </summary>
         public void Start()
         {
-            int listSum = this._collectionService.GetSumOfElements(
-                new List<int> { 1, 2, 3, 4, 5 });
+            int listSum = this._collectionService.GetSumOfElements(new List<int> { 1, 2, 3, 4, 5 });
+            int queueSum = this._collectionService.GetSumOfElements(new Queue<int>(new[] { 1, 2, 3, 4, 5 }));
+            int stackSum = this._collectionService.GetSumOfElements(new Stack<int>(new[] { 1, 2, 3, 4, 5 }));
 
-            int queueSum = this._collectionService.GetSumOfElements(
-                new Queue<int>(new[] { 1, 2, 3, 4, 5 }));
-
-            int stackSum = this._collectionService.GetSumOfElements(
-                new Stack<int>(new[] { 1, 2, 3, 4, 5 }));
-
-            Console.WriteLine(
-                $"List sum : {listSum}\n" +
-                $"Queue sum : {queueSum}\n" +
-                $"Stack sum : {stackSum}\n");
-
+            Console.WriteLine($"List sum : {listSum}\n" +
+                              $"Queue sum : {queueSum}\n" +
+                              $"Stack sum : {stackSum}\n");
             Console.WriteLine("Creating dictionary");
 
             var dictionary = this._collectionService.GenerateDictionary();
-
             this.PrintDictionary(dictionary);
         }
 
@@ -60,8 +52,7 @@ namespace Task6.Presentation
         {
             foreach (var item in dictionary)
             {
-                Console.WriteLine(
-                    $"Name : {item.Key} Age : {item.Value}");
+                Console.WriteLine($"Name : {item.Key} Age : {item.Value}");
             }
         }
     }

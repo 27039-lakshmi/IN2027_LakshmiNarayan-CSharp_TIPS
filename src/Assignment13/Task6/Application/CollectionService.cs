@@ -30,12 +30,10 @@
         /// </returns>
         public IReadOnlyDictionary<string, int> GenerateDictionary()
         {
-            Dictionary<string, int> dictionary = new Dictionary<string, int>();
-
+            var dictionary = new Dictionary<string, int>();
             dictionary.Add("Ln", 10);
             dictionary.Add("Db", 20);
             dictionary.Add("Jk", 30);
-
             return dictionary;
         }
     }

@@ -20,11 +20,17 @@ namespace Assignments
         /// </param>
         private static void Main(string[] args)
         {
-            StackRepository<char> stackRepository = new ();
-            StringReverser stringReverser = new (stackRepository);
-            StringReversalConsole controller = new StringReversalConsole(stringReverser);
-
-            controller.Start();
+            try
+            {
+                var stackRepository = new StackRepository<char>();
+                var stringReverser = new StringReverser(stackRepository);
+                var controller = new StringReversalConsole(stringReverser);
+                controller.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }

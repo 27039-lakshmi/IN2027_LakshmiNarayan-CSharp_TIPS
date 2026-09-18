@@ -47,7 +47,7 @@ namespace Task2.Application
         public string GetReversedString()
         {
             int stackSize = this._stackRepository.GetSize();
-            StringBuilder reversedString = new ();
+            var reversedString = new StringBuilder();
 
             for (int i = 0; i < stackSize; i++)
             {

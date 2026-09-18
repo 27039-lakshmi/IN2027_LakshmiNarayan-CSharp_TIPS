@@ -20,11 +20,17 @@ namespace Assignments
         /// </param>
         private static void Main(string[] args)
         {
-            var queueRepository = new PersonQueueRepository<string>();
-            var queueService = new QueueService(queueRepository);
-            var controller = new QueueConsole(queueService);
-
-            controller.Start();
+            try
+            {
+                var queueRepository = new PersonQueueRepository<string>();
+                var queueService = new QueueService(queueRepository);
+                var controller = new QueueConsole(queueService);
+                controller.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }

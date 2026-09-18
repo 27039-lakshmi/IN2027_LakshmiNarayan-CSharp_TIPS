@@ -20,11 +20,17 @@ namespace Assignments
         /// </param>
         private static void Main(string[] args)
         {
-            BookListRepository<string> listRepository = new ();
-            BookListService listService = new (listRepository);
-            BookListConsole controller = new (listService);
-
-            controller.Start();
+            try
+            {
+                var listRepository = new BookListRepository<string>();
+                var listService = new BookListService(listRepository);
+                var controller = new BookListConsole(listService);
+                controller.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }

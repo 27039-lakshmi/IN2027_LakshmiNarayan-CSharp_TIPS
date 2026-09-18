@@ -20,13 +20,17 @@ namespace Assignments
         /// </param>
         private static void Main(string[] args)
         {
-            StudentGradeRepository<string, int> repo = new ();
-
-            StudentGradeService service = new StudentGradeService(repo);
-
-            StudentGradeConsole controller = new StudentGradeConsole(service);
-
-            controller.Start();
+            try
+            {
+                var repo = new StudentGradeRepository<string, int>();
+                var service = new StudentGradeService(repo);
+                var controller = new StudentGradeConsole(service);
+                controller.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }
