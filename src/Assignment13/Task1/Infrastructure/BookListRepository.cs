@@ -38,7 +38,7 @@
         /// <returns>
         /// A new list containing all books currently stored in the repository.
         /// </returns>
-        public List<T> GetAllBooks()
+        public IEnumerable<T> GetAllBooks()
         {
             return this._books.ToList();
         }

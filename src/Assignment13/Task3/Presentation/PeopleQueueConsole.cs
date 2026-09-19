@@ -6,17 +6,17 @@ namespace Task3.Presentation
     /// Provides a console-based user interface for managing
     /// and displaying a queue of people.
     /// </summary>
-    public class QueueConsole
+    public class PeopleQueueConsole
     {
-        private QueueService _queueService;
+        private PeopleQueueService _queueService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QueueConsole"/> class.
+        /// Initializes a new instance of the <see cref="PeopleQueueConsole"/> class.
         /// </summary>
         /// <param name="queueService">
         /// Service responsible for queue management operations.
         /// </param>
-        public QueueConsole(QueueService queueService)
+        public PeopleQueueConsole(PeopleQueueService queueService)
         {
             this._queueService = queueService;
         }
@@ -48,9 +48,9 @@ namespace Task3.Presentation
         /// </summary>
         public void DisplayPersons()
         {
-            var persons = this._queueService.GetPersonList();
+            var personsList = this._queueService.GetPersonList();
 
-            foreach (var person in persons)
+            foreach (var person in personsList)
             {
                 Console.WriteLine("Name : " + person);
             }

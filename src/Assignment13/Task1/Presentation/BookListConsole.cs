@@ -38,7 +38,14 @@ namespace Task1.Presentation
 
             this.DisplayBooks();
             Console.WriteLine("Removing Chernobyl book");
-            this._listService.RemoveBook("Chernobyl");
+            if (this._listService.DoesBookExist("Chernobyl"))
+            {
+                this._listService.RemoveBook("Chernobyl");
+            }
+            else
+            {
+                Console.WriteLine("Book does not exist");
+            }
 
             this.DisplayBooks();
             Console.WriteLine("Does Game of Thrones exist : " + this._listService.DoesBookExist("Game of Thrones"));
@@ -51,9 +58,9 @@ namespace Task1.Presentation
         /// </summary>
         public void DisplayBooks()
         {
-            var books = this._listService.GetBooks();
+            var booksList = this._listService.GetBooks();
 
-            foreach (var book in books)
+            foreach (var book in booksList)
             {
                 Console.WriteLine(book);
             }

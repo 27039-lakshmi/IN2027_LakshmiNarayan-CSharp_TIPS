@@ -22,10 +22,10 @@ namespace Assignments
         {
             try
             {
-                var queueRepository = new PersonQueueRepository<string>();
-                var queueService = new QueueService(queueRepository);
-                var controller = new QueueConsole(queueService);
-                controller.Start();
+                var personQueueRepository = new PeopleQueueRepository<string>();
+                var peopleQueueService = new PeopleQueueService(personQueueRepository);
+                var peopleQueueConsole = new PeopleQueueConsole(peopleQueueService);
+                peopleQueueConsole.Start();
             }
             catch (Exception ex)
             {

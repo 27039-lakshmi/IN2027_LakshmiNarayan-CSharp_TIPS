@@ -48,9 +48,9 @@ namespace Task4.Presentation
         /// </summary>
         public void DisplayStudents()
         {
-            var students = this._service.GetStudents();
+            var studentsList = this._service.GetStudents();
 
-            foreach (var student in students)
+            foreach (var student in studentsList)
             {
                 Console.WriteLine($"Student Name : {student.Key}\n" +
                                   $"Student Grade : {student.Value}");

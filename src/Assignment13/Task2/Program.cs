@@ -24,8 +24,8 @@ namespace Assignments
             {
                 var stackRepository = new StackRepository<char>();
                 var stringReverser = new StringReverser(stackRepository);
-                var controller = new StringReversalConsole(stringReverser);
-                controller.Start();
+                var stringReversalConsole = new StringReversalConsole(stringReverser);
+                stringReversalConsole.Start();
             }
             catch (Exception ex)
             {

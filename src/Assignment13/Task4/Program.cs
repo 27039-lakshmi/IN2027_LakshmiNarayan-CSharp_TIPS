@@ -22,10 +22,10 @@ namespace Assignments
         {
             try
             {
-                var repo = new StudentGradeRepository<string, int>();
-                var service = new StudentGradeService(repo);
-                var controller = new StudentGradeConsole(service);
-                controller.Start();
+                var studentGradeRepository = new StudentGradeRepository<string, int>();
+                var studentGradeService = new StudentGradeService(studentGradeRepository);
+                var studentGradeConsole = new StudentGradeConsole(studentGradeService);
+                studentGradeConsole.Start();
             }
             catch (Exception ex)
             {

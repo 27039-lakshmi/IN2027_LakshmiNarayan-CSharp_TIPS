@@ -22,10 +22,10 @@ namespace Assignments
         {
             try
             {
-                var listRepository = new BookListRepository<string>();
-                var listService = new BookListService(listRepository);
-                var controller = new BookListConsole(listService);
-                controller.Start();
+                var bookListRepository = new BookListRepository<string>();
+                var bookListService = new BookListService(bookListRepository);
+                var bookListConsole = new BookListConsole(bookListService);
+                bookListConsole.Start();
             }
             catch (Exception ex)
             {

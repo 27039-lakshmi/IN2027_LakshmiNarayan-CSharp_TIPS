@@ -22,8 +22,8 @@ namespace Assignments
             try
             {
                 var collectionService = new CollectionService();
-                var controller = new Controller(collectionService);
-                controller.Start();
+                var collectionConsole = new CollectionConsole(collectionService);
+                collectionConsole.Start();
             }
             catch (Exception ex)
             {

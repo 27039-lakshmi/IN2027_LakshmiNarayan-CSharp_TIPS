@@ -7,17 +7,17 @@ namespace Task3.Application
     /// Acts as an intermediary between the presentation layer
     /// and the queue repository.
     /// </summary>
-    public class QueueService
+    public class PeopleQueueService
     {
-        private PersonQueueRepository<string> _queueRepository;
+        private PeopleQueueRepository<string> _queueRepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QueueService"/> class.
+        /// Initializes a new instance of the <see cref="PeopleQueueService"/> class.
         /// </summary>
         /// <param name="queueRepository">
         /// Repository used to store and manage the queue of people.
         /// </param>
-        public QueueService(PersonQueueRepository<string> queueRepository)
+        public PeopleQueueService(PeopleQueueRepository<string> queueRepository)
         {
             this._queueRepository = queueRepository;
         }
@@ -47,7 +47,7 @@ namespace Task3.Application
         /// <returns>
         /// A list containing all people in the queue.
         /// </returns>
-        public List<string> GetPersonList()
+        public IEnumerable<string> GetPersonList()
         {
             return this._queueRepository.GetAllPersons();
         }

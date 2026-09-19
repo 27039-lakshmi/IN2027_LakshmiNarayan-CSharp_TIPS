@@ -7,17 +7,17 @@ namespace Task6.Presentation
     /// collection operations such as calculating sums and
     /// displaying dictionary contents.
     /// </summary>
-    public class Controller
+    public class CollectionConsole
     {
         private CollectionService _collectionService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Controller"/> class.
+        /// Initializes a new instance of the <see cref="CollectionConsole"/> class.
         /// </summary>
         /// <param name="collectionService">
         /// Service responsible for collection-related operations.
         /// </param>
-        public Controller(CollectionService collectionService)
+        public CollectionConsole(CollectionService collectionService)
         {
             this._collectionService = collectionService;
         }

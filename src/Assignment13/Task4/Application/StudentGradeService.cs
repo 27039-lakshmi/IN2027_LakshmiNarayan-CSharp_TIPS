@@ -54,7 +54,7 @@ namespace Task4.Application
         /// A dictionary containing student names as keys
         /// and their corresponding grades as values.
         /// </returns>
-        public Dictionary<string, int> GetStudents()
+        public IReadOnlyDictionary<string, int> GetStudents()
         {
             return this._repo.GetAll();
         }

@@ -46,7 +46,7 @@
         /// <returns>
         /// A dictionary containing all students and their corresponding grades.
         /// </returns>
-        public Dictionary<TKey, TValue> GetAll()
+        public IReadOnlyDictionary<TKey, TValue> GetAll()
         {
             return this._students;
         }

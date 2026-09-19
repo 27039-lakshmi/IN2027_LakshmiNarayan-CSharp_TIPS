@@ -42,7 +42,7 @@ namespace Task1.Application
         /// Retrieves all books from the repository.
         /// </summary>
         /// <returns>A list containing all stored book titles.</returns>
-        public List<string> GetBooks()
+        public IEnumerable<string> GetBooks()
         {
             return this._listRepository.GetAllBooks();
         }

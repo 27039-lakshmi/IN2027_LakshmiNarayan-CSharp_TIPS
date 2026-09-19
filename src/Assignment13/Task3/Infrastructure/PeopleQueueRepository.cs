@@ -7,7 +7,7 @@
     /// <typeparam name="T">
     /// The type of elements stored in the queue.
     /// </typeparam>
-    public class PersonQueueRepository<T>
+    public class PeopleQueueRepository<T>
     {
         private readonly Queue<T> _personList = new ();
 
