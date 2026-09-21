@@ -16,16 +16,23 @@ namespace Assignments
         /// <param name="args">Command-line arguments.</param>
         public static void Main(string[] args)
         {
-            var shapes = new List<Shape>()
+            try
+            {
+                var shapes = new List<Shape>()
             {
                 new Rectangle("Red", "Rectangle", 5, 10),
                 new Triangle("Blue", "Triangle", 3, 8),
                 new Circle("Yellow", "Circle", 7),
             };
 
-            foreach (var shape in shapes)
+                foreach (var shape in shapes)
+                {
+                    DisplayShapeDetails(shape);
+                }
+            }
+            catch (Exception ex)
             {
-                DisplayShapeDetails(shape);
+                Console.WriteLine(ex.ToString());
             }
         }
 
@@ -41,26 +48,15 @@ namespace Assignments
             switch (shape)
             {
                 case Rectangle rectangle:
-                    Console.WriteLine(
-                        $"Shape {rectangle.ShapeName} " +
-                        $"Length {rectangle.Length} " +
-                        $"Breadth {rectangle.Breadth} " +
-                        $"Area {rectangle.CalculateArea()}");
+                    Console.WriteLine($"Shape {rectangle.ShapeName} Length {rectangle.Length} Breadth {rectangle.Breadth} Area {rectangle.CalculateArea()}");
                     break;
 
                 case Triangle triangle:
-                    Console.WriteLine(
-                        $"Shape {triangle.ShapeName} " +
-                        $"Base {triangle.Base} " +
-                        $"Height {triangle.Height} " +
-                        $"Area {triangle.CalculateArea()}");
+                    Console.WriteLine($"Shape {triangle.ShapeName} Base {triangle.Base} Height {triangle.Height} Area {triangle.CalculateArea()}");
                     break;
 
                 case Circle circle:
-                    Console.WriteLine(
-                        $"Shape {circle.ShapeName} " +
-                        $"Radius {circle.Radius} " +
-                        $"Area {circle.CalculateArea()}");
+                    Console.WriteLine($"Shape {circle.ShapeName} Radius {circle.Radius} Area {circle.CalculateArea()}");
                     break;
 
                 default:
