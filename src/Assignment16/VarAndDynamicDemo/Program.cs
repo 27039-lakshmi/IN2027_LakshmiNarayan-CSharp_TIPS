@@ -11,14 +11,21 @@
         /// <param name="args">Command-line arguments.</param>
         public static void Main(string[] args)
         {
-            var varTypeVariable = "Hello";
-            dynamic dynamicTypeVariable = "Hello";
-            Console.WriteLine("Value of var type variable " + varTypeVariable);
-            Console.WriteLine("Value of dynamic type variable before change " + dynamicTypeVariable);
+            try
+            {
+                var varTypeVariable = "Hello";
+                dynamic dynamicTypeVariable = "Hello";
+                Console.WriteLine("Value of var type variable " + varTypeVariable);
+                Console.WriteLine("Value of dynamic type variable before change " + dynamicTypeVariable);
 
-            // varTypeVariable = 9; -> Cannot change datatype of a variable declared with var keyword.
-            dynamicTypeVariable = 9;
-            Console.WriteLine("Value of dynamic type variable after change " + dynamicTypeVariable);
+                // varTypeVariable = 9; -> Cannot change datatype of a variable declared with var keyword.
+                dynamicTypeVariable = 9;
+                Console.WriteLine("Value of dynamic type variable after change " + dynamicTypeVariable);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }
