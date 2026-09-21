@@ -15,22 +15,29 @@ namespace Assignments
         /// <param name="args">Command-line arguments.</param>
         public static void Main(string[] args)
         {
-            // Creating Book records
-            var book1 = new Book("Ln", "C#", 5);
-            var book2 = new Book("Db", "Python", 8);
-            var book3 = new Book("Harini", "C++", 10);
-            var book4 = new Book("Db", "Python", 8);
+            try
+            {
+                // Creating Book records
+                var book1 = new Book("Ln", "C#", 5);
+                var book2 = new Book("Db", "Python", 8);
+                var book3 = new Book("Harini", "C++", 10);
+                var book4 = new Book("Db", "Python", 8);
 
-            CheckEqualityOfBooks(book2, book4);
+                CheckEqualityOfBooks(book2, book4);
 
-            // Demonstrates immutability
-            // book2.AuthorName = "Hello"; // Compile-time error
+                // Demonstrates immutability
+                // book2.AuthorName = "Hello"; // Compile-time error
 
-            // Creates a new record based on an existing record
-            // while modifying the Title property.
-            var book5 = book4 with { title = "Ln" };
+                // Creates a new record based on an existing record
+                // while modifying the Title property.
+                var book5 = book4 with { title = "Ln" };
 
-            DisplayBook(book5);
+                DisplayBook(book5);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         /// <summary>
@@ -52,8 +59,7 @@ namespace Assignments
         {
             var (title, authorName, isbn) = book;
 
-            Console.WriteLine(
-                $"Book Title: {title} Author: {authorName} ISBN: {isbn}");
+            Console.WriteLine($"Book Title: {title} Author: {authorName} ISBN: {isbn}");
         }
     }
 }
