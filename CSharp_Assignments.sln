@@ -47,6 +47,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment16", "Assignment1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventsAndDelegates", "src\Assignment16\EventsAndDelegates\EventsAndDelegates.csproj", "{95844D3E-0647-4138-875F-CFCE632D08A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternMatching", "src\Assignment16\PatternMatching\PatternMatching.csproj", "{8CBEB8B2-E45D-43B1-87EB-80235B9EB99C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,10 @@ Global
 		{95844D3E-0647-4138-875F-CFCE632D08A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95844D3E-0647-4138-875F-CFCE632D08A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95844D3E-0647-4138-875F-CFCE632D08A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CBEB8B2-E45D-43B1-87EB-80235B9EB99C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CBEB8B2-E45D-43B1-87EB-80235B9EB99C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CBEB8B2-E45D-43B1-87EB-80235B9EB99C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CBEB8B2-E45D-43B1-87EB-80235B9EB99C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -126,6 +132,7 @@ Global
 		{F1FDE213-2745-452F-9AB4-DB4E2BFE1AF2} = {B1C0E9A3-FB27-461D-9450-CC32C3D924DB}
 		{3EB75251-F0E2-4F04-81DF-E48BB1256D03} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
 		{95844D3E-0647-4138-875F-CFCE632D08A1} = {3EB75251-F0E2-4F04-81DF-E48BB1256D03}
+		{8CBEB8B2-E45D-43B1-87EB-80235B9EB99C} = {3EB75251-F0E2-4F04-81DF-E48BB1256D03}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D4CECB66-8E11-49D9-AA1E-464EE0231450}
