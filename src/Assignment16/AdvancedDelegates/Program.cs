@@ -29,27 +29,34 @@ namespace Assignments
         /// <param name="args">Command-line arguments.</param>
         public static void Main(string[] args)
         {
-            List<Product> products = AddProducts();
+            try
+            {
+                var products = AddAndGetProducts();
 
-            SortDelegate sortByName = SortName;
-            SortDelegate sortByCategory = SortCategory;
-            SortDelegate sortByPrice = SortPrice;
+                SortDelegate sortByName = SortName;
+                SortDelegate sortByCategory = SortCategory;
+                SortDelegate sortByPrice = SortPrice;
 
-            Console.WriteLine("Sort by Name");
-            SortAndDisplay(sortByName, products);
+                Console.WriteLine("Sort by Name");
+                SortAndDisplay(sortByName, products);
 
-            Console.WriteLine("Sort by Category");
-            SortAndDisplay(sortByCategory, products);
+                Console.WriteLine("Sort by Category");
+                SortAndDisplay(sortByCategory, products);
 
-            Console.WriteLine("Sort by Price");
-            SortAndDisplay(sortByPrice, products);
+                Console.WriteLine("Sort by Price");
+                SortAndDisplay(sortByPrice, products);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         /// <summary>
         /// Adds products and returns the list of products
         /// </summary>
         /// <returns>A list of products</returns>
-        private static List<Product> AddProducts()
+        private static List<Product> AddAndGetProducts()
         {
             return new List<Product>
             {
@@ -78,10 +85,7 @@ namespace Assignments
 
             foreach (var product in products)
             {
-                Console.WriteLine(
-                    $"Product Name {product.Name} " +
-                    $"Product Category {product.Category} " +
-                    $"Product Price {product.Price}");
+                Console.WriteLine($"Product Name {product.Name} Product Category {product.Category} Product Price {product.Price}");
             }
         }
 
