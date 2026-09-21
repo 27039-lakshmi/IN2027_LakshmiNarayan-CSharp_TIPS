@@ -14,20 +14,27 @@
         /// <param name="args">Command-line arguments.</param>
         public static void Main(string[] args)
         {
-            var numbers = new List<int>() { 1, 2, 3, 4, 5 };
+            try
+            {
+                var numbers = new List<int>() { 1, 2, 3, 4, 5 };
 
-            Console.WriteLine("Original List");
-            PrintNumbers(numbers);
+                Console.WriteLine("Original List");
+                PrintNumbers(numbers);
 
-            var oddNumbers = GetOddNumbers(numbers);
+                var oddNumbers = GetOddNumbers(numbers);
 
-            Console.WriteLine("Odd Numbers");
-            PrintNumbers(oddNumbers);
+                Console.WriteLine("Odd Numbers");
+                PrintNumbers(oddNumbers);
 
-            var squaredNumbers = GetSquaredNumbers(oddNumbers);
+                var squaredNumbers = GetSquaredNumbers(oddNumbers);
 
-            Console.WriteLine("Squared Odd Numbers");
-            PrintNumbers(squaredNumbers);
+                Console.WriteLine("Squared Odd Numbers");
+                PrintNumbers(squaredNumbers);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         /// <summary>
