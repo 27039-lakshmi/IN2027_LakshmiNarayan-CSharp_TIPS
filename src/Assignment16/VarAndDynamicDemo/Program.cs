@@ -1,7 +1,14 @@
 ﻿namespace Assignments
 {
+    /// <summary>
+    /// Demonstrates the difference between the var and dynamic keywords in C#.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Entry point of the application.
+        /// </summary>
+        /// <param name="args">Command-line arguments.</param>
         public static void Main(string[] args)
         {
             var varTypeVariable = "Hello";
