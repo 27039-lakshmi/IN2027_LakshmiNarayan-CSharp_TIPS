@@ -22,6 +22,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManager", "src\Assignment2\EmployeeManager\EmployeeManager.csproj", "{72BB6A02-C495-46C4-BD26-9CBA1FE9D631}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankApplication", "src\Assignment2\BankApplication\BankApplication.csproj", "{CF72637E-9117-4ED7-B291-A2ED7AB1B20D}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment3", "Assignment3", "{1F011FC3-26E9-4AB5-969B-3333D8C78400}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManager", "src\Assignment3\InventoryManager\InventoryManager.csproj", "{263DE4D6-3B61-468E-A9E2-C2BD0FE8F143}"
@@ -29,6 +30,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment4", "Assignment4", "{B62FC018-85B8-4B02-AD48-98BDF6BC1CA8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker", "src\Assignment4\ExpenseTracker\ExpenseTracker.csproj", "{699855A1-A347-488D-A24B-DE637D6ABD83}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment8", "Assignment8", "{B1C0E9A3-FB27-461D-9450-CC32C3D924DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task1", "src\Assignment8\Task1\Task1.csproj", "{15181E24-2D75-44C3-9AA9-F27F16F8D518}"
@@ -44,6 +46,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment9", "Assignment9", "{4EF9489A-0831-4BB6-9AB6-D2A4127AEC11}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqExploration", "src\Assignment9\LinqExploration\LinqExploration.csproj", "{B2032CDB-B05F-41BF-A3BB-8D13143CC8FE}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment12", "Assignment12", "{251E2DC8-5CF1-433C-8873-0EC16F7FBEFF}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
@@ -52,6 +55,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemoryEater", "src\Assignment12\AdvanceMemoryManagement\MemoryEater.csproj", "{3D71D609-9E68-49FF-9B98-8F29016479B8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OptimisedMemoryEater", "src\Assignment12\OptimisedMemoryEater\OptimisedMemoryEater.csproj", "{D6D3A5DA-C3AD-4C38-9BB8-46877BE744F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment18", "Assignment18", "{78F34F4C-667F-425A-A66E-5B8D027AF925}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncDemo", "src\Assignment18\AsyncDemo\AsyncDemo.csproj", "{31A5E336-1EE3-483F-A859-2C5EAD686627}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,6 +122,10 @@ Global
 		{D6D3A5DA-C3AD-4C38-9BB8-46877BE744F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6D3A5DA-C3AD-4C38-9BB8-46877BE744F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6D3A5DA-C3AD-4C38-9BB8-46877BE744F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31A5E336-1EE3-483F-A859-2C5EAD686627}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31A5E336-1EE3-483F-A859-2C5EAD686627}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31A5E336-1EE3-483F-A859-2C5EAD686627}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31A5E336-1EE3-483F-A859-2C5EAD686627}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -143,6 +154,8 @@ Global
 		{251E2DC8-5CF1-433C-8873-0EC16F7FBEFF} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
 		{3D71D609-9E68-49FF-9B98-8F29016479B8} = {251E2DC8-5CF1-433C-8873-0EC16F7FBEFF}
 		{D6D3A5DA-C3AD-4C38-9BB8-46877BE744F8} = {251E2DC8-5CF1-433C-8873-0EC16F7FBEFF}
+		{78F34F4C-667F-425A-A66E-5B8D027AF925} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
+		{31A5E336-1EE3-483F-A859-2C5EAD686627} = {78F34F4C-667F-425A-A66E-5B8D027AF925}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D4CECB66-8E11-49D9-AA1E-464EE0231450}
