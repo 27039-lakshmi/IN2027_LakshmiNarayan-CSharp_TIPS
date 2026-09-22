@@ -17,11 +17,14 @@ namespace Assignments
         {
             try
             {
-                // Creating Book records
                 var book1 = new Book("Ln", "C#", 5);
+                DisplayBook(book1);
                 var book2 = new Book("Db", "Python", 8);
+                DisplayBook(book2);
                 var book3 = new Book("Harini", "C++", 10);
+                DisplayBook(book3);
                 var book4 = new Book("Db", "Python", 8);
+                DisplayBook(book4);
 
                 CheckEqualityOfBooks(book2, book4);
 
@@ -31,7 +34,7 @@ namespace Assignments
                 // Creates a new record based on an existing record
                 // while modifying the Title property.
                 var book5 = book4 with { title = "Ln" };
-
+                DisplayBook(book4);
                 DisplayBook(book5);
             }
             catch (Exception ex)
@@ -58,7 +61,6 @@ namespace Assignments
         private static void DisplayBook(Book book)
         {
             var (title, authorName, isbn) = book;
-
             Console.WriteLine($"Book Title: {title} Author: {authorName} ISBN: {isbn}");
         }
     }
