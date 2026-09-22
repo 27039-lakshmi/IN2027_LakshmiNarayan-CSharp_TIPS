@@ -30,7 +30,7 @@
         /// <returns>The area of the circle.</returns>
         public double CalculateArea()
         {
-            return 3.14 * this.Radius * this.Radius;
+            return Math.PI * this.Radius * this.Radius;
         }
     }
 }

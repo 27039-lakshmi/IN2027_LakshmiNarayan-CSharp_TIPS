@@ -19,11 +19,11 @@ namespace Assignments
             try
             {
                 var shapes = new List<Shape>()
-            {
-                new Rectangle("Red", "Rectangle", 5, 10),
-                new Triangle("Blue", "Triangle", 3, 8),
-                new Circle("Yellow", "Circle", 7),
-            };
+                {
+                        new Rectangle("Red", "Rectangle", 5, 10),
+                        new Triangle("Blue", "Triangle", 3, 8),
+                        new Circle("Yellow", "Circle", 7),
+                };
 
                 foreach (var shape in shapes)
                 {
