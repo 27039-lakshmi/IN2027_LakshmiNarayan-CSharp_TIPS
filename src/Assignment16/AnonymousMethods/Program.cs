@@ -16,14 +16,14 @@
         {
             try
             {
-                int[] arr = { 5, 2, 6, 4, 7 };
+                int[] numbers = { 5, 2, 6, 4, 7 };
                 Console.WriteLine("Original Array");
-                PrintArray(arr);
+                PrintArray(numbers);
 
-                SortArray(arr);
+                SortArray(numbers);
 
                 Console.WriteLine("Sorted Array");
-                PrintArray(arr);
+                PrintArray(numbers);
             }
             catch (Exception ex)
             {
