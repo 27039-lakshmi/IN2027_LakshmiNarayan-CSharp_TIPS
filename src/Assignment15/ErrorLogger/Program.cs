@@ -22,8 +22,8 @@ namespace Assignments
         {
             try
             {
-                await MeasureTimeToLogSameFile();
-                await MeasureTimeToLogDifferentFile();
+                await MeasureTimeToLogSameFile(); // Time taken: 125.2009 ms
+                await MeasureTimeToLogDifferentFile(); // Time taken: 81.0011 ms
             }
             catch (Exception ex)
             {
