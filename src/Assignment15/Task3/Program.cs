@@ -20,15 +20,41 @@ namespace Assignments
         {
             try
             {
-                string path = "C:/Data/text.txt";
+                string path = GetFilePath("Enter file path");
                 string data = "This is some test data";
-                MeasureTimeForInefficientOperation(path, data);
-                MeasureTimeForEfficientOperation(path, data);
+                MeasureTimeForInefficientOperation(path, data); // Time taken: 14.6907ms
+                MeasureTimeForEfficientOperation(path, data); // Time taken: 5.4932ms
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private static string GetFilePath(string inputMessage)
+        {
+            Console.WriteLine(inputMessage);
+            int maxAttempts = 3;
+            for (int i = 0; i < maxAttempts; i++)
+            {
+                Console.WriteLine("Attempts Left " + (maxAttempts - i));
+                string filepath = Console.ReadLine() ?? string.Empty;
+                if (IsValidfilepath(filepath))
+                {
+                    return filepath;
+                }
+                else
+                {
+                    Console.WriteLine("Enter valid filepath");
+                }
+            }
+
+            return null;
+        }
+
+        private static bool IsValidfilepath(string filepath)
+        {
+            return filepath.EndsWith(".txt");
         }
 
         /// <summary>
@@ -49,13 +75,13 @@ namespace Assignments
             stopwatch.Start();
 
             // Writing to file using MemoryStream
-            using (MemoryStream memoryStream = new MemoryStream()) // Memory stream is not necessary. Can use filestream directly to write data.
+            using (var memoryStream = new MemoryStream()) // Memory stream is not necessary. Can use filestream directly to write data.
             {
                 byte[] buffer = Encoding.ASCII.GetBytes(data); // ASCII doesn't have encoding for all characters. Should use UTF instead of ASCII
                 memoryStream.Write(buffer, 0, buffer.Length);
 
                 // Write from MemoryStream to file
-                using (FileStream fileStream = new FileStream(path, FileMode.Create))
+                using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     byte[] writeBuffer = memoryStream.ToArray();
                     fileStream.Write(writeBuffer, 0, writeBuffer.Length);
@@ -63,7 +89,7 @@ namespace Assignments
             }
 
             // Reading from file using FileStream
-            using (FileStream fileStream = new FileStream(path, FileMode.Open))
+            using (var fileStream = new FileStream(path, FileMode.Open))
             {
                 byte[] buffer = new byte[1024];
                 int bytesRead;
@@ -102,14 +128,14 @@ namespace Assignments
             Console.WriteLine("Processing Efficiently");
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            using (FileStream fileStream = new FileStream(path, FileMode.Create))
+            using (var fileStream = new FileStream(path, FileMode.Create))
             {
                 byte[] writeBuffer = Encoding.UTF8.GetBytes(data);
                 fileStream.Write(writeBuffer, 0, writeBuffer.Length);
             }
 
             // Reading from file using FileStream
-            using (FileStream fileStream = new FileStream(path, FileMode.Open))
+            using (var fileStream = new FileStream(path, FileMode.Open))
             {
                 byte[] buffer = new byte[1024];
                 int bytesRead;
