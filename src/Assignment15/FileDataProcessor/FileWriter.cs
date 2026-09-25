@@ -60,8 +60,9 @@ namespace FileDataProcessor
         /// <param name="processedData">
         /// The processed text data to be written to the file.
         /// </param>
-        public void WriteUsingMemoryStream(FileStream fs, string processedData)
+        public void WriteUsingMemoryStream(string processedData)
         {
+            using var fs = new FileStream(this._filepath, FileMode.Create, FileAccess.Write);
             using var ms = new MemoryStream();
             byte[] buffer = Encoding.UTF8.GetBytes(processedData);
             ms.Write(buffer, 0, buffer.Length);
