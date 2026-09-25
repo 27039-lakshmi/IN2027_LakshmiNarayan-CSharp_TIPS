@@ -62,6 +62,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment15", "Assignment1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileDataProcessor", "src\Assignment15\FileDataProcessor\FileDataProcessor.csproj", "{B6A301A0-5457-4868-A251-27D2591A393A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task3", "src\Assignment15\Task3\Task3.csproj", "{A6FE65D6-5E3C-4314-9F87-C82147E68C69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -128,6 +130,10 @@ Global
 		{B6A301A0-5457-4868-A251-27D2591A393A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6A301A0-5457-4868-A251-27D2591A393A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6A301A0-5457-4868-A251-27D2591A393A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6FE65D6-5E3C-4314-9F87-C82147E68C69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6FE65D6-5E3C-4314-9F87-C82147E68C69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6FE65D6-5E3C-4314-9F87-C82147E68C69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6FE65D6-5E3C-4314-9F87-C82147E68C69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -158,6 +164,7 @@ Global
 		{D6D3A5DA-C3AD-4C38-9BB8-46877BE744F8} = {251E2DC8-5CF1-433C-8873-0EC16F7FBEFF}
 		{8A7D6589-13B9-4030-AC25-93854501D6FA} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
 		{B6A301A0-5457-4868-A251-27D2591A393A} = {8A7D6589-13B9-4030-AC25-93854501D6FA}
+		{A6FE65D6-5E3C-4314-9F87-C82147E68C69} = {8A7D6589-13B9-4030-AC25-93854501D6FA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D4CECB66-8E11-49D9-AA1E-464EE0231450}
