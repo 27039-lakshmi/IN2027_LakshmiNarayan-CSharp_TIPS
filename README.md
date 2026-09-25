@@ -22,3 +22,5 @@ Overall, this assignment helped reinforce the following concepts:
 - Designing scalable and efficient logging systems
 
 This exercise provided a deeper understanding of concurrent file access, synchronization techniques, and logging system design in C#. It demonstrated the importance of balancing correctness, performance, and scalability when multiple users or processes interact with shared resources.
+This exercise provided a deeper understanding of stream-based file processing and demonstrated how to build scalable and memory-efficient applications capable of handling large data files in C#.
+``
