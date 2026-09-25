@@ -16,13 +16,13 @@ namespace FileDataProcessor
         /// <summary>
         /// Stores the paths of the source files to be read.
         /// </summary>
-        private readonly string[] _filepaths;
+        private readonly List<string> _filepaths;
 
         /// <summary>
         /// Stores the paths of the output files where processed
         /// data will be written.
         /// </summary>
-        private readonly string[] _outputFilepaths;
+        private readonly List<string> _outputFilepaths;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileReader"/> class.
@@ -36,7 +36,7 @@ namespace FileDataProcessor
         /// <param name="numberOfFiles">
         /// Total number of files to process.
         /// </param>
-        public FileReader(string[] filepaths, string[] outputFilepaths, int numberOfFiles)
+        public FileReader(List<string> filepaths, List<string> outputFilepaths, int numberOfFiles)
         {
             this._filepaths = filepaths;
             this._outputFilepaths = outputFilepaths;
@@ -92,9 +92,8 @@ namespace FileDataProcessor
         /// </param>
         private void ProcessFileContent(string filepath, string outputFilepath)
         {
-            var writer = new FileWriter();
+            var writer = new FileWriter(outputFilepath);
             using var input = new FileStream(filepath, FileMode.Open, FileAccess.Read);
-            using var output = new FileStream(outputFilepath, FileMode.Create, FileAccess.Write);
             using var bs = new BufferedStream(input, 1024 * 1024);
 
             byte[] buffer = new byte[1024];
@@ -103,7 +102,7 @@ namespace FileDataProcessor
             while ((bytesRead = bs.Read(buffer, 0, buffer.Length)) > 0)
             {
                 string processedData = this.GetProcessedData(buffer, bytesRead);
-                writer.WriteUsingMemoryStream(output, processedData);
+                writer.WriteUsingMemoryStream(processedData);
             }
         }
 
@@ -123,9 +122,8 @@ namespace FileDataProcessor
         /// </returns>
         private async Task ProcessFileContentAsync(string filepath, string outputFilepath)
         {
-            var writer = new FileWriter();
+            var writer = new FileWriter(outputFilepath);
             using var input = new FileStream(filepath, FileMode.Open, FileAccess.Read);
-            using var output = new FileStream(outputFilepath, FileMode.Create, FileAccess.Write);
             using var bs = new BufferedStream(input, 1024 * 1024);
 
             byte[] buffer = new byte[1024];
@@ -134,7 +132,7 @@ namespace FileDataProcessor
             while ((bytesRead = await bs.ReadAsync(buffer, 0, buffer.Length)) > 0)
             {
                 string processedData = this.GetProcessedData(buffer, bytesRead);
-                writer.WriteUsingMemoryStream(output, processedData);
+                writer.WriteUsingMemoryStream(processedData);
             }
         }
 

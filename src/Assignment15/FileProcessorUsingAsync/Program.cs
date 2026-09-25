@@ -9,19 +9,19 @@ namespace Assignments
         /// </summary>
         public class Program
         {
-            private static int numberOfFiles = 2;
+            private static int numberOfFiles;
 
             /// <summary>
             /// Stores the paths of the source files that will be created
             /// and processed during application execution.
             /// </summary>
-            private static string[] filepaths = { "C:/Chummah/Largefile1.txt", "C:/Chummah/Largefile2.txt" };
+            private static List<string> filepaths = new ();
 
             /// <summary>
             /// Stores the paths of the output files where the processed
             /// file content will be written.
             /// </summary>
-            private static string[] outputFilepaths = { "C:/Chummah/ProcessedData1.txt", "C:/Chummah/ProcessedData2.txt" };
+            private static List<string> outputFilepaths = new ();
 
             /// <summary>
             /// Creates sample files, processes their contents both
@@ -36,8 +36,22 @@ namespace Assignments
             {
                 try
                 {
-                    var writer = new FileWriter();
-                    writer.CreateLargeFiles(filepaths);
+                    var writer = new FileWriter(filepaths);
+                    Console.WriteLine("Enter number of files");
+                    if (!int.TryParse(Console.ReadLine(), out numberOfFiles))
+                    {
+                        Console.WriteLine("Enter a valid integer");
+                    }
+
+                    for (int i = 0; i < numberOfFiles; i++)
+                    {
+                    string filepath = GetFilePath("Enter filepath to create large file");
+                    string outputFilepath = GetFilePath("Enter filepath to store processed data");
+                    filepaths.Add(filepath);
+                    outputFilepaths.Add(outputFilepath);
+                    }
+
+                    writer.CreateLargeFiles();
                     Console.WriteLine("Files created successfully");
 
                     var reader = new FileReader(filepaths, outputFilepaths, numberOfFiles);
@@ -48,6 +62,32 @@ namespace Assignments
                 {
                     Console.WriteLine(ex.ToString());
                 }
+            }
+
+            private static string GetFilePath(string inputMessage)
+            {
+                Console.WriteLine(inputMessage);
+                int maxAttempts = 3;
+                for (int i = 0; i < maxAttempts; i++)
+                {
+                    Console.WriteLine("Attempts Left " + (maxAttempts - i));
+                    string filepath = Console.ReadLine() ?? string.Empty;
+                    if (IsValidfilepath(filepath))
+                    {
+                        return filepath;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Enter valid filepath");
+                    }
+                }
+
+                return null;
+            }
+
+            private static bool IsValidfilepath(string filepath)
+            {
+                return filepath.EndsWith(".txt");
             }
 
             /// <summary>
