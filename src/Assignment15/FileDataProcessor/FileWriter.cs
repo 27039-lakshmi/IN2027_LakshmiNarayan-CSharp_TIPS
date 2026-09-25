@@ -53,10 +53,6 @@ namespace FileDataProcessor
         /// Writes processed text data to the specified file stream
         /// using a MemoryStream.
         /// </summary>
-        /// <param name="fs">
-        /// The destination file stream where the processed data
-        /// will be written.
-        /// </param>
         /// <param name="processedData">
         /// The processed text data to be written to the file.
         /// </param>
