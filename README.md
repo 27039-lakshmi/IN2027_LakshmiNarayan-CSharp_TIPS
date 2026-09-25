@@ -19,3 +19,5 @@ In addition, the assignment demonstrated the use of:
 - Resource management using `IDisposable` and `using` statements
 
 Through this exercise, a deeper understanding was gained of stream-based file processing, asynchronous programming, and performance optimization techniques in C#. The assignment demonstrated how to design applications that can efficiently process large volumes of data while maintaining reliability, scalability, and efficient resource utilization.
+This exercise provided a deeper understanding of stream-based file processing and demonstrated how to build scalable and memory-efficient applications capable of handling large data files in C#.
+``
