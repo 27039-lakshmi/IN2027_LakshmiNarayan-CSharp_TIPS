@@ -64,7 +64,6 @@ namespace FileDataProcessor
         {
             var writer = new FileWriter(outputFilepath);
             using var input = new FileStream(this._filepath, FileMode.Open, FileAccess.Read);
-            using var output = new FileStream(outputFilepath, FileMode.Create, FileAccess.Write);
             using var bs = new BufferedStream(input, 1024 * 1024);
 
             byte[] buffer = new byte[1024];
@@ -73,7 +72,7 @@ namespace FileDataProcessor
             while ((bytesRead = bs.Read(buffer, 0, buffer.Length)) > 0)
             {
                 string processedData = Encoding.UTF8.GetString(buffer, 0, bytesRead).ToUpper();
-                writer.WriteUsingMemoryStream(output,  processedData);
+                writer.WriteUsingMemoryStream(processedData);
             }
         }
     }

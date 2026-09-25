@@ -44,3 +44,5 @@ Overall, this assignment reinforced the following concepts:
 - Writing maintainable and optimized code
 
 This exercise provided valuable experience in analyzing existing code, identifying performance bottlenecks, and applying optimization techniques to create a more efficient and resource-conscious file-processing solution.
+This exercise provided a deeper understanding of stream-based file processing and demonstrated how to build scalable and memory-efficient applications capable of handling large data files in C#.
+``

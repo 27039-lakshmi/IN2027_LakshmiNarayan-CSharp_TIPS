@@ -16,11 +16,13 @@ namespace Assignments
         /// <param name="args">Command-line arguments.</param>
         public static void Main(string[] args)
         {
-            string filepath = "C:/Chummah/Largefile.txt";
-            string outputFilepath = "C:/Chummah/ProcessedData.txt";
+            //string filepath = "C:/Chummah/Largefile.txt";
+            //string outputFilepath = "C:/Chummah/ProcessedData.txt";
 
             try
             {
+                string filepath = GetFilePath("Enter filepath to create large file");
+                string outputFilepath = GetFilePath("Enter filepath to store processed data");
                 var writer = new FileWriter(filepath);
                 writer.CreateLargeFile();
                 Console.WriteLine("File created successfully");
@@ -41,6 +43,32 @@ namespace Assignments
             {
                 Console.WriteLine(ex.ToString());
             }
+        }
+
+        private static string GetFilePath(string inputMessage)
+        {
+            Console.WriteLine(inputMessage);
+            int maxAttempts = 3;
+            for (int i = 0; i < maxAttempts; i++)
+            {
+                Console.WriteLine("Attempts Left " + (maxAttempts - i));
+                string filepath = Console.ReadLine() ?? string.Empty;
+                if (IsValidfilepath(filepath))
+                {
+                    return filepath;
+                }
+                else
+                {
+                    Console.WriteLine("Enter valid filepath");
+                }
+            }
+
+            return null;
+        }
+
+        private static bool IsValidfilepath(string filepath)
+        {
+            return filepath.EndsWith(".txt");
         }
 
         /// <summary>
