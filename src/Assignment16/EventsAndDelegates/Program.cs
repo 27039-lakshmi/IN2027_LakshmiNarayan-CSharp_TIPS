@@ -16,10 +16,17 @@ namespace Assignments
         /// <param name="args">Command-line arguments.</param>
         public static void Main(string[] args)
         {
-            var notifier = new Notifier();
-            notifier.OnAction += SendMessage;
-            string userInput = GetStringInput();
-            notifier.RaiseEvent(userInput);
+            try
+            {
+                var notifier = new Notifier();
+                notifier.OnAction += SendMessage;
+                string userInput = GetStringInput();
+                notifier.RaiseEvent(userInput);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         /// <summary>
