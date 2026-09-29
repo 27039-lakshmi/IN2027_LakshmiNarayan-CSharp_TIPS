@@ -16,9 +16,6 @@ namespace Assignments
         /// <param name="args">Command-line arguments.</param>
         public static void Main(string[] args)
         {
-            //string filepath = "C:/Chummah/Largefile.txt";
-            //string outputFilepath = "C:/Chummah/ProcessedData.txt";
-
             try
             {
                 string filepath = GetFilePath("Enter filepath to create large file");
