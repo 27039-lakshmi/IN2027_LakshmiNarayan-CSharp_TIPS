@@ -33,7 +33,7 @@
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine($"An unexpected error occurred while using lambda expressions. Details: {ex.Message}");
             }
         }
 

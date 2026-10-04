@@ -35,12 +35,12 @@ LambdaExpressions
 Original Numbers:
 1 2 3 4 5 6 7 8 9 10
 
-Squared Even Numbers:
-4
-16
-36
-64
-100
+Squared odd Numbers:
+1
+9
+25
+49
+81
 ```
 
 ## Technologies Used
