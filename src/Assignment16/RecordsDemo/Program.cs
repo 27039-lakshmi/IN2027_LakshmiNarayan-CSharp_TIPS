@@ -17,13 +17,13 @@ namespace Assignments
         {
             try
             {
-                var book1 = new Book("Ln", "C#", 5);
+                var book1 = new Book("Harry Potter", "JK Rowling", 5);
                 DisplayBook(book1);
-                var book2 = new Book("Db", "Python", 8);
+                var book2 = new Book("The Odyssey", "Homer", 8);
                 DisplayBook(book2);
-                var book3 = new Book("Harini", "C++", 10);
+                var book3 = new Book("Pride and Prejudice", "Jane Austen", 10);
                 DisplayBook(book3);
-                var book4 = new Book("Db", "Python", 8);
+                var book4 = new Book("War and Peace", "Leo Tolstoy", 8);
                 DisplayBook(book4);
 
                 CheckEqualityOfBooks(book2, book4);
@@ -39,7 +39,7 @@ namespace Assignments
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"An unexpected error occurred while processing the book records. Details: {ex.Message}");
             }
         }
 
@@ -51,6 +51,7 @@ namespace Assignments
         /// <param name="book2">Second book record.</param>
         private static void CheckEqualityOfBooks(Book book1, Book book2)
         {
+            Console.WriteLine($"Comparing {book1.title} with {book2.title}");
             Console.WriteLine($"Are books equal? {book1 == book2}");
         }
 
