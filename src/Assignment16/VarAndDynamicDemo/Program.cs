@@ -24,7 +24,7 @@
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine($"An unexpected error occurred. Details: {ex.Message}");
             }
         }
     }
