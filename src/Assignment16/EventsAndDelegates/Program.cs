@@ -25,7 +25,7 @@ namespace Assignments
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine($"An unexpected error occurred while processing the book records. Details: {ex.Message}");
             }
         }
 
