@@ -20,14 +20,14 @@
                 Console.WriteLine("Original Array");
                 PrintArray(numbers);
 
-                SortArray(numbers);
+                SortArrayByAscending(numbers);
 
                 Console.WriteLine("Sorted Array");
                 PrintArray(numbers);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine($"An unexpected error occurred while using anonymous methods. Details: {ex.Message}");
             }
         }
 
@@ -36,7 +36,7 @@
         /// using Array.Sort and an anonymous delegate.
         /// </summary>
         /// <param name="arr">The array to be sorted.</param>
-        private static void SortArray(int[] arr)
+        private static void SortArrayByAscending(int[] arr)
         {
             Array.Sort(
                 arr,
