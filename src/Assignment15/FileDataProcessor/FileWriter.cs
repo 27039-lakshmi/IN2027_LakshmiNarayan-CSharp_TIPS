@@ -12,6 +12,8 @@ namespace FileDataProcessor
         /// Stores the path of the file to be created or written to.
         /// </summary>
         private string _filepath;
+        private readonly FileStream _fileStream;
+        private readonly MemoryStream _memoryStream;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileWriter"/> class.
@@ -21,7 +23,8 @@ namespace FileDataProcessor
         /// </param>
         public FileWriter(string filepath)
         {
-            this._filepath = filepath;
+            this._fileStream = new FileStream(filepath, FileMode.Create, FileAccess.Write);
+            this._memoryStream = new MemoryStream();
         }
 
         /// <summary>
@@ -58,12 +61,10 @@ namespace FileDataProcessor
         /// </param>
         public void WriteUsingMemoryStream(string processedData)
         {
-            using var fs = new FileStream(this._filepath, FileMode.Create, FileAccess.Write);
-            using var ms = new MemoryStream();
             byte[] buffer = Encoding.UTF8.GetBytes(processedData);
-            ms.Write(buffer, 0, buffer.Length);
-            ms.Position = 0;
-            ms.WriteTo(fs);
+            this._memoryStream.Write(buffer, 0, buffer.Length);
+            this._memoryStream.Position = 0;
+            this._memoryStream.WriteTo(this._fileStream);
         }
     }
 }
