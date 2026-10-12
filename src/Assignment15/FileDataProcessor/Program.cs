@@ -60,7 +60,7 @@ namespace Assignments
                 }
             }
 
-            return null;
+            throw new InvalidOperationException("Max number of attempts reached");
         }
 
         private static bool IsValidfilepath(string filepath)
