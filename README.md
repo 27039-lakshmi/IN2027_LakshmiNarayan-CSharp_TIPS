@@ -1,16 +1,23 @@
-# 🎯 How to use C# Starter Repo for C# assignments 
- 1. While creating new repo add the “CSharp_Starter_Repo” template repository
-![Using Template repo](https://github.com/solitontech/CSharp_Starter_Repo/blob/main/docs/assets/Images/HowToUseStarterRepo_Images/HowToUseStarterRepo.jpg) 
- 2. Make your account as the owner of the repository and include all the branches.
- 3. Add description to your repository if needed.
- 4. Select private/public repository based on the needs.
- 5. Now click create repository and your repository will be created.
- 6. Add git hooks scripts - [How to add git hooks](https://github.com/solitontech/CSharp_Starter_Repo/blob/main/docs/GitHooks.md)
- 7. Ensure that your branch names and commit messages follow this syntax: [GuideLines](https://github.com/solitontech/CSharp_Starter_Repo/blob/313030ea36043f4d2a6eb4258c68b31737cacc26/docs/Guidelines%20for%20GIT.md)
- 8. Add VSIX template -  [How to add VSIX template](https://github.com/solitontech/CSharp_Starter_Repo/blob/main/docs/VSIX%20template%20Manual.md)
- 9. Open the solution file in the root directory.
- 10. While adding new project select the CSharpStarterTemplate and select the appropriate folder location.
-     (src - for assignments and tests/unit - for unit tests)
- 11. For every assignments create a new branch from main and add your project to the solution.
- 12. When build is susccessful and the project runs perfectly give PR to main branch.
- 13. After merging to main, create new branch and add new project for next assignment.
+# Conclusion
+
+This assignment provided hands-on experience in performing large-scale file processing using synchronous and asynchronous programming techniques in C#. Multiple large files were created and processed to evaluate the efficiency of different file I/O approaches while maintaining optimal memory usage.
+
+The application implemented file reading and writing operations using streams and processed file content by converting text data to uppercase before writing the transformed output to new files. By reading data in small chunks instead of loading the entire file into memory, the solution remained scalable and memory efficient even when working with large files.
+
+The assignment also explored the use of asynchronous programming with `async` and `await`. Both synchronous and asynchronous implementations were executed and their performance was measured using the `Stopwatch` class. This provided practical insight into how asynchronous file operations can improve application responsiveness and enable concurrent processing of multiple files.
+
+In addition, the assignment demonstrated the use of:
+
+- `FileStream` for file creation, reading, and writing operations
+- `BufferedStream` for improving file-reading performance through buffering
+- `MemoryStream` for temporary in-memory storage before writing data
+- Synchronous file processing
+- Asynchronous file processing using `Task`, `async`, and `await`
+- Chunk-based file reading to control memory consumption
+- Text transformation using UTF-8 encoding
+- Performance measurement using `Stopwatch`
+- Resource management using `IDisposable` and `using` statements
+
+Through this exercise, a deeper understanding was gained of stream-based file processing, asynchronous programming, and performance optimization techniques in C#. The assignment demonstrated how to design applications that can efficiently process large volumes of data while maintaining reliability, scalability, and efficient resource utilization.
+This exercise provided a deeper understanding of stream-based file processing and demonstrated how to build scalable and memory-efficient applications capable of handling large data files in C#.
+``
