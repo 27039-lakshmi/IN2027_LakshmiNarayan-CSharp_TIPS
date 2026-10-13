@@ -12,8 +12,15 @@
         /// <param name="args">Command-line arguments passed to the application.</param>
         public static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to calculator application");
-            AdditionalProject.Program.Main(args);
+            try
+            {
+                Console.WriteLine("Welcome to calculator application");
+                AdditionalProject.Program.Main(args);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
         }
     }
 }
