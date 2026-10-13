@@ -1,6 +1,5 @@
 ﻿namespace Assignments
 {
-
     /// <summary>
     /// Represents a person with a name, age, and city.
     /// </summary>
