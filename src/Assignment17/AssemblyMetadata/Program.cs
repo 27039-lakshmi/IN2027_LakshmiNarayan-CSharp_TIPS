@@ -14,35 +14,42 @@ namespace Assignments
         /// <param name="args"> string array arguments</param>
         public static void Main(string[] args)
         {
-            var filepath = GetFilepath();
-            var file = Assembly.LoadFile(filepath);
-            var types = file.GetTypes();
-            foreach (var type in types)
+            try
             {
-                Console.WriteLine($"Type: {type.FullName}");
-                var methods = type.GetMethods();
-                foreach (var method in methods)
+                var filepath = GetFilepath();
+                var file = Assembly.LoadFile(filepath);
+                var types = file.GetTypes();
+                foreach (var type in types)
                 {
-                    Console.WriteLine($"  Method: {method.Name}");
-                }
+                    Console.WriteLine($"Type: {type.FullName}");
+                    var methods = type.GetMethods();
+                    foreach (var method in methods)
+                    {
+                        Console.WriteLine($"  Method: {method.Name}");
+                    }
 
-                var properties = type.GetProperties();
-                foreach (var property in properties)
-                {
-                    Console.WriteLine($"  Property: {property.Name}");
-                }
+                    var properties = type.GetProperties();
+                    foreach (var property in properties)
+                    {
+                        Console.WriteLine($"  Property: {property.Name}");
+                    }
 
-                var fields = type.GetFields();
-                foreach (var field in fields)
-                {
-                    Console.WriteLine($"  Field: {field.Name}");
-                }
+                    var fields = type.GetFields();
+                    foreach (var field in fields)
+                    {
+                        Console.WriteLine($"  Field: {field.Name}");
+                    }
 
-                var events = type.GetEvents();
-                foreach (var eventInfo in events)
-                {
-                    Console.WriteLine($"  Event: {eventInfo.Name}");
+                    var events = type.GetEvents();
+                    foreach (var eventInfo in events)
+                    {
+                        Console.WriteLine($"  Event: {eventInfo.Name}");
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
 
