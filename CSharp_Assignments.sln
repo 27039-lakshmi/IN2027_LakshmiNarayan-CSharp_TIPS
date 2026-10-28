@@ -83,6 +83,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment17", "Assignment1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyMetadata", "src\Assignment17\AssemblyMetadata\AssemblyMetadata.csproj", "{45BFBDF5-DD11-40F9-B72C-7C9108A5BCDF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializationAPI", "src\Assignment17\SerializationAPI\SerializationAPI.csproj", "{76B3C440-F217-4603-BEB3-9C09DCFEF471}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -181,6 +183,10 @@ Global
 		{45BFBDF5-DD11-40F9-B72C-7C9108A5BCDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45BFBDF5-DD11-40F9-B72C-7C9108A5BCDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45BFBDF5-DD11-40F9-B72C-7C9108A5BCDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76B3C440-F217-4603-BEB3-9C09DCFEF471}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76B3C440-F217-4603-BEB3-9C09DCFEF471}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76B3C440-F217-4603-BEB3-9C09DCFEF471}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76B3C440-F217-4603-BEB3-9C09DCFEF471}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -221,6 +227,7 @@ Global
 		{C7A0BB21-3FA2-45F3-B84E-C8419D819460} = {8A7D6589-13B9-4030-AC25-93854501D6FA}
 		{992D1D51-40E7-482C-B777-6D121B2FEEE0} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
 		{45BFBDF5-DD11-40F9-B72C-7C9108A5BCDF} = {992D1D51-40E7-482C-B777-6D121B2FEEE0}
+		{76B3C440-F217-4603-BEB3-9C09DCFEF471} = {992D1D51-40E7-482C-B777-6D121B2FEEE0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D4CECB66-8E11-49D9-AA1E-464EE0231450}
