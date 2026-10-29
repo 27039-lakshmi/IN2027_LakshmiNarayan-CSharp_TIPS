@@ -30,14 +30,14 @@ namespace SerializationAPI
                 throw new ArgumentNullException(nameof(obj));
             }
 
-            Type type = obj.GetType();
-            PropertyInfo[] properties = type.GetProperties();
+            var type = obj.GetType();
+            var properties = type.GetProperties();
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             sb.Append("{");
 
-            foreach (PropertyInfo property in properties)
+            foreach (var property in properties)
             {
                 object? value = property.GetValue(obj);
 
