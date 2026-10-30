@@ -17,13 +17,20 @@ namespace Assignments
         /// <param name="args">Command-line arguments.</param>
         public static void Main(string[] args)
         {
-            int[] numbers = CreateIntegerArray();
+            try
+            {
+                int[] numbers = CreateIntegerArray();
 
-            double timeTakenForSequential = MeasureTimeForSequentital(numbers);
-            double timeTakenForParallel = MeasureTimeForParallel(numbers);
+                double timeTakenForSequential = MeasureTimeForSequentital(numbers);
+                double timeTakenForParallel = MeasureTimeForParallel(numbers);
 
-            Console.WriteLine("Time taken for sequential execution : " + timeTakenForSequential);
-            Console.WriteLine("Time taken for parallel execution : " + timeTakenForParallel);
+                Console.WriteLine("Time taken for sequential execution : " + timeTakenForSequential);
+                Console.WriteLine("Time taken for parallel execution : " + timeTakenForParallel);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occured" + ex.ToString());
+            }
         }
 
         /// <summary>
