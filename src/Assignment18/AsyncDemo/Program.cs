@@ -21,7 +21,7 @@
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine("An error occured" + ex.ToString());
             }
         }
 
